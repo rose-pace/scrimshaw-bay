@@ -92,6 +92,7 @@ Both the JavaScript and CSS architectures have been fully migrated to modern, mo
 
 See `ARCHITECTURE_COMPLETE.md` for JavaScript migration details.
 See `CSS_MIGRATION_COMPLETE.md` for CSS migration details.
+See `CSS_MIGRATION_FIXES_COMPLETE.md` for final CSS fixes and verification results.
 
 ## Development
 
