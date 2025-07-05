@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .settlement-card { border: 1px solid #ccc; padding: 20px; margin: 10px; max-width: 300px; }
+        .settlement-header { text-align: center; }
+        .settlement-name { margin: 0; color: #333; }
+        .settlement-type { margin: 5px 0; color: #666; }
+        .population { background: #444; color: white; padding: 4px 8px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>HTML Template Test</h1>
+    <div id="test-container"></div>
+
+    <!-- Settlement Card Template -->
+    <template id="settlement-card-template">
+        <div class="settlement-card" role="button" tabindex="0">
+            <div class="settlement-header">
+                <h4 class="settlement-name" data-slot="name">Settlement Name</h4>
+                <p class="settlement-type" data-slot="type">Settlement Type</p>
+            </div>
+            <p class="settlement-description" data-slot="description">Settlement description...</p>
+            <span class="population" data-slot="population" data-slot-attr="title">Population</span>
+        </div>
+    </template>
+
+    <script type="module">
+        // Simple template utility for testing
+        function cloneTemplate(templateId, data = {}) {
+            const template = document.getElementById(templateId);
+            if (!template) {
+                throw new Error(`Template with id "${templateId}" not found`);
+            }
+
+            const clone = template.content.cloneNode(true);
+            
+            // Find all elements with data-slot attributes
+            const slotElements = clone.querySelectorAll('[data-slot]');
+            
+            slotElements.forEach(element => {
+                const slotName = element.getAttribute('data-slot');
+                const value = data[slotName];
+                
+                if (value !== undefined && value !== null) {
+                    // Check if we should set an attribute instead of content
+                    const attrName = element.getAttribute('data-slot-attr');
+                    if (attrName) {
+                        if (attrName === 'title' && slotName === 'population') {
+                            element.setAttribute('title', `Population: ${value}`);
+                        } else {
+                            element.setAttribute(attrName, value);
+                        }
+                    }
+                    
+                    // Set the text content
+                    if (typeof value === 'string' || typeof value === 'number') {
+                        element.textContent = value;
+                    }
+                }
+            });
+
+            return clone;
+        }
+
+        // Test the template
+        function testTemplate() {
+            const testData = {
+                name: "Scrimshaw Bay",
+                type: "Port Town",
+                description: "A bustling port town with dark secrets beneath its waves...",
+                population: "~800"
+            };
+
+            const card = cloneTemplate('settlement-card-template', testData);
+            const container = document.getElementById('test-container');
+            container.appendChild(card);
+
+            console.log('Template test complete!');
+        }
+
+        // Run test when page loads
+        testTemplate();
+    </script>
+</body>
+</html>

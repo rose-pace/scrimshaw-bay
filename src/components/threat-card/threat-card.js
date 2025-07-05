@@ -2,14 +2,13 @@
  * Threat Card component for displaying threat information
  */
 
-import { createElement } from '@/utils/dom-utils.js';
 import { DataService } from '@/services/data-service.js';
+import { createThreatCard } from '@/utils/template-utils.js';
 
 export class ThreatCard {
   constructor() {
     this.dataService = new DataService();
   }
-
   /**
    * Create a threat card element
    * @param {Object} threat - Threat data
@@ -17,48 +16,20 @@ export class ThreatCard {
    * @returns {HTMLElement} Threat card element
    */
   create(threat, threatKey) {
-    const card = createElement('div', {
-      className: `threat-card ${this.getThreatClass(threat.type)}`,
-      attributes: {
-        'data-threat': threatKey
+    const card = createThreatCard(threat, threatKey);
+
+    // Add click handler
+    card.addEventListener('click', () => {
+      this.dispatchThreatClickEvent(threatKey);
+    });
+
+    // Add keyboard handler
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.dispatchThreatClickEvent(threatKey);
       }
     });
-
-    const title = createElement('h3', {
-      innerHTML: threat.name
-    });
-
-    const type = createElement('p', {
-      className: 'threat-type',
-      innerHTML: threat.type
-    });
-
-    const description = createElement('p', {
-      innerHTML: this.truncateDescription(threat.description, 150)
-    });
-
-    const detailsBtn = createElement('button', {
-      className: 'details-btn',
-      attributes: {
-        'data-threat': threatKey
-      },
-      innerHTML: 'View Details'
-    });
-
-    card.appendChild(title);
-    card.appendChild(type);
-    card.appendChild(description);
-
-    // Add corruption indicator if present
-    if (threat.corruptionLevel) {
-      const corruptionIndicator = createElement('div', {
-        className: `corruption-indicator ${threat.corruptionLevel.toLowerCase()}`,
-        innerHTML: `${threat.corruptionLevel} Corruption`
-      });
-      card.appendChild(corruptionIndicator);
-    }
-
-    card.appendChild(detailsBtn);
 
     return card;
   }
@@ -66,11 +37,9 @@ export class ThreatCard {
   /**
    * Create all threat cards
    * @returns {HTMLElement} Container with all threat cards
-   */
-  createAllCards() {
-    const container = createElement('div', {
-      className: 'content-grid'
-    });
+   */  createAllCards() {
+    const container = document.createElement('div');
+    container.className = 'content-grid';
 
     const threats = this.dataService.getAllThreats();
     
@@ -80,6 +49,17 @@ export class ThreatCard {
     });
 
     return container;
+  }
+
+  /**
+   * Dispatch threat click event
+   * @param {string} threatKey - Threat key
+   */
+  dispatchThreatClickEvent(threatKey) {
+    const event = new CustomEvent('threatClick', {
+      detail: { threat: threatKey }
+    });
+    document.dispatchEvent(event);
   }
 
   /**

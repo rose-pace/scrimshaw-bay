@@ -270,6 +270,91 @@
         </section>
     </main>
 
+    <!-- HTML Templates -->
+    <template id="settlement-card-template">
+        <div class="settlement-card" role="button" tabindex="0">
+            <div class="settlement-header">
+                <h4 class="settlement-name" data-slot="name">Settlement Name</h4>
+                <p class="settlement-type" data-slot="type">Settlement Type</p>
+            </div>
+            <p class="settlement-description" data-slot="description">Settlement description...</p>
+            <span class="population" data-slot="population" data-slot-attr="title">Population</span>
+        </div>
+    </template>
+
+    <template id="settlement-detail-header-template">
+        <h3 data-slot="name">Settlement Name</h3>
+        <div class="settlement-meta">
+            <span class="settlement-type" data-slot="type">Settlement Type</span>
+            <span class="settlement-population" data-slot="population">Population</span>
+        </div>
+    </template>
+
+    <template id="location-item-template">
+        <div class="location-item">
+            <div class="location-header">
+                <h5 class="location-name" data-slot="name">Location Name</h5>
+                <span class="detail-indicator" data-slot="detailIndicator" style="display: none;">📄</span>
+                <button class="location-detail-btn" data-slot="detailButton" style="display: none;">Details</button>
+            </div>
+            <p class="location-desc" data-slot="shortDesc">Location description...</p>
+            <div class="location-npcs" data-slot="npcsContainer" style="display: none;">
+                <strong>NPCs:</strong>
+                <div data-slot="npcs"></div>
+            </div>
+        </div>
+    </template>
+
+    <template id="npc-link-template">
+        <button class="npc-link">
+            <span class="npc-name" data-slot="name">NPC Name</span>
+            <span class="npc-role-small" data-slot="role">NPC Role</span>
+        </button>
+    </template>
+
+    <template id="npc-mini-link-template">
+        <button class="npc-mini-link" data-slot="name">NPC Name</button>
+    </template>
+
+    <template id="npc-card-template">
+        <div class="npc-card" role="button" tabindex="0">
+            <div class="npc-header">
+                <h4 class="npc-name" data-slot="name">NPC Name</h4>
+                <p class="npc-role" data-slot="role">NPC Role</p>
+            </div>
+            <p class="npc-description" data-slot="description">NPC description...</p>
+            <div class="npc-stats" data-slot="stats" style="display: none;">
+                <span class="stat-item" data-slot="statsContent"></span>
+            </div>
+        </div>
+    </template>
+
+    <template id="threat-card-template">
+        <div class="threat-card" role="button" tabindex="0">
+            <div class="threat-header">
+                <h4 class="threat-name" data-slot="name">Threat Name</h4>
+                <p class="threat-type" data-slot="type">Threat Type</p>
+            </div>
+            <p class="threat-description" data-slot="description">Threat description...</p>
+            <div class="threat-danger" data-slot="danger">
+                <span class="danger-level" data-slot="dangerLevel">Low</span>
+            </div>
+        </div>
+    </template>
+
+    <template id="event-card-template">
+        <div class="event-card" role="button" tabindex="0">
+            <div class="event-header">
+                <h4 class="event-name" data-slot="name">Event Name</h4>
+                <p class="event-type" data-slot="type">Event Type</p>
+            </div>
+            <p class="event-description" data-slot="description">Event description...</p>
+            <div class="event-frequency" data-slot="frequency">
+                <span class="frequency-indicator" data-slot="frequencyLevel">Common</span>
+            </div>
+        </div>
+    </template>
+
     <script type="module" src="src/index.js"></script>
 </body>
 </html>

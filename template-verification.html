@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Migration Verification</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .test-container { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .test-header { color: #333; border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-bottom: 20px; }
+        .test-result { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .test-result.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .test-result.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .settlement-card { border: 1px solid #ccc; padding: 15px; margin: 10px 0; border-radius: 4px; background: #f9f9f9; }
+        .settlement-header { text-align: center; margin-bottom: 10px; }
+        .settlement-name { margin: 0; color: #333; font-size: 1.2em; }
+        .settlement-type { margin: 5px 0; color: #666; }
+        .population { background: #444; color: white; padding: 4px 8px; border-radius: 4px; }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+    </style>
+</head>
+<body>
+    <h1>HTML Template Migration Verification</h1>
+    
+    <div class="test-container">
+        <h2 class="test-header">Template System Tests</h2>
+        <div id="test-results"></div>
+    </div>
+
+    <div class="test-container">
+        <h2 class="test-header">Settlement Card Templates</h2>
+        <div id="settlement-cards" class="card-grid"></div>
+    </div>
+
+    <div class="test-container">
+        <h2 class="test-header">Other Card Templates</h2>
+        <div id="other-cards" class="card-grid"></div>
+    </div>
+
+    <!-- HTML Templates -->
+    <template id="settlement-card-template">
+        <div class="settlement-card">
+            <div class="settlement-header">
+                <h4 class="settlement-name" data-slot="name">Settlement Name</h4>
+                <p class="settlement-type" data-slot="type">Settlement Type</p>
+            </div>
+            <p class="settlement-description" data-slot="description">Settlement description...</p>
+            <span class="population" data-slot="population" data-slot-attr="title">Population</span>
+        </div>
+    </template>
+
+    <template id="npc-card-template">
+        <div class="settlement-card">
+            <div class="settlement-header">
+                <h4 class="settlement-name" data-slot="name">NPC Name</h4>
+                <p class="settlement-type" data-slot="role">NPC Role</p>
+            </div>
+            <p class="settlement-description" data-slot="description">NPC description...</p>
+        </div>
+    </template>
+
+    <template id="threat-card-template">
+        <div class="settlement-card">
+            <div class="settlement-header">
+                <h4 class="settlement-name" data-slot="name">Threat Name</h4>
+                <p class="settlement-type" data-slot="type">Threat Type</p>
+            </div>
+            <p class="settlement-description" data-slot="description">Threat description...</p>
+        </div>
+    </template>
+
+    <script>
+        // Template utility functions
+        function cloneTemplate(templateId, data = {}) {
+            const template = document.getElementById(templateId);
+            if (!template) {
+                throw new Error(`Template with id "${templateId}" not found`);
+            }
+
+            const clone = template.content.cloneNode(true);
+            
+            // Find all elements with data-slot attributes
+            const slotElements = clone.querySelectorAll('[data-slot]');
+            
+            slotElements.forEach(element => {
+                const slotName = element.getAttribute('data-slot');
+                const value = data[slotName];
+                
+                if (value !== undefined && value !== null) {
+                    // Check if we should set an attribute instead of content
+                    const attrName = element.getAttribute('data-slot-attr');
+                    if (attrName) {
+                        if (attrName === 'title' && slotName === 'population') {
+                            element.setAttribute('title', `Population: ${value}`);
+                        } else {
+                            element.setAttribute(attrName, value);
+                        }
+                    }
+                    
+                    // Set the text content
+                    if (typeof value === 'string' || typeof value === 'number') {
+                        element.textContent = value;
+                    }
+                }
+            });
+
+            return clone;
+        }
+
+        function addTestResult(message, isSuccess = true) {
+            const resultsDiv = document.getElementById('test-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${isSuccess ? 'success' : 'error'}`;
+            resultDiv.textContent = message;
+            resultsDiv.appendChild(resultDiv);
+        }
+
+        // Test data
+        const testData = {
+            settlements: [
+                { name: "Scrimshaw Bay", type: "Port Town", description: "A bustling port town with dark secrets...", population: "~800" },
+                { name: "Millhaven", type: "Regional Hub", description: "Once prosperous, now declining...", population: "~600" },
+                { name: "Netherwick", type: "Fishing Village", description: "Small fishing community...", population: "~150" }
+            ],
+            npcs: [
+                { name: "Captain Thorne", role: "Ship Captain", description: "Grizzled veteran of the seas..." },
+                { name: "Madam Cordelia", role: "Tavern Keeper", description: "Knows everyone's secrets..." }
+            ],
+            threats: [
+                { name: "Agog", type: "Cosmic Horror", description: "Ancient entity from the deep..." },
+                { name: "Corrupted Whales", type: "Environmental", description: "Diseased creatures..." }
+            ]
+        };
+
+        // Run tests
+        function runTests() {
+            try {
+                // Test 1: Template existence
+                const templateIds = ['settlement-card-template', 'npc-card-template', 'threat-card-template'];
+                templateIds.forEach(id => {
+                    const template = document.getElementById(id);
+                    if (template) {
+                        addTestResult(`✓ Template '${id}' found`, true);
+                    } else {
+                        addTestResult(`✗ Template '${id}' not found`, false);
+                    }
+                });
+
+                // Test 2: Template cloning
+                const settlementCard = cloneTemplate('settlement-card-template', testData.settlements[0]);
+                if (settlementCard) {
+                    addTestResult('✓ Settlement card cloning successful', true);
+                } else {
+                    addTestResult('✗ Settlement card cloning failed', false);
+                }
+
+                // Test 3: Data slot population
+                const cardElement = settlementCard.querySelector('.settlement-name');
+                if (cardElement && cardElement.textContent === testData.settlements[0].name) {
+                    addTestResult('✓ Data slot population working', true);
+                } else {
+                    addTestResult('✗ Data slot population failed', false);
+                }
+
+                // Test 4: Title attribute setting
+                const populationElement = settlementCard.querySelector('.population');
+                if (populationElement && populationElement.getAttribute('title').includes('Population:')) {
+                    addTestResult('✓ Title attribute setting working', true);
+                } else {
+                    addTestResult('✗ Title attribute setting failed', false);
+                }
+
+                addTestResult('All template system tests completed!', true);
+
+            } catch (error) {
+                addTestResult(`Error during testing: ${error.message}`, false);
+            }
+        }
+
+        // Create test cards
+        function createTestCards() {
+            const settlementContainer = document.getElementById('settlement-cards');
+            const otherContainer = document.getElementById('other-cards');
+
+            // Settlement cards
+            testData.settlements.forEach(settlement => {
+                const card = cloneTemplate('settlement-card-template', settlement);
+                settlementContainer.appendChild(card);
+            });
+
+            // NPC cards
+            testData.npcs.forEach(npc => {
+                const card = cloneTemplate('npc-card-template', npc);
+                otherContainer.appendChild(card);
+            });
+
+            // Threat cards
+            testData.threats.forEach(threat => {
+                const card = cloneTemplate('threat-card-template', threat);
+                otherContainer.appendChild(card);
+            });
+        }
+
+        // Run when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            runTests();
+            createTestCards();
+        });
+    </script>
+</body>
+</html>

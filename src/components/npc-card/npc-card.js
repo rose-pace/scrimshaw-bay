@@ -2,8 +2,8 @@
  * NPC Card component for displaying NPC information
  */
 
-import { createElement } from '@/utils/dom-utils.js';
 import { DataService } from '@/services/data-service.js';
+import { createNpcCard } from '@/utils/template-utils.js';
 
 export class NpcCard {
   constructor() {
@@ -15,59 +15,31 @@ export class NpcCard {
    * @param {Object} npc - NPC data
    * @param {string} npcKey - NPC key
    * @returns {HTMLElement} NPC card element
-   */
-  create(npc, npcKey) {
-    const card = createElement('div', {
-      className: 'npc-card',
-      attributes: {
-        'data-npc': npcKey,
-        'role': 'button',
-        'tabindex': '0'
+   */  create(npc, npcKey) {
+    const card = createNpcCard(npc, npcKey);
+
+    // Add click handler
+    card.addEventListener('click', () => {
+      this.dispatchNpcClickEvent(npcKey);
+    });
+
+    // Add keyboard handler
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.dispatchNpcClickEvent(npcKey);
       }
     });
 
-    const header = createElement('div', {
-      className: 'npc-header',
-      innerHTML: `
-        <h3 class="npc-name">${npc.name}</h3>
-        <span class="npc-location">${npc.location}</span>
-      `
-    });
-
-    const role = createElement('p', {
-      className: 'npc-role',
-      innerHTML: npc.role
-    });
-
-    const description = createElement('p', {
-      className: 'npc-description',
-      innerHTML: this.truncateDescription(npc.description, 120)
-    });
-
-    const detailsBtn = createElement('button', {
-      className: 'npc-link',
-      attributes: {
-        'data-npc': npcKey
-      },
-      innerHTML: 'View Details'
-    });
-
-    card.appendChild(header);
-    card.appendChild(role);
-    card.appendChild(description);
-    card.appendChild(detailsBtn);
-
     return card;
   }
-
   /**
    * Create all NPC cards
    * @returns {HTMLElement} Container with all NPC cards
    */
   createAllCards() {
-    const container = createElement('div', {
-      className: 'npc-grid'
-    });
+    const container = document.createElement('div');
+    container.className = 'npc-grid';
 
     const npcs = this.dataService.getAllNpcs();
     
@@ -77,6 +49,17 @@ export class NpcCard {
     });
 
     return container;
+  }
+
+  /**
+   * Dispatch NPC click event
+   * @param {string} npcKey - NPC key
+   */
+  dispatchNpcClickEvent(npcKey) {
+    const event = new CustomEvent('npcClick', {
+      detail: { npc: npcKey }
+    });
+    document.dispatchEvent(event);
   }
 
   /**

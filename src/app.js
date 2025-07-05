@@ -25,6 +25,9 @@ export class ScrimshawBayApp {  constructor() {
     this.locationDetail = new LocationDetail();
     this.cleanupFunctions = [];
     
+    // Make dataService available globally for template utils
+    window.dataService = this.dataService;
+    
     this.init();
   }
 
