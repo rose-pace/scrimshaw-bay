@@ -34,15 +34,18 @@ export function cloneTemplate(templateId, data = {}, options = {}) {
           element.setAttribute(attrName, value);
         }
       }
-      
-      // Set the text content or innerHTML
+        // Set the text content or innerHTML
       if (typeof value === 'string' || typeof value === 'number') {
-        element.textContent = value;
+        // Check if this slot expects HTML content
+        if (slotName === 'secretsList' || slotName === 'motivationsList' || slotName === 'abilitiesList') {
+          element.innerHTML = value;
+        } else {
+          element.textContent = value;
+        }
       } else if (value instanceof Element || value instanceof DocumentFragment) {
         element.innerHTML = '';
         element.appendChild(value);
-      }
-        // Handle special cases for showing/hiding elements
+      }// Handle special cases for showing/hiding elements
       if (slotName === 'detailIndicator' && value) {
         element.style.display = '';
       } else if (slotName === 'detailButton' && value) {
@@ -51,6 +54,12 @@ export function cloneTemplate(templateId, data = {}, options = {}) {
       } else if (slotName === 'npcsContainer' && value && value.length > 0) {
         element.style.display = '';
       } else if (slotName === 'stats' && value) {
+        element.style.display = '';
+      } else if (slotName === 'secrets' && value) {
+        element.style.display = '';
+      } else if (slotName === 'motivations' && value) {
+        element.style.display = '';
+      } else if (slotName === 'abilities' && value) {
         element.style.display = '';
       } else if (slotName === 'danger' && value) {
         element.style.display = '';
@@ -166,10 +175,17 @@ export function createNpcCard(npc, npcKey) {
 
   const cardFragment = cloneTemplate('npc-card-template', {
     name: npc.name,
+    location: npc.location || '',
     role: npc.role,
-    description: truncateDescription(npc.description, 100),
+    description: truncateDescription(npc.description, 120),
     stats: npc.stats ? true : false,
-    statsContent: statsContent
+    statsContent: statsContent,
+    secrets: npc.secrets && npc.secrets.length > 0,
+    secretsList: npc.secrets ? npc.secrets.map(secret => `<li>${secret}</li>`).join('') : '',
+    motivations: npc.motivations && npc.motivations.length > 0,
+    motivationsList: npc.motivations ? npc.motivations.map(motivation => `<li>${motivation}</li>`).join('') : '',
+    abilities: npc.abilities && npc.abilities.length > 0,
+    abilitiesList: npc.abilities ? npc.abilities.map(ability => `<li>${ability}</li>`).join('') : ''
   }, {
     dataAttributes: {
       npc: npcKey

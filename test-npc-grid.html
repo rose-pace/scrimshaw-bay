@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPC Grid Test</title>
+    <link rel="stylesheet" href="src/styles/variables.css">
+    <link rel="stylesheet" href="src/styles/base.css">
+    <link rel="stylesheet" href="src/styles/layout.css">
+    <link rel="stylesheet" href="src/components/npc-card/npc-card.css">
+    <style>
+        body {
+            padding: 20px;
+            background-color: var(--bg-color);
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .test-header {
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1 class="test-header">NPC Grid Layout Test</h1>
+        
+        <div id="npc-list" class="npc-list">
+            <div class="npc-grid">
+                <!-- Test NPC cards -->
+                <div class="npc-card">
+                    <div class="npc-header">
+                        <h3 class="npc-name">Test NPC 1</h3>
+                        <p class="npc-title">Test Role</p>
+                    </div>
+                    <div class="npc-description">
+                        <p>Test description for NPC 1</p>
+                    </div>
+                </div>
+                
+                <div class="npc-card">
+                    <div class="npc-header">
+                        <h3 class="npc-name">Test NPC 2</h3>
+                        <p class="npc-title">Test Role</p>
+                    </div>
+                    <div class="npc-description">
+                        <p>Test description for NPC 2</p>
+                    </div>
+                </div>
+                
+                <div class="npc-card">
+                    <div class="npc-header">
+                        <h3 class="npc-name">Test NPC 3</h3>
+                        <p class="npc-title">Test Role</p>
+                    </div>
+                    <div class="npc-description">
+                        <p>Test description for NPC 3</p>
+                    </div>
+                </div>
+                
+                <div class="npc-card">
+                    <div class="npc-header">
+                        <h3 class="npc-name">Test NPC 4</h3>
+                        <p class="npc-title">Test Role</p>
+                    </div>
+                    <div class="npc-description">
+                        <p>Test description for NPC 4</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

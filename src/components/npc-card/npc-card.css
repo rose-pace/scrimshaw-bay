@@ -1,9 +1,10 @@
 /* NPC Card Component Styles */
 
+/* NPC Grid - Main grid layout */
 .npc-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--spacing-lg);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
 
 .npc-card {
@@ -15,7 +16,6 @@
   transition: all var(--transition-normal);
   cursor: pointer;
   position: relative;
-  overflow: hidden;
 }
 
 .npc-card:hover {
@@ -49,8 +49,8 @@
 .npc-location {
   background-color: var(--accent-text);
   color: var(--primary-bg);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
+  padding: 0.25rem var(--spacing-sm);
+  border-radius: 12px;
   font-size: 0.8rem;
   font-weight: 600;
   white-space: nowrap;
@@ -58,39 +58,78 @@
 
 .npc-role {
   color: var(--warning-text);
-  font-weight: 600;
-  font-size: 1rem;
-  margin-bottom: var(--spacing-sm);
   font-style: italic;
+  font-size: 1rem;
+  margin-bottom: var(--spacing-md);
+  font-weight: 500;
 }
 
 .npc-description {
   color: var(--primary-text);
   line-height: 1.5;
   margin-bottom: var(--spacing-md);
-  font-size: 0.95rem;
 }
 
-.npc-card .npc-link {
-  background-color: var(--accent-text);
-  color: var(--primary-bg);
-  border: none;
+/* NPC Sections */
+.npc-secrets,
+.npc-motivations,
+.npc-abilities {
+  margin-top: var(--spacing-md);
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--border-radius-sm);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  width: 100%;
+  border-left: 3px solid var(--border-color);
+}
+
+.npc-secrets {
+  background-color: rgba(198, 45, 66, 0.1);
+  border-left-color: var(--danger-text);
+}
+
+.npc-secrets h4 {
+  color: var(--danger-text);
+  margin: 0 0 var(--spacing-sm) 0;
   font-size: 0.9rem;
+  font-family: var(--header-font);
 }
 
-.npc-card .npc-link:hover {
-  background-color: var(--warning-text);
-  transform: translateY(-2px);
+.npc-motivations {
+  background-color: rgba(255, 193, 7, 0.1);
+  border-left-color: var(--warning-text);
 }
 
-.npc-card .npc-link:active {
-  transform: translateY(0);
+.npc-motivations h4 {
+  color: var(--warning-text);
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: 0.9rem;
+  font-family: var(--header-font);
+}
+
+.npc-abilities {
+  background-color: rgba(139, 115, 85, 0.1);
+  border-left-color: var(--accent-text);
+}
+
+.npc-abilities h4 {
+  color: var(--accent-text);
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: 0.9rem;
+  font-family: var(--header-font);
+}
+
+.npc-secrets ul,
+.npc-motivations ul,
+.npc-abilities ul {
+  margin: 0;
+  padding-left: var(--spacing-md);
+}
+
+.npc-secrets li,
+.npc-motivations li,
+.npc-abilities li {
+  color: var(--primary-text);
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+  line-height: 1.4;
 }
 
 /* NPC Card Variants */

@@ -181,8 +181,7 @@ export class ScrimshawBayApp {  constructor() {
       const settlementCards = this.settlementCard.createOverviewCards();
       settlementOverview.appendChild(settlementCards);
     }
-  }
-  /**
+  }  /**
    * Render NPCs section
    */
   renderNPCs() {
@@ -193,7 +192,7 @@ export class ScrimshawBayApp {  constructor() {
 
     const npcCards = this.npcCard.createAllCards();
     npcList.appendChild(npcCards);
-  }  /**
+  }/**
    * Render events section
    */
   renderEvents() {

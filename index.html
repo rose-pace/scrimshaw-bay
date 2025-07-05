@@ -319,12 +319,29 @@
     <template id="npc-card-template">
         <div class="npc-card" role="button" tabindex="0">
             <div class="npc-header">
-                <h4 class="npc-name" data-slot="name">NPC Name</h4>
-                <p class="npc-role" data-slot="role">NPC Role</p>
+                <h3 class="npc-name" data-slot="name">NPC Name</h3>
+                <span class="npc-location" data-slot="location">Location</span>
             </div>
-            <p class="npc-description" data-slot="description">NPC description...</p>
+            <div class="npc-role" data-slot="role">NPC Role</div>
+            <div class="npc-description" data-slot="description">NPC description...</div>
+            
             <div class="npc-stats" data-slot="stats" style="display: none;">
                 <span class="stat-item" data-slot="statsContent"></span>
+            </div>
+            
+            <div class="npc-secrets" data-slot="secrets" style="display: none;">
+                <h4>Secrets:</h4>
+                <ul data-slot="secretsList"></ul>
+            </div>
+            
+            <div class="npc-motivations" data-slot="motivations" style="display: none;">
+                <h4>Motivations:</h4>
+                <ul data-slot="motivationsList"></ul>
+            </div>
+            
+            <div class="npc-abilities" data-slot="abilities" style="display: none;">
+                <h4>Abilities:</h4>
+                <ul data-slot="abilitiesList"></ul>
             </div>
         </div>
     </template>
