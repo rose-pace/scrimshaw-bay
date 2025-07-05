@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrimshaw Bay Campaign Guide</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <h1>Scrimshaw Bay</h1>
+        <p class="subtitle">A Gothic Horror Campaign</p>
+    </header>
+
+    <nav class="main-nav">
+        <button class="nav-btn active" data-section="overview">Overview</button>
+        <button class="nav-btn" data-section="settlements">Settlements</button>
+        <button class="nav-btn" data-section="npcs">NPCs</button>
+        <button class="nav-btn" data-section="threats">Threats</button>
+        <button class="nav-btn" data-section="events">Events</button>
+        <button class="nav-btn" data-section="lore">Lore</button>
+    </nav>
+
+    <main class="content">
+        <!-- Overview Section -->
+        <section id="overview" class="content-section active">
+            <div class="section-header">
+                <h2>Regional Overview</h2>
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <h3>Location</h3>
+                        <p>Northeastern Meridia</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Ocean</h3>
+                        <p>Krivmansk Ocean</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Primary Threat</h3>
+                        <p>Agog, Devil of the Deep</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Main Antagonist</h3>
+                        <p>Lord Bayard Scrimm</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="info-card">
+                    <h3>Historical Context</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <strong>Golden Age:</strong> Major whaling & ironwood trade hub
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Decline:</strong> Whale depletion, Greylocke trade route opened
+                        </div>
+                        <div class="timeline-item">
+                            <strong>Present:</strong> Abandoned infrastructure, corrupted whaling
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Current Atmosphere</h3>
+                    <ul>
+                        <li>Gothic decay and cosmic dread</li>
+                        <li>Abandoned docks and rotting piers</li>
+                        <li>Derelict shipyards with half-built vessels</li>
+                        <li>Crumbling mansions of former magnates</li>
+                        <li>Dark, supernaturally cold waters</li>
+                    </ul>
+                </div>
+
+                <div class="info-card settlement-overview">
+                    <h3>Settlements</h3>
+                    <div class="settlement-grid">
+                        <button class="settlement-card" data-settlement="millhaven">
+                            <h4>Millhaven</h4>
+                            <p>Former Regional Hub</p>
+                            <span class="population">~800</span>
+                        </button>
+                        <button class="settlement-card" data-settlement="netherwick">
+                            <h4>Netherwick</h4>
+                            <p>Fishing Village</p>
+                            <span class="population">~150</span>
+                        </button>
+                        <button class="settlement-card" data-settlement="ashford">
+                            <h4>Ashford</h4>
+                            <p>Company Town</p>
+                            <span class="population">~200</span>
+                        </button>
+                        <button class="settlement-card" data-settlement="thornwick">
+                            <h4>Thornwick Isle</h4>
+                            <p>Lord's Estate</p>
+                            <span class="population">~50</span>
+                        </button>
+                        <button class="settlement-card" data-settlement="fenway">
+                            <h4>Fenway</h4>
+                            <p>Canal Village</p>
+                            <span class="population">~75</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settlements Section -->
+        <section id="settlements" class="content-section">
+            <div class="section-header">
+                <h2>Settlements</h2>
+                <div class="settlement-selector">
+                    <button class="settlement-btn active" data-settlement="millhaven">
+                        <span class="settlement-name">Millhaven</span>
+                        <span class="settlement-type">Former Regional Hub</span>
+                    </button>
+                    <button class="settlement-btn" data-settlement="netherwick">
+                        <span class="settlement-name">Netherwick</span>
+                        <span class="settlement-type">Fishing Village</span>
+                    </button>
+                    <button class="settlement-btn" data-settlement="ashford">
+                        <span class="settlement-name">Ashford</span>
+                        <span class="settlement-type">Company Town</span>
+                    </button>
+                    <button class="settlement-btn" data-settlement="thornwick">
+                        <span class="settlement-name">Thornwick Isle</span>
+                        <span class="settlement-type">Lord's Estate</span>
+                    </button>
+                    <button class="settlement-btn" data-settlement="fenway">
+                        <span class="settlement-name">Fenway</span>
+                        <span class="settlement-type">Canal Village</span>
+                    </button>
+                </div>
+            </div>
+            <div id="settlement-details"></div>
+        </section>
+
+        <!-- NPCs Section -->
+        <section id="npcs" class="content-section">
+            <div class="section-header">
+                <h2>Notable NPCs</h2>
+            </div>
+            <div id="npc-list" class="npc-grid"></div>
+        </section>
+
+        <!-- Threats Section -->
+        <section id="threats" class="content-section">
+            <div class="section-header">
+                <h2>Threats & Horrors</h2>
+            </div>
+            <div class="content-grid">
+                <div class="threat-card cosmic">
+                    <h3>Agog, Devil of the Deep</h3>
+                    <p class="threat-type">Cosmic Horror</p>
+                    <p>Ancient titanic aberration dwelling in the deepest trenches of the Krivmansk Ocean. Primary source of all regional corruption.</p>
+                    <div class="corruption-indicator extreme">Extreme Corruption</div>
+                    <button class="details-btn" data-threat="agog">View Details</button>
+                </div>
+                
+                <div class="threat-card aristocratic">
+                    <h3>Lord Bayard Scrimm</h3>
+                    <p class="threat-type">Corrupted Aristocrat</p>
+                    <p>Ancient lord sustained by pact with Agog. His body writhes with tentacled flesh, and he emerges only at night to feed.</p>
+                    <button class="details-btn" data-threat="bayard">View Details</button>
+                </div>
+
+                <div class="threat-card environmental">
+                    <h3>Corrupted Whaling</h3>
+                    <p class="threat-type">Body Horror</p>
+                    <p>Diseased whales infected with black parasites that transform humanoids into fish-like creatures over time.</p>
+                    <div class="corruption-indicator high">High Corruption</div>
+                    <button class="details-btn" data-threat="corruptedWhales">View Details</button>
+                </div>
+
+                <div class="threat-card social">
+                    <h3>Fish-Folk Transformation</h3>
+                    <p class="threat-type">Body Horror</p>
+                    <p>Citizens infected by parasites gradually transform into Kuo-toa through distinct stages.</p>
+                    <div class="corruption-indicator medium">Medium Corruption</div>
+                    <button class="details-btn" data-threat="transformedCitizens">View Details</button>
+                </div>
+
+                <div class="threat-card industrial">
+                    <h3>Rotting Ironwood</h3>
+                    <p class="threat-type">Environmental Horror</p>
+                    <p>Legendary ironwood timber rotting despite its durability, causing economic and structural collapse.</p>
+                    <div class="corruption-indicator medium">Medium Corruption</div>
+                    <button class="details-btn" data-threat="ironwoodCorruption">View Details</button>
+                </div>
+
+                <div class="threat-card planar">
+                    <h3>Poisoned Wetlands</h3>
+                    <p class="threat-type">Environmental Horror</p>
+                    <p>Bog waters poisoned by ancient entities, creating dangerous wetlands that distort reality.</p>
+                    <div class="corruption-indicator medium">Medium Corruption</div>
+                    <button class="details-btn" data-threat="bogCorruption">View Details</button>
+                </div>
+
+                <div class="threat-card environmental">
+                    <h3>Bog Creatures</h3>
+                    <p class="threat-type">Natural Hazards</p>
+                    <p>Dangerous amphibious creatures including Bogskaldr, Marsh Giants, and Marshwalker Elves make bog travel extremely perilous.</p>
+                    <div class="corruption-indicator low">Low Corruption</div>
+                    <button class="details-btn" data-threat="bogCreatures">View Details</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Section -->
+        <section id="events" class="content-section">
+            <div class="section-header">
+                <h2>Strange Events</h2>
+            </div>
+            <div id="events-list"></div>
+        </section>
+
+        <!-- Lore Section -->
+        <section id="lore" class="content-section">
+            <div class="section-header">
+                <h2>Lore & Background</h2>
+            </div>
+            <div class="lore-grid">
+                <div class="lore-card">
+                    <h3>The Whaling Era</h3>
+                    <p>Once the heart of a thriving whaling industry, Scrimshaw Bay's wealth was built on whale oil and bone products.</p>
+                </div>
+                <div class="lore-card">
+                    <h3>Ironwood Trade</h3>
+                    <p>The region served as the sole export point for ironwood timber from Timber Giant territories in the interior.</p>
+                </div>
+                <div class="lore-card">
+                    <h3>The Decline</h3>
+                    <p>Overharvesting depleted whale populations while new trade routes through Greylocke bypassed the bay entirely.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
