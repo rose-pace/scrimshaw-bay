@@ -36,6 +36,12 @@ These instructions define how GitHub Copilot should assist with this project. Th
 - Document breaking changes
 - If declaring more than 3 variables in a row sort alphabetically
 
+## Accessibility Standards for Markup
+- Always use appropriate aria attributes for all Markup
+- Always use semantic HTML
+- Use the label element for form controls
+- Always provide alt text for images
+
 ## File Structure
 Use this structure as a guide when creating or updating files:
 

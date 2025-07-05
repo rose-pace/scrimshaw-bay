@@ -37,11 +37,12 @@ export class SettlementCard {
     const description = createElement('p', {
       className: 'settlement-description',
       innerHTML: this.truncateDescription(settlement.description, 100)
-    });
-
-    const population = createElement('span', {
+    });    const population = createElement('span', {
       className: 'population',
-      innerHTML: settlement.population
+      innerHTML: settlement.population,
+      attributes: {
+        'title': `Population: ${settlement.population}`
+      }
     });
 
     card.appendChild(header);

@@ -54,6 +54,50 @@ p {
   margin-bottom: var(--spacing-md);
 }
 
+/* Remove bottom margins from last child elements to prevent double spacing */
+.settlement-card p:last-child,
+.npc-card p:last-child,
+.threat-card p:last-child,
+.event-card p:last-child,
+.info-card p:last-child,
+.lore-card p:last-child,
+.stat-card p:last-child,
+.modal-body p:last-child,
+.card p:last-child {
+  margin-bottom: 0;
+}
+
+/* Also handle other elements that commonly appear at the end of cards */
+.settlement-card *:last-child,
+.npc-card *:last-child,
+.threat-card *:last-child,
+.event-card *:last-child,
+.info-card *:last-child,
+.lore-card *:last-child,
+.stat-card *:last-child,
+.modal-body *:last-child,
+.card *:last-child {
+  margin-bottom: 0;
+}
+
+/* Additional last-child margin fixes for specific content sections */
+.event-details *:last-child,
+.event-outcomes *:last-child,
+.event-hooks *:last-child,
+.event-encounters *:last-child,
+.event-ritual *:last-child,
+.event-creature *:last-child,
+.event-clues *:last-child,
+.npc-description *:last-child,
+.threat-description *:last-child,
+.settlement-description *:last-child,
+.location-description *:last-child,
+.gm-section *:last-child,
+.network-section *:last-child,
+.location-section *:last-child {
+  margin-bottom: 0;
+}
+
 /* Links */
 a {
   color: var(--accent-text);
@@ -69,6 +113,28 @@ a:hover {
 ul, ol {
   margin-bottom: var(--spacing-md);
   padding-left: var(--spacing-lg);
+}
+
+/* Remove bottom margins from last child lists */
+.settlement-card ul:last-child,
+.settlement-card ol:last-child,
+.npc-card ul:last-child,
+.npc-card ol:last-child,
+.threat-card ul:last-child,
+.threat-card ol:last-child,
+.event-card ul:last-child,
+.event-card ol:last-child,
+.info-card ul:last-child,
+.info-card ol:last-child,
+.lore-card ul:last-child,
+.lore-card ol:last-child,
+.stat-card ul:last-child,
+.stat-card ol:last-child,
+.modal-body ul:last-child,
+.modal-body ol:last-child,
+.card ul:last-child,
+.card ol:last-child {
+  margin-bottom: 0;
 }
 
 li {
