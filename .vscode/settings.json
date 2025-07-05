@@ -1,0 +1,12 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always"
+    },
+    "editor.indentSize": 2,
+    "editor.detectIndentation": false,
+    "editor.quickSuggestions": {
+      "strings": "on"
+    },
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "git.enableCommitSigning": true,
+}

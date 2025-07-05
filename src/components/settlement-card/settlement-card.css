@@ -1,0 +1,309 @@
+/* Settlement Card Component Styles */
+
+.settlement-card {
+  background-color: var(--secondary-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-align: center;
+  color: var(--primary-text);
+  position: relative;
+  overflow: hidden;
+}
+
+.settlement-card:hover {
+  background-color: var(--card-bg);
+  border-color: var(--accent-text);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.settlement-card:focus {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 2px;
+}
+
+.settlement-header {
+  margin-bottom: var(--spacing-md);
+}
+
+.settlement-name {
+  font-family: var(--header-font);
+  color: var(--accent-text);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.2rem;
+}
+
+.settlement-type {
+  color: var(--secondary-text);
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-bottom: var(--spacing-sm);
+}
+
+.settlement-description {
+  color: var(--primary-text);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-md);
+  line-height: 1.4;
+}
+
+.settlement-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.settlement-population {
+  background-color: var(--accent-bg);
+  color: var(--primary-text);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Settlement Detail View */
+.settlement-detail {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-xl);
+  border: 1px solid var(--border-color);
+  margin-bottom: var(--spacing-lg);
+}
+
+.settlement-detail .settlement-header {
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.settlement-detail .settlement-header h3 {
+  color: var(--accent-text);
+  font-size: 2rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.settlement-content {
+  display: grid;
+  gap: var(--spacing-xl);
+}
+
+/* Locations Section */
+.locations-section {
+  background-color: var(--secondary-bg);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+}
+
+.locations-section h4 {
+  color: var(--accent-text);
+  margin-bottom: var(--spacing-md);
+  font-size: 1.4rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+.locations-list {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.location-item {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  transition: background-color var(--transition-fast);
+}
+
+.location-item:hover {
+  background-color: var(--accent-bg);
+}
+
+.location-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.location-name {
+  color: var(--accent-text);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.detail-indicator {
+  font-size: 1.2rem;
+  color: var(--warning-text);
+}
+
+.location-detail-btn {
+  background-color: var(--accent-text);
+  color: var(--primary-bg);
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.location-detail-btn:hover {
+  background-color: var(--warning-text);
+}
+
+.location-desc {
+  color: var(--primary-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.location-npcs {
+  margin-top: var(--spacing-sm);
+}
+
+.location-npcs strong {
+  color: var(--accent-text);
+}
+
+.npc-mini-link {
+  background-color: var(--accent-bg);
+  color: var(--primary-text);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-left: var(--spacing-sm);
+  transition: all var(--transition-fast);
+}
+
+.npc-mini-link:hover {
+  background-color: var(--accent-text);
+  color: var(--primary-bg);
+}
+
+/* Key NPCs Section */
+.key-npcs-section {
+  background-color: var(--secondary-bg);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+}
+
+.key-npcs-section h4 {
+  color: var(--accent-text);
+  margin-bottom: var(--spacing-md);
+  font-size: 1.4rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+.key-npcs-list {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.key-npc-item {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
+  transition: background-color var(--transition-fast);
+}
+
+.key-npc-item:hover {
+  background-color: var(--accent-bg);
+}
+
+.npc-link {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: var(--spacing-md);
+  text-align: left;
+  cursor: pointer;
+  color: var(--primary-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.npc-name {
+  color: var(--accent-text);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.npc-role-small {
+  color: var(--secondary-text);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* Dark Secrets Section */
+.dark-secrets {
+  background-color: rgba(198, 45, 66, 0.1);
+  border: 2px solid var(--danger-text);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+
+.dark-secrets h4 {
+  color: var(--danger-text);
+  margin-bottom: var(--spacing-md);
+  font-size: 1.4rem;
+}
+
+.dark-secrets ul {
+  margin-bottom: 0;
+}
+
+.dark-secrets li {
+  color: var(--primary-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .settlement-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .location-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  
+  .settlement-detail {
+    padding: var(--spacing-md);
+  }
+  
+  .locations-section,
+  .key-npcs-section {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .settlement-card {
+    padding: var(--spacing-md);
+  }
+  
+  .settlement-detail .settlement-header h3 {
+    font-size: 1.5rem;
+  }
+  
+  .npc-mini-link {
+    display: block;
+    margin-left: 0;
+    margin-top: var(--spacing-xs);
+  }
+}

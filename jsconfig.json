@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/components/*": ["src/components/*"],
+      "@/services/*": ["src/services/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/data/*": ["data/*"]
+    },
+    "module": "ES2022",
+    "target": "ES2022"
+  },
+  "include": ["src/**/*", "js/**/*", "data/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

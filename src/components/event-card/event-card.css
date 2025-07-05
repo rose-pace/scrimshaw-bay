@@ -1,0 +1,274 @@
+/* Event Card Component Styles */
+
+.events-list {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.event-card {
+  background-color: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-normal);
+  border-left: 4px solid var(--warning-text);
+}
+
+.event-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--shadow-color);
+  border-left-color: var(--accent-text);
+}
+
+.event-card h3 {
+  color: var(--accent-text);
+  font-family: var(--header-font);
+  font-size: 1.4rem;
+  margin-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+.event-description {
+  color: var(--primary-text);
+  line-height: 1.6;
+  margin-bottom: var(--spacing-md);
+  font-size: 1rem;
+}
+
+.event-details {
+  background-color: var(--secondary-bg);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  border-left: 3px solid var(--accent-text);
+}
+
+.event-details h4 {
+  color: var(--accent-text);
+  font-family: var(--header-font);
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.event-details p {
+  color: var(--primary-text);
+  margin-bottom: 0;
+}
+
+.event-outcomes,
+.event-hooks {
+  margin-bottom: var(--spacing-md);
+}
+
+.event-outcomes h4,
+.event-hooks h4 {
+  color: var(--warning-text);
+  font-family: var(--header-font);
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.event-outcomes ul,
+.event-hooks ul {
+  list-style: none;
+  padding: 0;
+}
+
+.event-outcomes li,
+.event-hooks li {
+  background-color: var(--secondary-bg);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--spacing-sm);
+  border-left: 3px solid var(--warning-text);
+  color: var(--primary-text);
+}
+
+.event-outcomes li:last-child,
+.event-hooks li:last-child {
+  margin-bottom: 0;
+}
+
+/* Event Encounters */
+.event-encounters {
+  background-color: var(--secondary-bg);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-md);
+  border-left: 3px solid var(--danger-text);
+}
+
+.event-encounters h4 {
+  color: var(--danger-text);
+  font-family: var(--header-font);
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.event-ritual,
+.event-creature,
+.event-clues {
+  margin-bottom: var(--spacing-md);
+}
+
+.event-ritual:last-child,
+.event-creature:last-child,
+.event-clues:last-child {
+  margin-bottom: 0;
+}
+
+.event-ritual h4,
+.event-creature h4,
+.event-clues h4 {
+  color: var(--danger-text);
+  font-family: var(--header-font);
+  font-size: 1rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.event-ritual ol {
+  padding-left: var(--spacing-lg);
+  color: var(--primary-text);
+}
+
+.event-ritual li {
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.4;
+}
+
+.creature-list {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.creature-entry {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-md);
+  border-left: 2px solid var(--danger-text);
+}
+
+.creature-entry h5 {
+  color: var(--danger-text);
+  font-family: var(--header-font);
+  font-size: 1rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.creature-entry p {
+  color: var(--primary-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.creature-abilities {
+  color: var(--primary-text);
+  margin-bottom: 0;
+}
+
+.creature-abilities strong {
+  color: var(--accent-text);
+}
+
+.event-clues ul {
+  list-style: none;
+  padding: 0;
+}
+
+.event-clues li {
+  background-color: var(--card-bg);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--spacing-sm);
+  border-left: 2px solid var(--accent-text);
+  color: var(--primary-text);
+}
+
+.event-clues li:last-child {
+  margin-bottom: 0;
+}
+
+/* Event Type Indicators */
+.event-card[data-event*="ritual"] {
+  border-left-color: var(--danger-text);
+}
+
+.event-card[data-event*="ritual"]::before {
+  content: "🔮";
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.event-card[data-event*="investigation"] {
+  border-left-color: var(--warning-text);
+}
+
+.event-card[data-event*="investigation"]::before {
+  content: "🔍";
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.event-card[data-event*="encounter"] {
+  border-left-color: var(--accent-text);
+}
+
+.event-card[data-event*="encounter"]::before {
+  content: "⚔️";
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .event-card {
+    padding: var(--spacing-md);
+    position: relative;
+  }
+  
+  .event-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .event-details,
+  .event-encounters {
+    padding: var(--spacing-sm);
+  }
+  
+  .creature-entry {
+    padding: var(--spacing-sm);
+  }
+  
+  .event-card::before {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-card {
+    padding: var(--spacing-sm);
+  }
+  
+  .event-card h3 {
+    font-size: 1.1rem;
+  }
+  
+  .event-details h4,
+  .event-outcomes h4,
+  .event-hooks h4,
+  .event-encounters h4 {
+    font-size: 1rem;
+  }
+  
+  .creature-entry h5 {
+    font-size: 0.9rem;
+  }
+}

@@ -1,35 +1,155 @@
 # Scrimshaw Bay Campaign Guide
 
-A web application for managing the Scrimshaw Bay Gothic Horror campaign.
+A modern, modular web application for managing the Scrimshaw Bay Gothic Horror campaign. Built with ES6 modules and component-based architecture for enhanced maintainability and user experience.
 
 ## Features
 
-- **Quick Navigation**: Easy access to all campaign information
-- **Settlement Details**: Comprehensive information for each location
-- **NPC Database**: Character details, motivations, and secrets
-- **Threat Tracking**: Information on cosmic horrors and corrupted entities
-- **Event Management**: Strange events and adventure hooks
-- **Lore Repository**: Background information and world-building
+- **Quick Navigation**: Smooth section switching with keyboard support
+- **Settlement System**: Interactive settlement cards with detailed views
+- **NPC Database**: Complete character management with modal details
+- **Threat Tracking**: Categorized threat display with corruption indicators
+- **Event Management**: Rich event cards with encounters and adventure hooks
+- **Location Details**: Comprehensive location pages with GM-only sections
+- **Modal System**: Accessible, keyboard-navigable information popups
+- **Responsive Design**: Mobile-friendly interface across all devices
 
-## Structure
+## Architecture
+
+The application uses a modern modular architecture with ES6 modules and follows clean architecture principles:
+
+### Design Patterns
+- **Component Pattern**: Self-contained UI components with their own logic and styles
+- **Service Layer**: Singleton services for data access and modal management
+- **Module Pattern**: ES6 modules with explicit imports/exports
+- **Observer Pattern**: Event-driven architecture with proper cleanup
+- **Singleton Pattern**: Centralized services (DataService, ModalService)
+
+### Code Organization
+- **Separation of Concerns**: UI, business logic, and data access are clearly separated
+- **Single Responsibility**: Each component has a focused purpose
+- **Dependency Injection**: Services are injected into components
+- **Error Boundaries**: Comprehensive error handling throughout the application
 
 ```
 scrimshaw-bay/
-├── index.html          # Main application file
-├── css/
-│   └── styles.css      # Gothic horror themed styling
-├── js/
-│   ├── data.js         # Campaign data structure
-│   └── app.js          # Application logic and interactions
-└── data/               # Reserved for future data files
+├── index.html                  # Main application entry point
+├── src/                        # Modular source code
+│   ├── components/             # Reusable UI components
+│   │   ├── event-card/         # Event display component
+│   │   ├── location-detail/    # Location detail component
+│   │   ├── modal/              # Modal system with accessibility
+│   │   ├── navigation/         # Navigation component
+│   │   ├── npc-card/           # NPC display component
+│   │   ├── settlement-card/    # Settlement display component
+│   │   └── threat-card/        # Threat display component
+│   ├── services/               # Business logic services
+│   │   ├── data-service.js     # Centralized data access
+│   │   └── modal-service.js    # Modal management
+│   ├── styles/                 # Modular CSS architecture
+│   │   ├── variables.css       # CSS custom properties
+│   │   ├── base.css           # Base styles and reset
+│   │   ├── layout.css         # Layout and grid systems
+│   │   └── index.css          # Main CSS entry point
+│   ├── utils/                  # Utility functions
+│   │   └── dom-utils.js       # DOM manipulation helpers
+│   ├── app.js                  # Main application orchestrator
+│   └── index.js               # Application entry point
+├── js/                         # Campaign data
+│   └── data.js                # Campaign data structure (ES6 modules)
+├── test/                       # Testing utilities
+│   └── app-tests.js           # Component tests
+└── jsconfig.json              # Path mapping configuration
 ```
 
 ## Getting Started
 
-1. Open `index.html` in a web browser
-2. Navigate using the main menu buttons
-3. Click on settlements or NPCs for detailed information
-4. Use the threat details buttons for expanded information
+### Quick Start
+1. **Start the development server**: `npm start` or `npm run dev`
+2. **Open in browser**: Navigate to `http://localhost:8080`
+3. **Navigate using the main menu**: Click section buttons to explore content
+4. **Interactive elements**: Click on settlements, NPCs, or threat details for modal information
+5. **Keyboard navigation**: Use Tab/Enter for accessibility support
+
+### Available Scripts
+- `npm start` - Start the local development server on port 8080
+- `npm run dev` - Alias for start (development server)
+- `npm test` - Run the Node.js-compatible test suite
+- `npm run test:browser` - Instructions for running browser tests
+- `npm run serve` - Alternative command to start the server
+- `npm run validate` - Validate project structure and run tests
+- `npm run lint` - Placeholder for future linting setup
+
+### Architecture Migration
+This application was recently refactored from a monolithic structure to a modular architecture. The migration preserved all original functionality while adding:
+- **ES6 Module System**: Clean import/export structure
+- **Component-Based Design**: Reusable, self-contained UI components
+- **Service Layer**: Centralized business logic and data access
+- **Modular CSS**: Component-specific styles with CSS custom properties
+- **Enhanced Accessibility**: Keyboard navigation and ARIA support
+- **Error Handling**: Comprehensive error boundaries and logging
+
+See `ARCHITECTURE_COMPLETE.md` for detailed migration information.
+
+## Development
+
+### Quick Start for Developers
+1. **Clone and Setup**: No dependencies to install - pure ES6 modules
+2. **Start Development**: `npm start` (starts server on http://localhost:8080)
+3. **Run Tests**: `npm test` (Node.js data structure validation)
+4. **Validate Project**: `npm run validate` (full project validation)
+
+### Modern Architecture
+The application uses a modern ES6 module architecture with:
+- **Component-based design**: Each UI element is self-contained
+- **Service layer**: Centralized business logic and data access
+- **Modular CSS**: CSS custom properties and component-specific styles
+- **Utility functions**: Shared DOM manipulation and helper functions
+- **Error handling**: Comprehensive error boundaries and logging
+- **Import Maps**: Clean, absolute-style imports using `@/` prefix paths
+
+### Import Map System
+The application uses browser-native import maps for clean import paths:
+- `@/` - Maps to `./src/` (e.g., `@/app.js`)
+- `@/components/` - Maps to `./src/components/` (e.g., `@/components/modal/modal.js`)
+- `@/services/` - Maps to `./src/services/` (e.g., `@/services/data-service.js`)
+- `@/utils/` - Maps to `./src/utils/` (e.g., `@/utils/dom-utils.js`)
+- `@/styles/` - Maps to `./src/styles/` (e.g., `@/styles/variables.css`)
+- `data` - Maps to `./js/data.js` (campaign data)
+
+### Component Architecture
+The application uses a modular component system where each UI element is self-contained:
+
+- **Components**: Located in `src/components/`, each has its own JS and CSS files
+- **Services**: Business logic in `src/services/` for data access and modal management
+- **Utilities**: Shared functions in `src/utils/` for DOM manipulation and helpers
+- **Styles**: Modular CSS with variables in `src/styles/`
+
+### Adding New Components
+1. Create component directory: `src/components/component-name/`
+2. Add `component-name.js` and `component-name.css`
+3. Implement component class with consistent naming conventions
+4. Import in main app: `import { ComponentName } from '@/components/component-name/component-name.js'`
+5. Add CSS import to `src/styles/index.css`
+6. Use clean import paths with `@/` prefix for all internal imports
+
+### Development Workflow
+- **Local Development**: Use `npm start` to run the development server
+- **Module System**: ES6 imports/exports with import maps for clean paths
+- **Import Paths**: Use `@/` prefix for clean imports (e.g., `@/services/data-service.js`)
+- **Testing**: 
+  - Run `npm test` for Node.js-compatible data structure tests
+  - Open browser and check console for full component tests
+  - Use `npm run test:browser` for browser testing instructions
+- **Error Handling**: Built-in error boundaries and console logging
+- **Accessibility**: Keyboard navigation and ARIA support throughout
+
+### Code Quality Standards
+- **ES6+ Syntax**: Modern JavaScript features throughout
+- **Consistent Naming**: camelCase for variables/functions, PascalCase for classes
+- **JSDoc Documentation**: Function documentation and type annotations
+- **Error Handling**: Try-catch blocks and graceful degradation
+- **Event Cleanup**: Proper event listener management and memory cleanup
+- **Accessibility**: ARIA attributes and keyboard navigation support
 
 ## Adding Content
 
@@ -42,8 +162,16 @@ newSettlement: {
     type: "Settlement Type", 
     population: "~XXX",
     description: "Description text...",
-    notableLocations: ["Location 1", "Location 2"],
-    inhabitants: ["Inhabitant 1", "Inhabitant 2"],
+    notableLocations: [
+        {
+            id: "locationId",
+            name: "Location Name",
+            shortDesc: "Brief description",
+            hasDetails: true, // Set to true for detailed location pages
+            npcs: ["npcKey1", "npcKey2"]
+        }
+    ],
+    keyNpcs: ["importantNpcKey1", "importantNpcKey2"],
     darkSecrets: ["Secret 1", "Secret 2"]
 }
 ```
@@ -54,9 +182,16 @@ Add NPC objects to the `npcs` section:
 ```javascript
 npcKey: {
     name: "NPC Name",
-    location: "Settlement Name",
+    location: "settlementKey",
     role: "Role/Title",
     description: "Character description...",
+    services: ["Service 1", "Service 2"], // Optional
+    knowledge: [ // Optional
+        {
+            topic: "Knowledge Topic",
+            info: "What they know about this topic"
+        }
+    ],
     secrets: ["Secret 1", "Secret 2"],
     abilities: ["Ability 1", "Ability 2"],
     motivations: ["Motivation 1", "Motivation 2"]
@@ -69,11 +204,13 @@ Add threat objects to the `threats` section:
 ```javascript
 threatKey: {
     name: "Threat Name",
-    type: "Threat Category",
+    type: "Threat Category", // e.g., "Cosmic Horror", "Body Horror"
     description: "Threat description...",
     abilities: ["Ability 1", "Ability 2"],
-    influence: ["Effect 1", "Effect 2"],
-    stats: "Game mechanical information"
+    influence: ["Regional Effect 1", "Regional Effect 2"],
+    weaknesses: ["Weakness 1", "Weakness 2"], // Optional
+    stats: "Game mechanical information", // Optional
+    corruptionLevel: "Low" // Optional: "Low", "Medium", "High", "Extreme"
 }
 ```
 
@@ -104,22 +241,24 @@ loreKey: {
 ## Customization
 
 ### Styling
-- Edit `css/styles.css` to modify the Gothic horror theme
-- CSS variables at the top of the file control colors and fonts
-- The design uses a dark theme with muted colors
+- Edit `src/styles/variables.css` to modify the Gothic horror theme
+- CSS custom properties control colors, fonts, and spacing
+- Component-specific styles in `src/components/*/component-name.css`
+- The design uses a dark theme with muted colors and Gothic elements
 
 ### Functionality
-- `js/app.js` contains all interactive behavior
-- Modal system for detailed threat information
-- Responsive navigation between sections
-- Settlement detail rendering system
+- `src/app.js` orchestrates the main application behavior
+- Component-specific logic in `src/components/*/component-name.js`
+- Service layer in `src/services/` for data access and modal management
+- Utility functions in `src/utils/` for DOM manipulation and helpers
 
 ## Browser Compatibility
 
-- Works in all modern browsers
-- No external dependencies required
-- Uses ES6+ features (const, arrow functions, template literals)
+- Works in all modern browsers with ES6 module support
+- No external dependencies or build tools required
+- Uses ES6+ features (modules, const, arrow functions, template literals)
 - Responsive design for mobile and desktop
+- Requires local server for development (ES6 modules don't work with file:// protocol)
 
 ## New Features
 
@@ -227,12 +366,43 @@ NPCs are automatically linked to locations through the `npcs` array in each loca
 
 ## Future Enhancements
 
+### Architecture Improvements
+- **Webpack bundling**: Optimize for production deployment
+- **TypeScript**: Add type safety and better IDE support
+- **Testing framework**: Comprehensive unit and integration tests
+- **Build pipeline**: Automated testing and deployment
+
+### Feature Additions
 - Session notes tracking
 - Player character management
 - Timeline tracking
 - Random encounter tables
 - Weather and mood generators
 - Map integration
+- Campaign journal system
+- Initiative tracker
+
+## Troubleshooting
+
+### Common Issues
+- **Blank page**: Ensure you're using `npm start` (not file:// protocol) for ES6 modules
+- **Import errors**: Check that all file paths in imports are correct and use proper extensions
+- **Console errors**: Open browser developer tools to see detailed error messages
+- **Missing styles**: Verify that `src/styles/index.css` imports all component stylesheets
+
+### Development Tips
+- Use `npm start` for consistent development server setup
+- Use browser developer tools to debug component behavior
+- Check the console for detailed error messages with stack traces
+- Test changes incrementally to isolate issues
+- Use `npm test` to run the test suite for component validation
+
+## Project Files
+
+### Legacy Files (Preserved)
+- `js/app.js` - Original monolithic application (unused)
+- `css/styles.css` - Original stylesheet (unused)
+- These files are preserved for reference but not used in the current architecture
 
 ## Campaign Themes
 

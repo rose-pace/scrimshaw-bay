@@ -1,0 +1,246 @@
+/* Threat Card Component Styles */
+
+.threat-card {
+  background-color: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.threat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.threat-card h3 {
+  color: var(--accent-text);
+  font-family: var(--header-font);
+  font-size: 1.4rem;
+  margin-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+.threat-type {
+  background-color: var(--danger-text);
+  color: var(--primary-text);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.threat-card p {
+  color: var(--primary-text);
+  line-height: 1.5;
+  margin-bottom: var(--spacing-md);
+  font-size: 0.95rem;
+}
+
+.details-btn {
+  background-color: var(--danger-text);
+  color: var(--primary-text);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  width: 100%;
+  font-size: 0.9rem;
+  margin-top: var(--spacing-sm);
+}
+
+.details-btn:hover {
+  background-color: var(--warning-text);
+  transform: translateY(-2px);
+}
+
+.details-btn:active {
+  transform: translateY(0);
+}
+
+/* Corruption Indicator */
+.corruption-indicator {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  animation: pulse 2s infinite;
+}
+
+.corruption-indicator.low {
+  background-color: var(--warning-text);
+  color: var(--primary-bg);
+}
+
+.corruption-indicator.medium {
+  background-color: var(--danger-text);
+  color: var(--primary-text);
+}
+
+.corruption-indicator.high {
+  background-color: var(--danger-text);
+  color: var(--primary-text);
+  animation: pulse-danger 1.5s infinite;
+}
+
+.corruption-indicator.extreme {
+  background-color: var(--danger-text);
+  color: var(--primary-text);
+  animation: pulse-danger 1s infinite;
+  border: 2px solid var(--primary-text);
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+@keyframes pulse-danger {
+  0% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+  100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Threat Card Variants */
+.threat-card.cosmic {
+  border-color: var(--accent-text);
+  background: linear-gradient(135deg, var(--card-bg), rgba(139, 115, 85, 0.1));
+}
+
+.threat-card.cosmic::before {
+  content: "👁";
+  position: absolute;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.threat-card.aristocratic {
+  border-color: var(--warning-text);
+  background: linear-gradient(135deg, var(--card-bg), rgba(212, 165, 116, 0.1));
+}
+
+.threat-card.aristocratic::before {
+  content: "👑";
+  position: absolute;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.threat-card.environmental {
+  border-color: var(--danger-text);
+  background: linear-gradient(135deg, var(--card-bg), rgba(198, 45, 66, 0.1));
+}
+
+.threat-card.environmental::before {
+  content: "☠";
+  position: absolute;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.threat-card.social {
+  border-color: var(--secondary-text);
+  background: linear-gradient(135deg, var(--card-bg), rgba(176, 176, 176, 0.1));
+}
+
+.threat-card.social::before {
+  content: "🎭";
+  position: absolute;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.threat-card.industrial {
+  border-color: var(--accent-bg);
+  background: linear-gradient(135deg, var(--card-bg), rgba(74, 74, 74, 0.1));
+}
+
+.threat-card.industrial::before {
+  content: "⚙";
+  position: absolute;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.threat-card.planar {
+  border-color: var(--accent-text);
+  background: linear-gradient(135deg, var(--card-bg), rgba(139, 115, 85, 0.2));
+}
+
+.threat-card.planar::before {
+  content: "🌀";
+  position: absolute;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .threat-card {
+    padding: var(--spacing-md);
+  }
+  
+  .threat-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .corruption-indicator {
+    position: static;
+    display: inline-block;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .threat-card::before {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .threat-card {
+    padding: var(--spacing-sm);
+  }
+  
+  .threat-card h3 {
+    font-size: 1.1rem;
+  }
+  
+  .threat-type {
+    font-size: 0.75rem;
+  }
+}

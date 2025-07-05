@@ -948,6 +948,5 @@ const campaignData = {
 };
 
 // Export for use in other files
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = campaignData;
-}
+// Export for ES modules
+export { campaignData };

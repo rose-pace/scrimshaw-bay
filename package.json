@@ -1,12 +1,19 @@
 {
   "name": "scrimshaw-bay",
   "version": "1.0.0",
-  "description": "GM setting/campaign guide for Scrimshaw Bay",
+  "description": "A modern, modular web application for managing the Scrimshaw Bay Gothic Horror campaign. Built with ES6 modules and component-based architecture.",
+  "keywords": ["tabletop", "rpg", "campaign", "gothic-horror", "web-app", "es6-modules"],
   "license": "ISC",
   "author": "Rose Pace",
   "type": "module",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "python -m http.server 8080",
+    "dev": "python -m http.server 8080",
+    "test": "node test/app-tests.js",
+    "test:browser": "echo 'Open http://localhost:8080 and check browser console for test results'",
+    "serve": "python -m http.server 8080",
+    "lint": "echo 'No linting configured - consider adding ESLint'",
+    "validate": "echo 'Validating project structure...' && npm test"
   }
 }
