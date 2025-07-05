@@ -67,30 +67,130 @@
   display: inline-block;
 }
 
+/* Settlement Overview */
+.settlement-overview {
+  grid-column: 1 / -1;
+}
+
+/* Settlement Grid */
+.settlement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+}
+
+/* Population Badge */
+.population {
+  background-color: var(--accent-text);
+  color: var(--primary-bg);
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Settlement Selector */
+.settlement-selector {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-xl);
+}
+
+.settlement-btn {
+  background-color: var(--card-bg);
+  color: var(--primary-text);
+  border: 2px solid var(--border-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  font-family: var(--header-font);
+  font-size: 0.9rem;
+  transition: all var(--transition-normal);
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+.settlement-btn:hover {
+  background-color: var(--accent-bg);
+  border-color: var(--accent-text);
+}
+
+.settlement-btn.active {
+  background-color: var(--accent-text);
+  color: var(--primary-bg);
+  border-color: var(--accent-text);
+}
+
+.settlement-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.settlement-type {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  font-style: italic;
+  font-weight: normal;
+}
+
 /* Settlement Detail View */
 .settlement-detail {
-  background-color: var(--card-bg);
-  border-radius: var(--border-radius-md);
-  padding: var(--spacing-xl);
-  border: 1px solid var(--border-color);
-  margin-bottom: var(--spacing-lg);
+  animation: fadeIn var(--transition-normal) ease-in;
 }
 
-.settlement-detail .settlement-header {
-  border-bottom: 2px solid var(--border-color);
+.settlement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
   padding-bottom: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--accent-text);
 }
 
-.settlement-detail .settlement-header h3 {
+.settlement-header h3 {
+  font-family: var(--header-font);
+  font-size: 2.5rem;
   color: var(--accent-text);
-  font-size: 2rem;
-  margin-bottom: var(--spacing-sm);
+  margin: 0;
+}
+
+.settlement-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+}
+
+.settlement-header .settlement-type {
+  color: var(--warning-text);
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+.settlement-population {
+  background-color: var(--accent-text);
+  color: var(--primary-bg);
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-weight: 600;
+}
+
+.settlement-description {
+  background-color: var(--secondary-bg);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-xl);
+  border-left: 4px solid var(--accent-text);
 }
 
 .settlement-content {
   display: grid;
-  gap: var(--spacing-xl);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
 }
 
 /* Locations Section */
@@ -115,15 +215,10 @@
 }
 
 .location-item {
-  background-color: var(--card-bg);
-  border-radius: var(--border-radius-sm);
+  background-color: var(--secondary-bg);
   padding: var(--spacing-md);
-  border: 1px solid var(--border-color);
-  transition: background-color var(--transition-fast);
-}
-
-.location-item:hover {
-  background-color: var(--accent-bg);
+  border-radius: var(--border-radius-sm);
+  border-left: 3px solid var(--border-color);
 }
 
 .location-header {
@@ -133,60 +228,60 @@
   margin-bottom: var(--spacing-sm);
 }
 
-.location-name {
-  color: var(--accent-text);
-  font-size: 1.1rem;
-  margin: 0;
-}
-
 .detail-indicator {
   font-size: 1.2rem;
-  color: var(--warning-text);
+  opacity: 0.7;
 }
 
 .location-detail-btn {
-  background-color: var(--accent-text);
-  color: var(--primary-bg);
+  background: none;
   border: none;
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  font-size: 0.8rem;
+  color: var(--accent-text);
   cursor: pointer;
-  transition: background-color var(--transition-fast);
+  font-family: var(--header-font);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: all var(--transition-normal);
 }
 
 .location-detail-btn:hover {
-  background-color: var(--warning-text);
+  color: var(--warning-text);
+  transform: translateY(-1px);
+}
+
+.location-name {
+  font-family: var(--header-font);
+  color: var(--primary-text);
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .location-desc {
-  color: var(--primary-text);
+  color: var(--secondary-text);
   margin-bottom: var(--spacing-sm);
 }
 
 .location-npcs {
-  margin-top: var(--spacing-sm);
-}
-
-.location-npcs strong {
-  color: var(--accent-text);
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
 }
 
 .npc-mini-link {
-  background-color: var(--accent-bg);
-  color: var(--primary-text);
-  border: 1px solid var(--border-color);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
+  background-color: var(--accent-text);
+  color: var(--primary-bg);
+  border: none;
+  padding: 0.25rem var(--spacing-sm);
+  border-radius: 12px;
   font-size: 0.8rem;
   cursor: pointer;
-  margin-left: var(--spacing-sm);
-  transition: all var(--transition-fast);
+  transition: all var(--transition-normal);
 }
 
 .npc-mini-link:hover {
-  background-color: var(--accent-text);
-  color: var(--primary-bg);
+  background-color: var(--warning-text);
+  transform: translateY(-1px);
 }
 
 /* Key NPCs Section */
@@ -206,7 +301,8 @@
 }
 
 .key-npcs-list {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-sm);
 }
 
@@ -222,37 +318,35 @@
 }
 
 .npc-link {
-  width: 100%;
-  background: none;
-  border: none;
+  background-color: var(--secondary-bg);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
   padding: var(--spacing-md);
-  text-align: left;
   cursor: pointer;
+  transition: all var(--transition-normal);
+  text-align: left;
   color: var(--primary-text);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  font-family: var(--body-font);
+  width: 100%;
 }
 
-.npc-name {
-  color: var(--accent-text);
-  font-weight: 600;
-  font-size: 1.1rem;
+.npc-link:hover {
+  border-color: var(--accent-text);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 .npc-role-small {
+  display: block;
   color: var(--secondary-text);
   font-size: 0.9rem;
   font-style: italic;
+  margin-top: 0.25rem;
 }
 
 /* Dark Secrets Section */
 .dark-secrets {
-  background-color: rgba(198, 45, 66, 0.1);
-  border: 2px solid var(--danger-text);
-  border-radius: var(--border-radius-md);
-  padding: var(--spacing-lg);
-  margin-top: var(--spacing-xl);
+  border-left: 4px solid var(--danger-text);
 }
 
 .dark-secrets h4 {

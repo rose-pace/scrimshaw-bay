@@ -6,7 +6,8 @@
       "@/components/*": ["src/components/*"],
       "@/services/*": ["src/services/*"],
       "@/utils/*": ["src/utils/*"],
-      "@/data/*": ["data/*"]
+      "@/data/*": ["data/*"],
+      "data": ["data/data.js"]
     },
     "module": "ES2022",
     "target": "ES2022"

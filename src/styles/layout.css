@@ -98,6 +98,35 @@
   margin-bottom: var(--spacing-md);
 }
 
+/* Quick Stats Grid */
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.stat-card {
+  background-color: var(--card-bg);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+  text-align: center;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.stat-card h3 {
+  font-family: var(--header-font);
+  color: var(--accent-text);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.1rem;
+}
+
+.stat-card p {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
 /* Content Grid */
 .content-grid {
   display: grid;
@@ -105,25 +134,88 @@
   gap: var(--spacing-xl);
 }
 
-/* Cards */
-.info-card, .threat-card, .npc-card, .event-card {
+.info-card {
   background-color: var(--card-bg);
   padding: var(--spacing-xl);
   border-radius: var(--border-radius-md);
   border: 1px solid var(--border-color);
   box-shadow: 0 4px 12px var(--shadow-color);
-  transition: transform var(--transition-fast);
 }
 
-.info-card:hover, .threat-card:hover, .npc-card:hover {
-  transform: translateY(-2px);
-}
-
-.info-card h3, .threat-card h3, .npc-card h3, .event-card h3 {
+.info-card h3 {
   font-family: var(--header-font);
   color: var(--accent-text);
   margin-bottom: var(--spacing-md);
   font-size: 1.5rem;
+}
+
+.info-card ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.info-card li {
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.info-card li:last-child {
+  border-bottom: none;
+}
+
+.info-card li::before {
+  content: "▸ ";
+  color: var(--accent-text);
+  font-weight: bold;
+}
+
+/* Timeline Styles */
+.timeline {
+  border-left: 3px solid var(--accent-text);
+  padding-left: var(--spacing-md);
+}
+
+.timeline-item {
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  background-color: var(--accent-text);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.timeline-item:last-child {
+  border-bottom: none;
+}
+
+/* Lore Grid */
+.lore-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.lore-card {
+  background-color: var(--card-bg);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.lore-card h3 {
+  font-family: var(--header-font);
+  color: var(--accent-text);
+  margin-bottom: var(--spacing-md);
 }
 
 /* Settlement Cards */
@@ -172,6 +264,13 @@
   font-size: 0.8rem;
   font-weight: 600;
   display: inline-block;
+}
+
+/* NPC Grid */
+.npc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
 }
 
 /* Modal Prevention */

@@ -47,12 +47,7 @@ src/
       <componentName>.css
       <componentName>.test.js
   services/
-  repositories/
   styles/
-    variables.scss
-    mixins.scss
-    index.scss
-  types/
   utils/
   index.js
 data/

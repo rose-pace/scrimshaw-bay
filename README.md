@@ -81,14 +81,17 @@ scrimshaw-bay/
 
 ### Architecture Migration
 This application was recently refactored from a monolithic structure to a modular architecture. The migration preserved all original functionality while adding:
-- **ES6 Module System**: Clean import/export structure
+- **ES6 Module System**: Clean import/export structure with import maps
 - **Component-Based Design**: Reusable, self-contained UI components
 - **Service Layer**: Centralized business logic and data access
 - **Modular CSS**: Component-specific styles with CSS custom properties
 - **Enhanced Accessibility**: Keyboard navigation and ARIA support
 - **Error Handling**: Comprehensive error boundaries and logging
 
-See `ARCHITECTURE_COMPLETE.md` for detailed migration information.
+Both the JavaScript and CSS architectures have been fully migrated to modern, modular patterns.
+
+See `ARCHITECTURE_COMPLETE.md` for JavaScript migration details.
+See `CSS_MIGRATION_COMPLETE.md` for CSS migration details.
 
 ## Development
 
