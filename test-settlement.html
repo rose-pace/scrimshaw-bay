@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settlement Debug Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .button { padding: 10px 20px; margin: 5px; background: #007acc; color: white; border: none; cursor: pointer; }
+        .result { background: #f9f9f9; padding: 10px; margin: 10px 0; border-left: 4px solid #007acc; }
+        .error { border-left-color: #e74c3c; }
+        .success { border-left-color: #27ae60; }
+    </style>
+</head>
+<body>
+    <h1>Settlement Debug Test</h1>
+    
+    <div class="test-section">
+        <h3>Step 1: Test Data Loading</h3>
+        <button class="button" onclick="testDataLoading()">Test Data Loading</button>
+        <div id="data-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Step 2: Test Settlement Card Creation</h3>
+        <button class="button" onclick="testSettlementCard()">Test Settlement Card</button>
+        <div id="card-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Step 3: Test Settlement Detail View</h3>
+        <button class="button" onclick="testSettlementDetail()">Test Settlement Detail</button>
+        <div id="detail-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Step 4: Test Navigation</h3>
+        <button class="button" onclick="testNavigation()">Test Navigation</button>
+        <div id="nav-result" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Test Area</h3>
+        <div id="test-area" style="min-height: 200px; border: 1px solid #ddd; padding: 10px;"></div>
+    </div>
+
+    <script type="module">
+        import { DataService } from './src/services/data-service.js';
+        import { SettlementCard } from './src/components/settlement-card/settlement-card.js';
+        import { Navigation } from './src/components/navigation/navigation.js';
+        
+        let dataService, settlementCard, navigation;
+        
+        window.testDataLoading = function() {
+            console.log('=== Testing Data Loading ===');
+            const resultDiv = document.getElementById('data-result');
+            
+            try {
+                dataService = new DataService();
+                const settlements = dataService.getAllSettlements();
+                const millhaven = dataService.getSettlement('millhaven');
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <strong>Success!</strong><br>
+                        Settlements loaded: ${settlements.length}<br>
+                        Millhaven found: ${millhaven ? millhaven.name : 'No'}<br>
+                        Available settlements: ${settlements.map(s => s.key).join(', ')}
+                    </div>
+                `;
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> ${error.message}
+                    </div>
+                `;
+                resultDiv.className = 'result error';
+                console.error('Data loading error:', error);
+            }
+        };
+        
+        window.testSettlementCard = function() {
+            console.log('=== Testing Settlement Card ===');
+            const resultDiv = document.getElementById('card-result');
+            
+            try {
+                if (!dataService) {
+                    dataService = new DataService();
+                }
+                
+                settlementCard = new SettlementCard();
+                const settlement = dataService.getSettlement('millhaven');
+                
+                if (settlement) {
+                    const card = settlementCard.create(settlement, 'millhaven');
+                    document.getElementById('test-area').innerHTML = '';
+                    document.getElementById('test-area').appendChild(card);
+                    
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <strong>Success!</strong> Settlement card created for ${settlement.name}
+                        </div>
+                    `;
+                    resultDiv.className = 'result success';
+                } else {
+                    throw new Error('Settlement not found');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> ${error.message}
+                    </div>
+                `;
+                resultDiv.className = 'result error';
+                console.error('Settlement card error:', error);
+            }
+        };
+        
+        window.testSettlementDetail = function() {
+            console.log('=== Testing Settlement Detail ===');
+            const resultDiv = document.getElementById('detail-result');
+            
+            try {
+                if (!dataService) {
+                    dataService = new DataService();
+                }
+                if (!settlementCard) {
+                    settlementCard = new SettlementCard();
+                }
+                
+                const detailView = settlementCard.createDetailView('millhaven');
+                document.getElementById('test-area').innerHTML = '';
+                document.getElementById('test-area').appendChild(detailView);
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <strong>Success!</strong> Settlement detail view created
+                    </div>
+                `;
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> ${error.message}
+                    </div>
+                `;
+                resultDiv.className = 'result error';
+                console.error('Settlement detail error:', error);
+            }
+        };
+        
+        window.testNavigation = function() {
+            console.log('=== Testing Navigation ===');
+            const resultDiv = document.getElementById('nav-result');
+            
+            try {
+                navigation = new Navigation();
+                
+                // Test section navigation
+                navigation.showSection('settlements');
+                
+                // Test settlement navigation
+                setTimeout(() => {
+                    navigation.showSettlement('millhaven');
+                }, 100);
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <strong>Success!</strong> Navigation test complete - check console for debug output
+                    </div>
+                `;
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> ${error.message}
+                    </div>
+                `;
+                resultDiv.className = 'result error';
+                console.error('Navigation error:', error);
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Test - Scrimshaw Bay</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug-info { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .button { padding: 10px 20px; margin: 5px; background: #007acc; color: white; border: none; cursor: pointer; }
+        .button:hover { background: #005a9e; }
+    </style>
+</head>
+<body>
+    <h1>Debug Test Page</h1>
+    <div class="debug-info">
+        <h3>Debug Instructions:</h3>
+        <p>1. Open browser developer tools (F12)</p>
+        <p>2. Go to Console tab</p>
+        <p>3. Click the buttons below to test navigation</p>
+        <p>4. Check console for debug messages</p>
+    </div>
+    
+    <button class="button" onclick="testSettlementsSection()">Test Settlements Section</button>
+    <button class="button" onclick="testSettlementNavigation()">Test Settlement Navigation</button>
+    <button class="button" onclick="testDirectSettlement()">Test Direct Settlement</button>
+    
+    <div id="results"></div>
+
+    <script type="module">
+        import { ScrimshawBayApp } from './src/app.js';
+        
+        window.app = new ScrimshawBayApp();
+        
+        window.testSettlementsSection = function() {
+            console.log('=== Testing Settlements Section ===');
+            const results = document.getElementById('results');
+            results.innerHTML = '<p>Testing settlements section - check console for debug output</p>';
+            
+            // Navigate to settlements section
+            window.app.navigation.showSection('settlements');
+        };
+        
+        window.testSettlementNavigation = function() {
+            console.log('=== Testing Settlement Navigation ===');
+            const results = document.getElementById('results');
+            results.innerHTML = '<p>Testing settlement navigation - check console for debug output</p>';
+            
+            // Navigate to a specific settlement
+            window.app.navigation.showSettlement('millhaven');
+        };
+        
+        window.testDirectSettlement = function() {
+            console.log('=== Testing Direct Settlement ===');
+            const results = document.getElementById('results');
+            results.innerHTML = '<p>Testing direct settlement rendering - check console for debug output</p>';
+            
+            // Directly call renderSettlementDetails
+            window.app.renderSettlementDetails('millhaven');
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GM Section Context Test</title>
+    <link rel="stylesheet" href="src/styles/index.css">
+    <style>
+        body { margin: 20px; font-family: Arial, sans-serif; }
+        .test-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+        .test-panel { border: 2px solid #ccc; padding: 20px; }
+        .test-header { background: #e0e0e0; padding: 10px; margin: -20px -20px 20px -20px; font-weight: bold; }
+        .measurement { background: #ffeb3b; padding: 5px; margin: 5px 0; font-size: 12px; }
+        .content-before { background: #e8f5e8; padding: 15px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>GM Section Margin Context Test</h1>
+    <p>This test verifies that GM sections have correct spacing in different contexts.</p>
+    
+    <div class="test-container">
+        <!-- Settlement Context -->
+        <div class="test-panel">
+            <div class="test-header">Settlement Detail Context</div>
+            <div class="measurement">Expected: NO gap between content and GM section</div>
+            
+            <div class="settlement-detail">
+                <div class="content-before">
+                    <h4>Previous Settlement Content</h4>
+                    <p>This represents settlement content that appears before GM sections.</p>
+                </div>
+                
+                <div class="dark-secrets gm-sections">
+                    <div class="gm-header">
+                        <h3>🎲 GM Information</h3>
+                        <p class="gm-note">The following sections contain GM-only information</p>
+                    </div>
+                    <div class="gm-section">
+                        <h4>Dark Secrets:</h4>
+                        <ul>
+                            <li>Secret 1: Settlement specific secret</li>
+                            <li>Secret 2: Another settlement secret</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal Context -->
+        <div class="test-panel">
+            <div class="test-header">Modal Context (Simulated)</div>
+            <div class="measurement">Expected: Gap between content and GM section</div>
+            
+            <div class="modal-content">
+                <div class="content-before">
+                    <h4>Previous Modal Content</h4>
+                    <p>This represents modal content that appears before GM sections.</p>
+                </div>
+                
+                <div class="dark-secrets gm-sections">
+                    <div class="gm-header">
+                        <h3>🎲 GM Information</h3>
+                        <p class="gm-note">The following sections contain GM-only information</p>
+                    </div>
+                    <div class="gm-section">
+                        <h4>Dark Secrets:</h4>
+                        <ul>
+                            <li>Secret 1: Modal specific secret</li>
+                            <li>Secret 2: Another modal secret</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="margin-top: 40px;">
+        <h3>Interactive Tests</h3>
+        <button onclick="testSettlementModal()" style="padding: 10px 20px; margin: 5px;">Test Settlement in Modal</button>
+        <button onclick="measureSpacing()" style="padding: 10px 20px; margin: 5px;">Measure Spacing</button>
+        <div id="test-results" style="margin-top: 20px; padding: 15px; background: #f0f0f0;"></div>
+    </div>
+
+    <script type="module">
+        import { Modal } from './src/components/modal/modal.js';
+        import { SettlementCard } from './src/components/settlement-card/settlement-card.js';
+        import { DataService } from './src/services/data-service.js';
+        
+        window.testSettlementModal = function() {
+            try {
+                const modal = new Modal();
+                const dataService = new DataService();
+                const settlement = dataService.getSettlement('millhaven');
+                
+                if (settlement) {
+                    // This would normally be handled by the modal service
+                    const resultsDiv = document.getElementById('test-results');
+                    resultsDiv.innerHTML = `<p>✅ Settlement modal test initiated for ${settlement.name}</p>`;
+                } else {
+                    throw new Error('Settlement not found');
+                }
+            } catch (error) {
+                document.getElementById('test-results').innerHTML = `<p style="color: red;">❌ Error: ${error.message}</p>`;
+            }
+        };
+        
+        window.measureSpacing = function() {
+            const settlementGM = document.querySelector('.settlement-detail .gm-sections');
+            const modalGM = document.querySelector('.modal-content .gm-sections');
+            
+            if (settlementGM && modalGM) {
+                const settlementStyle = window.getComputedStyle(settlementGM);
+                const modalStyle = window.getComputedStyle(modalGM);
+                
+                const settlementMargin = settlementStyle.marginTop;
+                const modalMargin = modalStyle.marginTop;
+                
+                const results = document.getElementById('test-results');
+                results.innerHTML = `
+                    <h4>Spacing Measurements:</h4>
+                    <p><strong>Settlement Context margin-top:</strong> ${settlementMargin}</p>
+                    <p><strong>Modal Context margin-top:</strong> ${modalMargin}</p>
+                    <p><strong>Expected:</strong> Settlement = 0px, Modal > 0px</p>
+                    <p><strong>Status:</strong> ${settlementMargin === '0px' && modalMargin !== '0px' ? '✅ Correct' : '❌ Needs fixing'}</p>
+                `;
+            } else {
+                document.getElementById('test-results').innerHTML = '<p style="color: red;">❌ Could not find GM sections to measure</p>';
+            }
+        };
+    </script>
+</body>
+</html>

@@ -122,16 +122,16 @@ export class ScrimshawBayApp {  constructor() {
 
   /**
    * Setup navigation listeners
-   */
-  setupNavigationListeners() {
+   */  setupNavigationListeners() {
     const cleanup = this.navigation.addNavigationChangeListener((type, value) => {
       if (type === 'section') {
         this.handleSectionChange(value);
+      } else if (type === 'settlement') {
+        this.renderSettlementDetails(value);
       }
     });
     this.cleanupFunctions.push(cleanup);
-  }
-  /**
+  }  /**
    * Handle section changes
    * @param {string} sectionName - Section that was changed to
    */
@@ -148,6 +148,10 @@ export class ScrimshawBayApp {  constructor() {
         break;
       case 'overview':
         this.renderOverview();
+        break;
+      case 'settlements':
+        // Load default settlement (first active settlement button)
+        this.loadDefaultSettlement();
         break;
       default:
         break;
@@ -233,15 +237,22 @@ export class ScrimshawBayApp {  constructor() {
   /**
    * Render settlement details
    * @param {string} settlementKey - Settlement key
-   */
-  renderSettlementDetails(settlementKey) {
+   */  renderSettlementDetails(settlementKey) {
     const settlementDetails = safeQuerySelector('#settlement-details');
-    if (!settlementDetails) return;
+    if (!settlementDetails) {
+      console.error('settlement-details element not found');
+      return;
+    }
 
     clearElement(settlementDetails);
 
     const detailView = this.settlementCard.createDetailView(settlementKey);
-    settlementDetails.appendChild(detailView);
+    
+    if (detailView) {
+      settlementDetails.appendChild(detailView);
+    } else {
+      console.error('Failed to create detail view for settlement:', settlementKey);
+    }
   }
   /**
    * Create NPC card element
@@ -261,6 +272,16 @@ export class ScrimshawBayApp {  constructor() {
       <button class="npc-link" data-npc="${npc.key}">View Details</button>
     `;
     return card;
+  }  /**
+   * Load default settlement when settlements section is first shown
+   */
+  loadDefaultSettlement() {
+    // Find the active settlement button
+    const activeSettlementBtn = safeQuerySelector('.settlement-nav-btn.active');
+    if (activeSettlementBtn) {
+      const defaultSettlement = activeSettlementBtn.dataset.settlement;
+      this.renderSettlementDetails(defaultSettlement);
+    }
   }
 
   /**

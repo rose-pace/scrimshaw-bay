@@ -22,8 +22,7 @@ export class DataService {
    * Gets settlement data by key
    * @param {string} settlementKey - Settlement identifier
    * @returns {Object|null} Settlement data or null if not found
-   */
-  getSettlement(settlementKey) {
+   */  getSettlement(settlementKey) {
     return this.data.settlements?.[settlementKey] || null;
   }
 

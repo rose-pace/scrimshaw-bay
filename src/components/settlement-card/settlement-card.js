@@ -59,8 +59,7 @@ export class SettlementCard {
    * Create settlement detail view
    * @param {string} settlementKey - Settlement key
    * @returns {HTMLElement} Settlement detail element
-   */
-  createDetailView(settlementKey) {
+   */  createDetailView(settlementKey) {
     const settlement = this.dataService.getSettlement(settlementKey);
     if (!settlement) {
       const errorDiv = document.createElement('div');
@@ -70,12 +69,10 @@ export class SettlementCard {
     }
 
     const container = document.createElement('div');
-    container.className = 'settlement-detail';
-
-    // Header using template
+    container.className = 'settlement-detail';// Header using template
     const headerFragment = createSettlementDetailHeader(settlement);
     const header = document.createElement('div');
-    header.className = 'settlement-header';
+    header.className = 'settlement-detail-header';
     header.appendChild(headerFragment);
 
     // Description

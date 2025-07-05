@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GM Information Margin Test</title>
+    <link rel="stylesheet" href="src/styles/index.css">
+    <style>
+        body { margin: 20px; font-family: Arial, sans-serif; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; background: #f9f9f9; }
+        .test-header { background: #e0e0e0; padding: 10px; margin: -20px -20px 20px -20px; }
+    </style>
+</head>
+<body>
+    <h1>GM Information Section Margin Test</h1>
+    
+    <div class="test-section">
+        <div class="test-header">
+            <h3>Test 1: GM Section in Settlement Detail Context</h3>
+            <p>This should have NO margin-top gap</p>
+        </div>
+        
+        <div class="settlement-detail">
+            <div class="dark-secrets gm-sections">
+                <div class="gm-header">
+                    <h3>🎲 GM Information</h3>
+                    <p class="gm-note">The following sections contain GM-only information</p>
+                </div>
+                <div class="gm-section">
+                    <h4>Dark Secrets:</h4>
+                    <ul>
+                        <li>The harbor master takes bribes from smugglers</li>
+                        <li>Strange lights appear in the fog on moonless nights</li>
+                        <li>The old lighthouse keeper hasn't been seen in weeks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-header">
+            <h3>Test 2: GM Section in Modal Context (Simulation)</h3>
+            <p>This should have margin-top gap for modal separation</p>
+        </div>
+        
+        <div class="modal-content">
+            <div style="background: #f0f0f0; padding: 15px; margin-bottom: 10px;">
+                <h4>Some Modal Content Above</h4>
+                <p>This represents content that would appear before GM sections in a modal.</p>
+            </div>
+            
+            <div class="dark-secrets gm-sections">
+                <div class="gm-header">
+                    <h3>🎲 GM Information</h3>
+                    <p class="gm-note">The following sections contain GM-only information</p>
+                </div>
+                <div class="gm-section">
+                    <h4>Dark Secrets:</h4>
+                    <ul>
+                        <li>The baron has made a deal with sea demons</li>
+                        <li>The town well connects to an underground temple</li>
+                        <li>Fishermen have been disappearing at high tide</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-header">
+            <h3>Test 3: Settlement Content with GM Section</h3>
+            <p>Full settlement content test</p>
+        </div>
+        
+        <div class="settlement-detail">
+            <div class="settlement-content">
+                <div class="locations-section" style="background: #f5f5f5; padding: 15px; margin-bottom: 20px;">
+                    <h4>Notable Locations</h4>
+                    <p>Some location content would go here...</p>
+                </div>
+                
+                <div class="dark-secrets gm-sections">
+                    <div class="gm-header">
+                        <h3>🎲 GM Information</h3>
+                        <p class="gm-note">The following sections contain GM-only information</p>
+                    </div>
+                    <div class="gm-section">
+                        <h4>Dark Secrets:</h4>
+                        <ul>
+                            <li>The town's prosperity comes from forbidden trade</li>
+                            <li>The mayor is actually a shapeshifter</li>
+                            <li>Children born here develop strange abilities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Test settlement card creation
+        import { SettlementCard } from './src/components/settlement-card/settlement-card.js';
+        import { DataService } from './src/services/data-service.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const dataService = new DataService();
+                const settlementCard = new SettlementCard();
+                
+                // Test with actual settlement data
+                const settlement = dataService.getSettlement('millhaven');
+                if (settlement && settlement.darkSecrets) {
+                    const container = document.createElement('div');
+                    container.innerHTML = '<h3>Test 4: Real Settlement GM Section</h3>';
+                    
+                    const settlementDetail = document.createElement('div');
+                    settlementDetail.className = 'settlement-detail';
+                    
+                    const secretsSection = settlementCard.createSecretsSection(settlement.darkSecrets);
+                    settlementDetail.appendChild(secretsSection);
+                    container.appendChild(settlementDetail);
+                    
+                    document.body.appendChild(container);
+                }
+            } catch (error) {
+                console.error('Test error:', error);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -95,7 +95,7 @@
                     <h3>Settlements</h3>
                     <div class="settlement-grid">
                         <button class="settlement-card" data-settlement="millhaven">
-                            <div class="settlement-header">
+                            <div class="settlement-card-header">
                                 <h4 class="settlement-name">Millhaven</h4>
                                 <p class="settlement-type">Former Regional Hub</p>
                             </div>
@@ -103,7 +103,7 @@
                             <span class="population" title="Population: ~800">~800</span>
                         </button>
                         <button class="settlement-card" data-settlement="netherwick">
-                            <div class="settlement-header">
+                            <div class="settlement-card-header">
                                 <h4 class="settlement-name">Netherwick</h4>
                                 <p class="settlement-type">Fishing Village</p>
                             </div>
@@ -111,7 +111,7 @@
                             <span class="population" title="Population: ~150">~150</span>
                         </button>
                         <button class="settlement-card" data-settlement="ashford">
-                            <div class="settlement-header">
+                            <div class="settlement-card-header">
                                 <h4 class="settlement-name">Ashford</h4>
                                 <p class="settlement-type">Company Town</p>
                             </div>
@@ -119,7 +119,7 @@
                             <span class="population" title="Population: ~200">~200</span>
                         </button>
                         <button class="settlement-card" data-settlement="thornwick">
-                            <div class="settlement-header">
+                            <div class="settlement-card-header">
                                 <h4 class="settlement-name">Thornwick Isle</h4>
                                 <p class="settlement-type">Lord's Estate</p>
                             </div>
@@ -127,7 +127,7 @@
                             <span class="population" title="Population: ~50">~50</span>
                         </button>
                         <button class="settlement-card" data-settlement="fenway">
-                            <div class="settlement-header">
+                            <div class="settlement-card-header">
                                 <h4 class="settlement-name">Fenway</h4>
                                 <p class="settlement-type">Canal Village</p>
                             </div>
@@ -144,23 +144,23 @@
             <div class="section-header">
                 <h2>Settlements</h2>
                 <div class="settlement-selector">
-                    <button class="settlement-btn active" data-settlement="millhaven">
+                    <button class="settlement-nav-btn active" data-settlement="millhaven">
                         <span class="settlement-name">Millhaven</span>
                         <span class="settlement-type">Former Regional Hub</span>
                     </button>
-                    <button class="settlement-btn" data-settlement="netherwick">
+                    <button class="settlement-nav-btn" data-settlement="netherwick">
                         <span class="settlement-name">Netherwick</span>
                         <span class="settlement-type">Fishing Village</span>
                     </button>
-                    <button class="settlement-btn" data-settlement="ashford">
+                    <button class="settlement-nav-btn" data-settlement="ashford">
                         <span class="settlement-name">Ashford</span>
                         <span class="settlement-type">Company Town</span>
                     </button>
-                    <button class="settlement-btn" data-settlement="thornwick">
+                    <button class="settlement-nav-btn" data-settlement="thornwick">
                         <span class="settlement-name">Thornwick Isle</span>
                         <span class="settlement-type">Lord's Estate</span>
                     </button>
-                    <button class="settlement-btn" data-settlement="fenway">
+                    <button class="settlement-nav-btn" data-settlement="fenway">
                         <span class="settlement-name">Fenway</span>
                         <span class="settlement-type">Canal Village</span>
                     </button>
@@ -273,7 +273,7 @@
     <!-- HTML Templates -->
     <template id="settlement-card-template">
         <div class="settlement-card" role="button" tabindex="0">
-            <div class="settlement-header">
+            <div class="settlement-card-header">
                 <h4 class="settlement-name" data-slot="name">Settlement Name</h4>
                 <p class="settlement-type" data-slot="type">Settlement Type</p>
             </div>

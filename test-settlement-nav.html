@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settlement Navigation Test</title>
+    <link rel="stylesheet" href="src/styles/index.css">
+    <style>
+        body { margin: 20px; font-family: Arial, sans-serif; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; }
+        .test-buttons { margin: 10px 0; }
+        .test-btn { padding: 10px 20px; margin: 5px; background: #007acc; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Settlement Navigation Button Test</h1>
+    
+    <div class="test-section">
+        <h3>Settlement Navigation Buttons</h3>
+        <p>These buttons should have proper styling with correct text colors:</p>
+        
+        <div class="settlement-selector">
+            <button class="settlement-nav-btn active" data-settlement="millhaven">
+                <span class="settlement-name">Millhaven</span>
+                <span class="settlement-type">Former Regional Hub</span>
+            </button>
+            <button class="settlement-nav-btn" data-settlement="netherwick">
+                <span class="settlement-name">Netherwick</span>
+                <span class="settlement-type">Fishing Village</span>
+            </button>
+            <button class="settlement-nav-btn" data-settlement="ashford">
+                <span class="settlement-name">Ashford</span>
+                <span class="settlement-type">Company Town</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h3>Test Controls</h3>
+        <div class="test-buttons">
+            <button class="test-btn" onclick="testActivation()">Test Button Activation</button>
+            <button class="test-btn" onclick="testStyles()">Check Current Styles</button>
+            <button class="test-btn" onclick="testNavigation()">Test Navigation</button>
+        </div>
+        <div id="results"></div>
+    </div>
+
+    <script type="module">
+        import { Navigation } from './src/components/navigation/navigation.js';
+        
+        let navigation;
+        
+        window.testActivation = function() {
+            const buttons = document.querySelectorAll('.settlement-nav-btn');
+            const results = document.getElementById('results');
+            
+            buttons.forEach((btn, index) => {
+                setTimeout(() => {
+                    buttons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    results.innerHTML = `<p>Activated: ${btn.dataset.settlement}</p>`;
+                }, index * 1000);
+            });
+        };
+        
+        window.testStyles = function() {
+            const buttons = document.querySelectorAll('.settlement-nav-btn');
+            const results = document.getElementById('results');
+            
+            let styleInfo = '<h4>Current Button Styles:</h4><ul>';
+            buttons.forEach(btn => {
+                const styles = window.getComputedStyle(btn);
+                const nameEl = btn.querySelector('.settlement-name');
+                const typeEl = btn.querySelector('.settlement-type');
+                
+                styleInfo += `<li>
+                    <strong>${btn.dataset.settlement}:</strong><br>
+                    Button BG: ${styles.backgroundColor}<br>
+                    Button Color: ${styles.color}<br>
+                    Name Color: ${window.getComputedStyle(nameEl).color}<br>
+                    Type Color: ${window.getComputedStyle(typeEl).color}
+                </li>`;
+            });
+            styleInfo += '</ul>';
+            
+            results.innerHTML = styleInfo;
+        };
+        
+        window.testNavigation = function() {
+            const results = document.getElementById('results');
+            
+            try {
+                navigation = new Navigation();
+                
+                // Test showing different settlements
+                navigation.showSettlement('netherwick');
+                
+                setTimeout(() => {
+                    navigation.showSettlement('ashford');
+                }, 1000);
+                
+                setTimeout(() => {
+                    navigation.showSettlement('millhaven');
+                }, 2000);
+                
+                results.innerHTML = '<p>Navigation test running - watch button activations</p>';
+            } catch (error) {
+                results.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        };
+    </script>
+</body>
+</html>

@@ -35,12 +35,11 @@ export class Navigation {
       this.cleanupFunctions.push(cleanup);
     });
   }
-
   /**
    * Setup settlement navigation
    */
   setupSettlementNavigation() {
-    const settlementButtons = safeQuerySelectorAll('.settlement-btn');
+    const settlementButtons = safeQuerySelectorAll('.settlement-nav-btn');
     
     settlementButtons.forEach(btn => {
       const cleanup = addEventListenerWithCleanup(btn, 'click', (e) => {
@@ -84,15 +83,13 @@ export class Navigation {
 
     // Dispatch custom event for section change
     this.dispatchSectionChangeEvent(sectionName);
-  }
-
-  /**
+  }  /**
    * Show a settlement within the settlements section
    * @param {string} settlementName - Settlement to show
    */
   showSettlement(settlementName) {
     // Update settlement buttons
-    const settlementButtons = safeQuerySelectorAll('.settlement-btn');
+    const settlementButtons = safeQuerySelectorAll('.settlement-nav-btn');
     settlementButtons.forEach(btn => {
       btn.classList.remove('active');
       if (btn.dataset.settlement === settlementName) {
