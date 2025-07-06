@@ -33,11 +33,13 @@ export function cloneTemplate(templateId, data = {}, options = {}) {
         } else {
           element.setAttribute(attrName, value);
         }
-      }
-        // Set the text content or innerHTML
+      }      // Set the text content or innerHTML
       if (typeof value === 'string' || typeof value === 'number') {
         // Check if this slot expects HTML content
-        if (slotName === 'secretsList' || slotName === 'motivationsList' || slotName === 'abilitiesList') {
+        if (slotName === 'secretsList' || slotName === 'motivationsList' || slotName === 'abilitiesList' ||
+            slotName === 'outcomesList' || slotName === 'hooksList' || slotName === 'ritualList' || 
+            slotName === 'cluesList' || slotName === 'npcLinks' || slotName === 'locationLinks' || 
+            slotName === 'threatLinks') {
           element.innerHTML = value;
         } else {
           element.textContent = value;
@@ -60,6 +62,30 @@ export function cloneTemplate(templateId, data = {}, options = {}) {
       } else if (slotName === 'motivations' && value) {
         element.style.display = '';
       } else if (slotName === 'abilities' && value) {
+        element.style.display = '';
+      } else if (slotName === 'trigger' && value) {
+        element.style.display = '';
+      } else if (slotName === 'details' && value) {
+        element.style.display = '';
+      } else if (slotName === 'outcomes' && value) {
+        element.style.display = '';
+      } else if (slotName === 'hooks' && value) {
+        element.style.display = '';
+      } else if (slotName === 'ritual' && value) {
+        element.style.display = '';
+      } else if (slotName === 'creature' && value) {
+        element.style.display = '';
+      } else if (slotName === 'creatureMechanics' && value) {
+        element.style.display = '';
+      } else if (slotName === 'clues' && value) {
+        element.style.display = '';
+      } else if (slotName === 'network' && value) {
+        element.style.display = '';
+      } else if (slotName === 'relatedNpcs' && value) {
+        element.style.display = '';
+      } else if (slotName === 'relatedLocations' && value) {
+        element.style.display = '';
+      } else if (slotName === 'relatedThreats' && value) {
         element.style.display = '';
       } else if (slotName === 'danger' && value) {
         element.style.display = '';
@@ -226,12 +252,73 @@ export function createThreatCard(threat, threatKey) {
  * @returns {Element} Event card element
  */
 export function createEventCard(event, eventKey) {
+  // Prepare outcomes list
+  const outcomesList = event.outcomes ? 
+    event.outcomes.map(outcome => `<li>${outcome}</li>`).join('') : '';
+    
+  // Prepare hooks list
+  const hooksList = event.hooks ? 
+    event.hooks.map(hook => `<li>${hook}</li>`).join('') : '';
+    
+  // Prepare ritual requirements list
+  const ritualList = event.ritual_requirements ? 
+    event.ritual_requirements.map(req => `<li>${req}</li>`).join('') : '';
+    
+  // Prepare clues list (handling different clue structures)
+  let cluesList = '';
+  let cluesTitle = 'Clues:';
+  if (event.winter_court_clues) {
+    cluesTitle = 'Winter Court Clues:';
+    const clues = event.winter_court_clues;
+    cluesList = [
+      `<li><strong>Visual:</strong> ${clues.observation}</li>`,
+      `<li><strong>Magic:</strong> ${clues.arcana_check}</li>`,
+      `<li><strong>Implications:</strong> ${clues.implications}</li>`
+    ].join('');
+  }
+    // Prepare network links
+  const npcLinks = event.relatedNpcs ? 
+    event.relatedNpcs.map(npcKey => 
+      `<button class="network-link npc-link" data-npc="${npcKey}">${getNpcName(npcKey)}</button>`
+    ).join('') : '';
+    
+  const locationLinks = event.relatedLocations ? 
+    event.relatedLocations.map(locKey => 
+      `<button class="network-link location-link" data-location="${locKey}">${getLocationName(locKey)}</button>`
+    ).join('') : '';
+    
+  const threatLinks = event.relatedThreats ? 
+    event.relatedThreats.map(threatKey => 
+      `<button class="network-link threat-link" data-threat="${threatKey}">${getThreatName(threatKey)}</button>`
+    ).join('') : '';
+
   const cardFragment = cloneTemplate('event-card-template', {
     name: event.name,
-    type: event.type,
-    description: truncateDescription(event.description, 100),
-    frequency: event.frequency ? true : false,
-    frequencyLevel: event.frequency || 'Unknown'
+    description: event.description,
+    trigger: event.trigger ? true : false,
+    triggerText: event.trigger || '',
+    details: (event.outcomes || event.hooks || event.ritual_requirements || event.gulpgrin_details || event.winter_court_clues) ? true : false,
+    outcomes: event.outcomes && event.outcomes.length > 0,
+    outcomesList: outcomesList,
+    hooks: event.hooks && event.hooks.length > 0,
+    hooksList: hooksList,
+    ritual: event.ritual_requirements && event.ritual_requirements.length > 0,
+    ritualList: ritualList,
+    creature: event.gulpgrin_details ? true : false,
+    creatureName: event.gulpgrin_details ? event.gulpgrin_details.name + ':' : '',
+    creatureDescription: event.gulpgrin_details ? event.gulpgrin_details.description : '',
+    creatureMechanics: event.gulpgrin_details && event.gulpgrin_details.mechanics ? true : false,
+    mechanicsText: event.gulpgrin_details ? event.gulpgrin_details.mechanics : '',
+    clues: event.winter_court_clues ? true : false,
+    cluesTitle: cluesTitle,
+    cluesList: cluesList,
+    network: (event.relatedNpcs || event.relatedLocations || event.relatedThreats) ? true : false,
+    relatedNpcs: event.relatedNpcs && event.relatedNpcs.length > 0,
+    npcLinks: npcLinks,
+    relatedLocations: event.relatedLocations && event.relatedLocations.length > 0,
+    locationLinks: locationLinks,
+    relatedThreats: event.relatedThreats && event.relatedThreats.length > 0,
+    threatLinks: threatLinks
   }, {
     dataAttributes: {
       event: eventKey
@@ -265,4 +352,30 @@ function getNpcName(npcKey) {
     return npc ? npc.name : npcKey;
   }
   return npcKey; // Fallback
+}
+
+/**
+ * Helper function to get location name by accessing the data service
+ * @param {string} locationKey - Location key
+ * @returns {string} Location name
+ */
+function getLocationName(locationKey) {
+  if (typeof window !== 'undefined' && window.dataService) {
+    const location = window.dataService.getLocation(locationKey);
+    return location ? location.name : locationKey;
+  }
+  return locationKey; // Fallback
+}
+
+/**
+ * Helper function to get threat name by accessing the data service
+ * @param {string} threatKey - Threat key
+ * @returns {string} Threat name
+ */
+function getThreatName(threatKey) {
+  if (typeof window !== 'undefined' && window.dataService) {
+    const threat = window.dataService.getThreat(threatKey);
+    return threat ? threat.name : threatKey;
+  }
+  return threatKey; // Fallback
 }

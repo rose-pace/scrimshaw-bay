@@ -360,14 +360,54 @@
     </template>
 
     <template id="event-card-template">
-        <div class="event-card" role="button" tabindex="0">
-            <div class="event-header">
-                <h4 class="event-name" data-slot="name">Event Name</h4>
-                <p class="event-type" data-slot="type">Event Type</p>
+        <div class="event-card info-card" role="button" tabindex="0">
+            <h3 data-slot="name">Event Name</h3>
+            <p><strong>Description:</strong> <span data-slot="description">Event description...</span></p>
+            <p data-slot="trigger" style="display: none;"><strong>Trigger:</strong> <span data-slot="triggerText">Trigger text</span></p>
+            
+            <div class="event-details" data-slot="details" style="display: none;">
+                <div class="event-outcomes" data-slot="outcomes" style="display: none;">
+                    <h4>Possible Outcomes:</h4>
+                    <ul data-slot="outcomesList"></ul>
+                </div>
+                
+                <div class="event-hooks" data-slot="hooks" style="display: none;">
+                    <h4>Adventure Hooks:</h4>
+                    <ul data-slot="hooksList"></ul>
+                </div>
+                
+                <div class="event-ritual" data-slot="ritual" style="display: none;">
+                    <h4>Ritual Requirements:</h4>
+                    <ol data-slot="ritualList"></ol>
+                </div>
+                
+                <div class="event-creature" data-slot="creature" style="display: none;">
+                    <h4 data-slot="creatureName">Creature:</h4>
+                    <p data-slot="creatureDescription">Creature description</p>
+                    <p data-slot="creatureMechanics" style="display: none;"><strong>Mechanics:</strong> <span data-slot="mechanicsText">Mechanics</span></p>
+                </div>
+                
+                <div class="event-clues" data-slot="clues" style="display: none;">
+                    <h4 data-slot="cluesTitle">Clues:</h4>
+                    <ul data-slot="cluesList"></ul>
+                </div>
             </div>
-            <p class="event-description" data-slot="description">Event description...</p>
-            <div class="event-frequency" data-slot="frequency">
-                <span class="frequency-indicator" data-slot="frequencyLevel">Common</span>
+            
+            <div class="event-network" data-slot="network" style="display: none;">
+                <div class="network-section" data-slot="relatedNpcs" style="display: none;">
+                    <h4>🧙 Related NPCs:</h4>
+                    <div class="network-links" data-slot="npcLinks"></div>
+                </div>
+                
+                <div class="network-section" data-slot="relatedLocations" style="display: none;">
+                    <h4>📍 Related Locations:</h4>
+                    <div class="network-links" data-slot="locationLinks"></div>
+                </div>
+                
+                <div class="network-section" data-slot="relatedThreats" style="display: none;">
+                    <h4>⚠️ Related Threats:</h4>
+                    <div class="network-links" data-slot="threatLinks"></div>
+                </div>
             </div>
         </div>
     </template>
