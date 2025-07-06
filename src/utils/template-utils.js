@@ -73,6 +73,8 @@ export function cloneTemplate(templateId, data = {}, options = {}) {
         element.style.display = '';
       } else if (slotName === 'details' && value) {
         element.style.display = '';
+      } else if (slotName === 'gmInfo' && value) {
+        element.style.display = '';
       } else if (slotName === 'outcomes' && value) {
         element.style.display = '';
       } else if (slotName === 'hooks' && value) {
@@ -343,7 +345,8 @@ export function createEventCard(event, eventKey) {
     description: event.description,
     trigger: event.trigger ? true : false,
     triggerText: event.trigger || '',
-    details: (event.outcomes || event.hooks || event.ritual_requirements || event.gulpgrin_details || event.winter_court_clues) ? true : false,
+    details: (event.outcomes || event.hooks) ? true : false,
+    gmInfo: (event.ritual_requirements || event.gulpgrin_details || event.winter_court_clues) ? true : false,
     outcomes: event.outcomes && event.outcomes.length > 0,
     outcomesList: outcomesList,
     hooks: event.hooks && event.hooks.length > 0,
