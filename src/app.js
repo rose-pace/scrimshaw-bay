@@ -213,7 +213,7 @@ export class ScrimshawBayApp {  constructor() {
     if (!threatsSection) return;
 
     // Clear existing dynamic content but keep static threat cards
-    const dynamicCards = threatsSection.querySelectorAll('[data-threat]');
+    const dynamicCards = threatsSection.querySelectorAll('.threat-card');
     dynamicCards.forEach(card => {
       if (!card.querySelector('.details-btn[data-threat]')) {
         card.remove();
