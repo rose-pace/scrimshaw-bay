@@ -37,23 +37,10 @@
 }
 
 .event-details {
-  background-color: var(--secondary-bg);
-  border-radius: var(--border-radius-sm);
-  padding: var(--spacing-md);
-  margin-bottom: var(--spacing-md);
-  border-left: 3px solid var(--accent-text);
-}
-
-.event-details h4 {
-  color: var(--accent-text);
-  font-family: var(--header-font);
-  font-size: 1.1rem;
-  margin-bottom: var(--spacing-sm);
-}
-
-.event-details p {
-  color: var(--primary-text);
-  margin-bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .event-outcomes,
@@ -63,12 +50,13 @@
 
 .event-outcomes h4,
 .event-hooks h4 {
-  color: var(--warning-text);
+  color: var(--accent-text);
   font-family: var(--header-font);
   font-size: 1.1rem;
   margin-bottom: var(--spacing-sm);
 }
 
+/* 
 .event-outcomes ul,
 .event-hooks ul {
   list-style: none;
@@ -88,7 +76,7 @@
 .event-outcomes li:last-child,
 .event-hooks li:last-child {
   margin-bottom: 0;
-}
+} */
 
 /* Event Encounters */
 .event-encounters {
