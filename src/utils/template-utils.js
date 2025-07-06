@@ -39,7 +39,11 @@ export function cloneTemplate(templateId, data = {}, options = {}) {
         if (slotName === 'secretsList' || slotName === 'motivationsList' || slotName === 'abilitiesList' ||
             slotName === 'outcomesList' || slotName === 'hooksList' || slotName === 'ritualList' || 
             slotName === 'cluesList' || slotName === 'npcLinks' || slotName === 'locationLinks' || 
-            slotName === 'threatLinks') {
+            slotName === 'threatLinks' || slotName === 'servicesList' || slotName === 'knowledgeList' ||
+            slotName === 'effectsList' || slotName === 'creatureList' || slotName === 'encounterNotesList' ||
+            slotName === 'processList' || slotName === 'stagesList' || slotName === 'weaknessesList' ||
+            slotName === 'featuresList' || slotName === 'hazardsList' || slotName === 'eventLinks' ||
+            slotName === 'settlementLinks') {
           element.innerHTML = value;
         } else {
           element.textContent = value;
@@ -47,7 +51,9 @@ export function cloneTemplate(templateId, data = {}, options = {}) {
       } else if (value instanceof Element || value instanceof DocumentFragment) {
         element.innerHTML = '';
         element.appendChild(value);
-      }// Handle special cases for showing/hiding elements
+      }
+
+      // Handle special cases for showing/hiding elements
       if (slotName === 'detailIndicator' && value) {
         element.style.display = '';
       } else if (slotName === 'detailButton' && value) {
@@ -90,6 +96,46 @@ export function cloneTemplate(templateId, data = {}, options = {}) {
       } else if (slotName === 'danger' && value) {
         element.style.display = '';
       } else if (slotName === 'frequency' && value) {
+        element.style.display = '';
+      } else if (slotName === 'services' && value) {
+        element.style.display = '';
+      } else if (slotName === 'knowledge' && value) {
+        element.style.display = '';
+      } else if (slotName === 'effects' && value) {
+        element.style.display = '';
+      } else if (slotName === 'creatures' && value) {
+        element.style.display = '';
+      } else if (slotName === 'encounterNotes' && value) {
+        element.style.display = '';
+      } else if (slotName === 'process' && value) {
+        element.style.display = '';
+      } else if (slotName === 'stages' && value) {
+        element.style.display = '';
+      } else if (slotName === 'affectedNpcs' && value) {
+        element.style.display = '';
+      } else if (slotName === 'affectedLocations' && value) {
+        element.style.display = '';
+      } else if (slotName === 'affectedSettlements' && value) {
+        element.style.display = '';
+      } else if (slotName === 'relatedEvents' && value) {
+        element.style.display = '';
+      } else if (slotName === 'timeline' && value) {
+        element.style.display = '';
+      } else if (slotName === 'gameStats' && value) {
+        element.style.display = '';
+      } else if (slotName === 'weaknesses' && value) {
+        element.style.display = '';
+      } else if (slotName === 'features' && value) {
+        element.style.display = '';
+      } else if (slotName === 'atmosphere' && value) {
+        element.style.display = '';
+      } else if (slotName === 'history' && value) {
+        element.style.display = '';
+      } else if (slotName === 'hazards' && value) {
+        element.style.display = '';
+      } else if (slotName === 'npcs' && value) {
+        element.style.display = '';
+      } else if (slotName === 'connectedLocations' && value) {
         element.style.display = '';
       }
     }

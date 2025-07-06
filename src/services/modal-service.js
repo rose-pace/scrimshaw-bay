@@ -9,13 +9,12 @@ export class ModalService {
     this.activeModals = new Map();
     this.modalCounter = 0;
     this.setupKeyboardHandlers();
-  }
-
-  /**
+  }  /**
    * Creates and displays a modal
    * @param {Object} options - Modal configuration
-   * @param {string} options.title - Modal title
-   * @param {string} options.content - Modal content HTML
+   * @param {string} options.title - Modal title (legacy, prefer headerContent)
+   * @param {string} options.headerContent - Custom header content HTML
+   * @param {string} options.content - Modal body content HTML
    * @param {string} options.className - Additional CSS classes
    * @param {boolean} options.closeOnOverlayClick - Whether to close on overlay click
    * @param {Function} options.onClose - Callback when modal closes
@@ -24,6 +23,7 @@ export class ModalService {
   createModal(options = {}) {
     const {
       title = '',
+      headerContent = '',
       content = '',
       className = '',
       closeOnOverlayClick = true,
@@ -42,11 +42,15 @@ export class ModalService {
       }
     });
 
-    const modalContent = createElement('div', {
+    let modalContent;
+
+    // Create modal content with separated header and body
+    modalContent = createElement('div', {
       className: 'modal-content',
       innerHTML: `
         <div class="modal-header">
           ${title ? `<h2 id="${modalId}-title">${title}</h2>` : ''}
+          ${headerContent}
           <button class="close-btn" aria-label="Close modal" type="button">
             <span aria-hidden="true">&times;</span>
           </button>

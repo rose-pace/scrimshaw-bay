@@ -43,7 +43,6 @@
 }
 
 .threat-card p {
-  color: var(--primary-text);
   line-height: 1.5;
   margin-bottom: var(--spacing-md);
   font-size: 0.95rem;
@@ -72,18 +71,30 @@
   transform: translateY(0);
 }
 
+.corruption-level {
+    background-color: var(--danger-text);
+    color: var(--primary-bg);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
 /* Corruption Indicator */
 .corruption-indicator {
   position: absolute;
-  top: var(--spacing-sm);
-  right: var(--spacing-sm);
+  top: -0.75rem;
+  right: -1.5rem;
   padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  font-size: 0.75rem;
-  font-weight: 600;
+  border-radius: var(--border-radius-lg);
+  font-family: var(--header-font);
+  font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  animation: pulse 2s infinite;
+  letter-spacing: 0.3px;
+  line-height: 1.8;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
 }
 
 .corruption-indicator.low {
@@ -92,42 +103,31 @@
 }
 
 .corruption-indicator.medium {
-  background-color: var(--danger-text);
-  color: var(--primary-text);
+  background-color: #e67e22;
+  color: var(--primary-bg);
 }
 
 .corruption-indicator.high {
-  background-color: var(--danger-text);
-  color: var(--primary-text);
-  animation: pulse-danger 1.5s infinite;
+  background-color: #e74c3c;
+  color: var(--primary-bg);
 }
 
 .corruption-indicator.extreme {
   background-color: var(--danger-text);
   color: var(--primary-text);
   animation: pulse-danger 1s infinite;
-  border: 2px solid var(--primary-text);
-}
-
-@keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.7; }
-  100% { opacity: 1; }
 }
 
 @keyframes pulse-danger {
-  0% { 
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% { 
-    opacity: 0.8;
-    transform: scale(1.05);
-  }
-  100% { 
-    opacity: 1;
-    transform: scale(1);
-  }
+    0% {
+        box-shadow: 0 2px 6px rgba(198, 45, 66, 0.4);
+    }
+    50% {
+        box-shadow: 0 2px 10px rgba(198, 45, 66, 0.7);
+    }
+    100% {
+        box-shadow: 0 2px 6px rgba(198, 45, 66, 0.4);
+    }
 }
 
 /* Threat Card Variants */

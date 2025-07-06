@@ -98,16 +98,6 @@
   align-self: flex-start;
 }
 
-.threat-type {
-  background-color: var(--danger-text);
-  color: var(--primary-text);
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  font-size: 0.8rem;
-  font-weight: 600;
-  align-self: flex-start;
-}
-
 /* Modal Sections */
 .npc-section, .threat-section, .location-section {
   margin-bottom: var(--spacing-lg);

@@ -3,7 +3,6 @@
  */
 
 import { DataService } from '@/services/data-service.js';
-import { ModalService } from '@/services/modal-service.js';
 import { Modal } from '@/components/modal/modal.js';
 import { Navigation } from '@/components/navigation/navigation.js';
 import { SettlementCard } from '@/components/settlement-card/settlement-card.js';
@@ -15,7 +14,6 @@ import { clearElement, safeQuerySelector, safeQuerySelectorAll, addEventListener
 
 export class ScrimshawBayApp {  constructor() {
     this.dataService = new DataService();
-    this.modalService = new ModalService();
     this.modal = new Modal();
     this.navigation = new Navigation();
     this.settlementCard = new SettlementCard();
@@ -112,12 +110,11 @@ export class ScrimshawBayApp {  constructor() {
           const locationKey = e.target.dataset.location;
           if (locationKey) {
             this.modal.showLocationDetails(locationKey);
-          }
-        } else if (e.target.classList.contains('settlement-link')) {
+          }        } else if (e.target.classList.contains('settlement-link')) {
           const settlementKey = e.target.dataset.settlement;
           if (settlementKey) {
             // Close current modal and navigate to settlement
-            this.modalService.closeModal();
+            this.modal.closeAllModals();
             this.navigation.navigateToSettlement(settlementKey);
           }
         } else if (e.target.classList.contains('event-link')) {
@@ -298,11 +295,10 @@ export class ScrimshawBayApp {  constructor() {
   /**
    * Destroy the application and clean up resources
    */
-  destroy() {
-    this.cleanupFunctions.forEach(cleanup => cleanup());
+  destroy() {    this.cleanupFunctions.forEach(cleanup => cleanup());
     this.cleanupFunctions = [];
     
     this.navigation.destroy();
-    this.modalService.closeAllModals();
+    this.modal.closeAllModals();
   }
 }

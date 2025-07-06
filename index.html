@@ -412,6 +412,197 @@
         </div>
     </template>
 
+    <!-- Modal Templates -->
+    <template id="npc-modal-template">
+        <div class="npc-network-modal">
+            <div class="npc-section">
+                <h4>Role:</h4>
+                <p class="npc-role" data-slot="role">NPC Role</p>
+            </div>
+            
+            <div class="npc-section">
+                <h4>Description:</h4>
+                <p class="npc-description" data-slot="description">NPC description</p>
+            </div>
+            
+            <div class="npc-section npc-services" data-slot="services" style="display: none;">
+                <h4>Services:</h4>
+                <ul data-slot="servicesList"></ul>
+            </div>
+            
+            <div class="npc-section npc-knowledge" data-slot="knowledge" style="display: none;">
+                <h4>Knowledge:</h4>
+                <div class="knowledge-list" data-slot="knowledgeList"></div>
+            </div>
+            
+            <div class="gm-sections">
+                <div class="gm-header">
+                    <h3>🎲 GM Information</h3>
+                    <p class="gm-note">The following sections contain GM-only information</p>
+                </div>
+                
+                <div class="gm-section npc-secrets" data-slot="secrets" style="display: none;">
+                    <h4>Secrets:</h4>
+                    <ul data-slot="secretsList"></ul>
+                </div>
+                
+                <div class="gm-section npc-motivations" data-slot="motivations" style="display: none;">
+                    <h4>Motivations:</h4>
+                    <ul data-slot="motivationsList"></ul>
+                </div>
+                
+                <div class="gm-section" data-slot="abilities" style="display: none;">
+                    <h4>Abilities:</h4>
+                    <ul data-slot="abilitiesList"></ul>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="threat-modal-template">
+        <div class="threat-network-modal">
+            <p class="threat-type" data-slot="type">Threat Type</p>
+            <p class="threat-description" data-slot="description">Threat description</p>
+            
+            <div class="threat-section" data-slot="abilities" style="display: none;">
+                <h4>Abilities:</h4>
+                <ul data-slot="abilitiesList"></ul>
+            </div>
+            
+            <div class="threat-section" data-slot="effects" style="display: none;">
+                <h4 data-slot="effectsTitle">Effects:</h4>
+                <ul data-slot="effectsList"></ul>
+            </div>
+            
+            <div class="threat-section" data-slot="creatures" style="display: none;">
+                <h4>Creature Types:</h4>
+                <div class="creature-list" data-slot="creatureList"></div>
+            </div>
+            
+            <div class="threat-section" data-slot="encounterNotes" style="display: none;">
+                <h4>Encounter Notes:</h4>
+                <ul data-slot="encounterNotesList"></ul>
+            </div>
+            
+            <div class="threat-section" data-slot="process" style="display: none;">
+                <h4>Process:</h4>
+                <ul data-slot="processList"></ul>
+            </div>
+            
+            <div class="threat-section" data-slot="stages" style="display: none;">
+                <h4>Transformation Stages:</h4>
+                <ul data-slot="stagesList"></ul>
+            </div>
+            
+            <div class="threat-network">
+                <h3>Threat Network</h3>
+                
+                <div class="network-section" data-slot="affectedNpcs" style="display: none;">
+                    <h4>🧙 Affected NPCs:</h4>
+                    <div class="network-links" data-slot="npcLinks"></div>
+                </div>
+                
+                <div class="network-section" data-slot="affectedLocations" style="display: none;">
+                    <h4>📍 Affected Locations:</h4>
+                    <div class="network-links" data-slot="locationLinks"></div>
+                </div>
+                
+                <div class="network-section" data-slot="affectedSettlements" style="display: none;">
+                    <h4>🏘️ Affected Settlements:</h4>
+                    <div class="network-links" data-slot="settlementLinks"></div>
+                </div>
+                
+                <div class="network-section" data-slot="relatedEvents" style="display: none;">
+                    <h4>📅 Related Events:</h4>
+                    <div class="network-links" data-slot="eventLinks"></div>
+                </div>
+                
+                <div class="network-section" data-slot="relatedThreats" style="display: none;">
+                    <h4>⚠️ Related Threats:</h4>
+                    <div class="network-links" data-slot="threatLinks"></div>
+                </div>
+            </div>
+            
+            <div class="threat-section" data-slot="timeline" style="display: none;">
+                <h4>Timeline:</h4>
+                <p data-slot="timelineText">Timeline text</p>
+            </div>
+            
+            <div class="threat-section" data-slot="stats" style="display: none;">
+                <h4>Game Stats:</h4>
+                <p data-slot="statsText">Stats text</p>
+            </div>
+            
+            <div class="threat-section" data-slot="gameStats" style="display: none;">
+                <h4>Game Statistics:</h4>
+                <p data-slot="gameStatsText">Game stats text</p>
+            </div>
+            
+            <div class="threat-section" data-slot="weaknesses" style="display: none;">
+                <h4>Weaknesses:</h4>
+                <ul data-slot="weaknessesList"></ul>
+            </div>
+        </div>
+    </template>
+
+    <template id="location-modal-template">
+        <div class="location-network-modal">
+            <div class="location-section">
+                <h4>Description:</h4>
+                <p class="location-description" data-slot="description">Location description</p>
+            </div>
+            
+            <div class="location-section" data-slot="features" style="display: none;">
+                <h4>Features:</h4>
+                <ul data-slot="featuresList"></ul>
+            </div>
+            
+            <div class="location-section" data-slot="atmosphere" style="display: none;">
+                <h4>Atmosphere:</h4>
+                <p data-slot="atmosphereText">Atmosphere description</p>
+            </div>
+            
+            <div class="location-section" data-slot="history" style="display: none;">
+                <h4>History:</h4>
+                <p data-slot="historyText">History description</p>
+            </div>
+            
+            <div class="location-section" data-slot="hazards" style="display: none;">
+                <h4>Hazards:</h4>
+                <ul data-slot="hazardsList"></ul>
+            </div>
+            
+            <div class="location-section" data-slot="secrets" style="display: none;">
+                <h4>Secrets:</h4>
+                <ul data-slot="secretsList"></ul>
+            </div>
+            
+            <div class="location-network">
+                <h3>Location Network</h3>
+                
+                <div class="network-section" data-slot="npcs" style="display: none;">
+                    <h4>🧙 NPCs:</h4>
+                    <div class="network-links" data-slot="npcLinks"></div>
+                </div>
+                
+                <div class="network-section" data-slot="connectedLocations" style="display: none;">
+                    <h4>📍 Connected Locations:</h4>
+                    <div class="network-links" data-slot="locationLinks"></div>
+                </div>
+                
+                <div class="network-section" data-slot="relatedThreats" style="display: none;">
+                    <h4>⚠️ Related Threats:</h4>
+                    <div class="network-links" data-slot="threatLinks"></div>
+                </div>
+                
+                <div class="network-section" data-slot="relatedEvents" style="display: none;">
+                    <h4>📅 Related Events:</h4>
+                    <div class="network-links" data-slot="eventLinks"></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
     <script type="module" src="src/index.js"></script>
 </body>
 </html>
