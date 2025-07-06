@@ -25,8 +25,9 @@ export class ScrimshawBayApp {  constructor() {
     this.locationDetail = new LocationDetail();
     this.cleanupFunctions = [];
     
-    // Make dataService available globally for template utils
+    // Make dataService and modal available globally for template utils
     window.dataService = this.dataService;
+    window.modal = this.modal;
     
     this.init();
   }
@@ -92,9 +93,7 @@ export class ScrimshawBayApp {  constructor() {
         }
       }
     });
-    this.cleanupFunctions.push(locationClickCleanup);
-
-    // Handle network link clicks in modals
+    this.cleanupFunctions.push(locationClickCleanup);    // Handle network link clicks in modals
     const networkClickCleanup = addEventListenerWithCleanup(document, 'click', (e) => {
       if (e.target.matches('.network-link')) {
         e.preventDefault();
@@ -113,6 +112,19 @@ export class ScrimshawBayApp {  constructor() {
           const locationKey = e.target.dataset.location;
           if (locationKey) {
             this.modal.showLocationDetails(locationKey);
+          }
+        } else if (e.target.classList.contains('settlement-link')) {
+          const settlementKey = e.target.dataset.settlement;
+          if (settlementKey) {
+            // Close current modal and navigate to settlement
+            this.modalService.closeModal();
+            this.navigation.navigateToSettlement(settlementKey);
+          }
+        } else if (e.target.classList.contains('event-link')) {
+          const eventKey = e.target.dataset.event;
+          if (eventKey) {
+            // For now, just log - could implement event modal later
+            console.log('Event clicked:', eventKey);
           }
         }
       }

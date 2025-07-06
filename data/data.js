@@ -744,6 +744,20 @@ const campaignData = {
             relatedThreats: ["corruptedWhales", "transformedCitizens"],
             corruptionLevel: "Extreme - Primary source of all regional corruption"
         },
+        bayard: {
+            name: "Lord Bayard Scrimm",
+            type: "Corrupted Aristocrat - Cosmic Horror",
+            description: "Ancient aristocrat who has ruled Thornwick Isle for far longer than any mortal should. His body writhes with Agog's tentacled flesh, and he emerges only at night to feed on the living. Sustained by his pact with the Devil of the Deep.",
+            abilities: ["Vampire-like longevity", "Night vision", "Tentacled attacks", "Command over sea creatures", "Feeding on the living"],
+            influence: ["Controls Thornwick Isle", "Commands corrupted servants", "Spreads Agog's corruption", "Feeds during nighttime raids"],
+            stats: "Use Vampire Lord stats with tentacled modifications - CR 15 (13,000 XP)",
+            affectedNpcs: ["groundskeeper", "boatman"],
+            affectedLocations: ["scrimmholmeManor", "privateDocks", "observatory", "villageBelow"],
+            affectedSettlements: ["thornwick"],
+            relatedEvents: ["lordInvitation"],
+            relatedThreats: ["agog"],
+            corruptionLevel: "High - Direct servant of Agog with regional influence"
+        },
         corruptedWhales: {
             name: "Corrupted Whaling Operations",
             type: "Body Horror - Environmental Threat",

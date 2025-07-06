@@ -107,14 +107,31 @@ export class DataService {
       ...data
     }));
   }
-
   /**
    * Gets location data by key
    * @param {string} locationKey - Location identifier
    * @returns {Object|null} Location data or null if not found
    */
   getLocation(locationKey) {
-    return this.data.locations?.[locationKey] || null;
+    // First check the detailed locations data
+    if (this.data.locations && this.data.locations[locationKey]) {
+      return this.data.locations[locationKey];
+    }
+    
+    // If not found in locations, search through settlement notableLocations
+    for (const settlement of Object.values(this.data.settlements || {})) {
+      if (settlement.notableLocations) {
+        const location = settlement.notableLocations.find(loc => loc.id === locationKey);
+        if (location) {
+          return {
+            ...location,
+            settlement: settlement.name
+          };
+        }
+      }
+    }
+    
+    return null;
   }
 
   /**

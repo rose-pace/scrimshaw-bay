@@ -163,30 +163,54 @@ export class Modal {
       </div>
     `;
   }
-
   /**
    * Creates threat modal content
    * @param {Object} threat - Threat data
    * @param {string} threatKey - Threat key
    * @returns {string} HTML content
    */
-  createThreatContent(threat, threatKey) {
+  createThreatContent(threat, threatKey) {    // Helper function to create clickable network links
+    const createLinks = (items, type) => {
+      if (!items || items.length === 0) return 'None';
+      
+      return items.map(key => {
+        let displayName = key;
+        
+        if (type === 'npc') {
+          const npc = this.dataService.getNpc(key);
+          displayName = npc ? npc.name : key;
+        } else if (type === 'location') {
+          const location = this.dataService.getLocation(key);
+          displayName = location ? location.name : key;
+        } else if (type === 'settlement') {
+          const settlement = this.dataService.getSettlement(key);
+          displayName = settlement ? settlement.name : key;
+        } else if (type === 'event') {
+          const event = this.dataService.getEvent(key);
+          displayName = event ? event.name : key;
+        } else if (type === 'threat') {
+          const relatedThreat = this.dataService.getThreat(key);
+          displayName = relatedThreat ? relatedThreat.name : key;
+        }
+        
+        return `<button class="network-link ${type}-link" data-${type}="${key}">${displayName}</button>`;
+      }).join('');
+    };
+
     return `
       <div class="threat-network-modal">
         <div class="modal-header">
           <div class="threat-header-info">
             <h2>${threat.name}</h2>
-            <span class="threat-type">${threat.type}</span>
+            <span class="corruption-level">${threat.corruptionLevel || 'Unknown'}</span>
           </div>
           <button class="close-btn">&times;</button>
         </div>
         <div class="modal-body">
-          <div class="threat-section">
-            <h4>Description:</h4>
-            <p>${threat.description}</p>
-          </div>
+          <p class="threat-type">${threat.type}</p>
+          <p class="threat-description">${threat.description}</p>
           
-          ${threat.abilities && threat.abilities.length > 0 ? `
+          ${threat.abilities ? `
             <div class="threat-section">
               <h4>Abilities:</h4>
               <ul>
@@ -195,19 +219,126 @@ export class Modal {
             </div>
           ` : ''}
           
-          ${threat.influence && threat.influence.length > 0 ? `
+          ${threat.effects || threat.influence ? `
             <div class="threat-section">
-              <h4>Regional Influence:</h4>
+              <h4>${threat.influence ? 'Regional Influence:' : 'Effects:'}:</h4>
               <ul>
-                ${threat.influence.map(effect => `<li>${effect}</li>`).join('')}
+                ${(threat.influence || threat.effects).map(effect => `<li>${effect}</li>`).join('')}
               </ul>
+            </div>
+          ` : ''}
+          
+          ${threat.creatures ? `
+            <div class="threat-section">
+              <h4>Creature Types:</h4>
+              <div class="creature-list">
+                ${threat.creatures.map(creature => `
+                  <div class="creature-entry">
+                    <h5>${creature.name} (CR ${creature.cr})</h5>
+                    <p>${creature.description}</p>
+                    <div class="creature-abilities">
+                      <strong>Key Abilities:</strong> ${creature.abilities.join(', ')}
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+          
+          ${threat.encounter_notes ? `
+            <div class="threat-section">
+              <h4>Encounter Notes:</h4>
+              <ul>
+                ${threat.encounter_notes.map(note => `<li>${note}</li>`).join('')}
+              </ul>
+            </div>
+          ` : ''}
+          
+          ${threat.process ? `
+            <div class="threat-section">
+              <h4>Process:</h4>
+              <ul>
+                ${threat.process.map(step => `<li>${step}</li>`).join('')}
+              </ul>
+            </div>
+          ` : ''}
+          
+          ${threat.stages ? `
+            <div class="threat-section">
+              <h4>Transformation Stages:</h4>
+              <ul>
+                ${threat.stages.map(stage => `<li>${stage}</li>`).join('')}
+              </ul>
+            </div>
+          ` : ''}
+          
+          <div class="threat-network">
+            <h3>Threat Network</h3>
+            
+            ${threat.affectedNpcs ? `
+              <div class="network-section">
+                <h4>🧙 Affected NPCs:</h4>
+                <div class="network-links">
+                  ${createLinks(threat.affectedNpcs, 'npc')}
+                </div>
+              </div>
+            ` : ''}
+            
+            ${threat.affectedLocations ? `
+              <div class="network-section">
+                <h4>📍 Affected Locations:</h4>
+                <div class="network-links">
+                  ${createLinks(threat.affectedLocations, 'location')}
+                </div>
+              </div>
+            ` : ''}
+            
+            ${threat.affectedSettlements ? `
+              <div class="network-section">
+                <h4>🏘️ Affected Settlements:</h4>
+                <div class="network-links">
+                  ${createLinks(threat.affectedSettlements, 'settlement')}
+                </div>
+              </div>
+            ` : ''}
+            
+            ${threat.relatedEvents ? `
+              <div class="network-section">
+                <h4>📅 Related Events:</h4>
+                <div class="network-links">
+                  ${createLinks(threat.relatedEvents, 'event')}
+                </div>
+              </div>
+            ` : ''}
+            
+            ${threat.relatedThreats ? `
+              <div class="network-section">
+                <h4>⚠️ Related Threats:</h4>
+                <div class="network-links">
+                  ${createLinks(threat.relatedThreats, 'threat')}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+          
+          ${threat.timeline ? `
+            <div class="threat-section">
+              <h4>Timeline:</h4>
+              <p>${threat.timeline}</p>
             </div>
           ` : ''}
           
           ${threat.stats ? `
             <div class="threat-section">
+              <h4>Game Stats:</h4>
+              <p>${threat.stats}</p>
+            </div>
+          ` : ''}
+          
+          ${threat.gameStats ? `
+            <div class="threat-section">
               <h4>Game Statistics:</h4>
-              <p class="threat-stats">${threat.stats}</p>
+              <p>${threat.gameStats}</p>
             </div>
           ` : ''}
           
