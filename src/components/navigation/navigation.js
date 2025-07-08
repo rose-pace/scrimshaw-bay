@@ -55,8 +55,9 @@ export class Navigation {
   /**
    * Show a main section
    * @param {string} sectionName - Section to show
+   * @param {boolean} dispatchEvent - Whether to dispatch navigation event
    */
-  showSection(sectionName) {
+  showSection(sectionName, dispatchEvent = true) {
     // Update current section
     this.currentSection = sectionName;
     
@@ -81,15 +82,18 @@ export class Navigation {
       }
     });
 
-    // Dispatch custom event for section change
-    this.dispatchSectionChangeEvent(sectionName);
+    // Dispatch custom event for section change only if requested
+    if (dispatchEvent) {
+      this.dispatchSectionChangeEvent(sectionName);
+    }
   }  
   
   /**
    * Show a settlement within the settlements section
    * @param {string} settlementName - Settlement to show
+   * @param {boolean} dispatchEvent - Whether to dispatch navigation event
    */
-  showSettlement(settlementName) {
+  showSettlement(settlementName, dispatchEvent = true) {
     // Update settlement buttons
     const settlementButtons = safeQuerySelectorAll('.settlement-nav-btn');
     settlementButtons.forEach(btn => {
@@ -99,8 +103,10 @@ export class Navigation {
       }
     });
 
-    // Dispatch custom event for settlement change
-    this.dispatchSettlementChangeEvent(settlementName);
+    // Dispatch custom event for settlement change only if requested
+    if (dispatchEvent) {
+      this.dispatchSettlementChangeEvent(settlementName);
+    }
   }
 
   /**

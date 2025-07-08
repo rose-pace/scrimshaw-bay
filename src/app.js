@@ -3,6 +3,7 @@
  */
 
 import { DataService } from '@/services/data-service.js';
+import { RouteService } from '@/services/route-service.js';
 import { Modal } from '@/components/modal/modal.js';
 import { Navigation } from '@/components/navigation/navigation.js';
 import { SettlementCard } from '@/components/settlement-card/settlement-card.js';
@@ -15,6 +16,7 @@ import { clearElement, safeQuerySelector, safeQuerySelectorAll, addEventListener
 export class ScrimshawBayApp {
   constructor() {
     this.dataService = new DataService();
+    this.routeService = new RouteService();
     this.modal = new Modal();
     this.navigation = new Navigation();
     this.settlementCard = new SettlementCard();
@@ -36,8 +38,10 @@ export class ScrimshawBayApp {
    */
   init() {
     this.setupEventListeners();
-    this.renderInitialContent();
     this.setupNavigationListeners();
+    this.setupRouteListeners();
+    this.renderInitialContent();
+    this.handleInitialRoute();
   }
 
   /**
@@ -46,7 +50,7 @@ export class ScrimshawBayApp {
   setupEventListeners() {
     // Listen for settlement card clicks
     const settlementClickCleanup = addEventListenerWithCleanup(document, 'settlementClick', (e) => {
-      this.navigation.navigateToSettlement(e.detail.settlement);
+      this.routeService.navigateToSettlement(e.detail.settlement);
     });
     this.cleanupFunctions.push(settlementClickCleanup);
 
@@ -109,7 +113,7 @@ export class ScrimshawBayApp {
           if (settlementKey) {
             // Close current modal and navigate to settlement
             this.modal.closeAllModals();
-            this.navigation.navigateToSettlement(settlementKey);
+            this.routeService.navigateToSettlement(settlementKey);
           }
         } else if (e.target.classList.contains('event-link')) {
           const eventKey = e.target.dataset.event;
@@ -128,13 +132,151 @@ export class ScrimshawBayApp {
    */
   setupNavigationListeners() {
     const cleanup = this.navigation.addNavigationChangeListener((type, value) => {
+      // Only handle navigation events, not route-driven updates
       if (type === 'section') {
-        this.handleSectionChange(value);
+        this.routeService.navigateToSection(value);
       } else if (type === 'settlement') {
-        this.renderSettlementDetails(value);
+        this.routeService.navigateToSettlement(value);
       }
     });
     this.cleanupFunctions.push(cleanup);
+  }
+
+  /**
+   * Setup route change listeners
+   */
+  setupRouteListeners() {
+    this.routeService.onRouteChange((route, pushToHistory) => {
+      this.handleRouteChange(route, pushToHistory);
+    });
+  }
+
+  /**
+   * Handle initial route on app load
+   */
+  handleInitialRoute() {
+    const currentRoute = this.routeService.getCurrentRoute();
+    this.handleRouteChange(currentRoute, false);
+  }
+
+  /**
+   * Handle route changes from the route service
+   * @param {Object} route - Route object with section and settlement
+   * @param {boolean} pushToHistory - Whether this was pushed to history
+   */
+  handleRouteChange(route, pushToHistory) {
+    // Handle 404 routes
+    if (route.section === '404') {
+      this.show404Page(route.originalPath);
+      return;
+    }
+
+    // Remove any existing 404 section when navigating to valid routes
+    this.cleanup404Section();
+
+    // Update navigation UI to match route (without triggering navigation events)
+    this.updateNavigationUI(route);
+
+    // Handle section-specific rendering
+    this.handleSectionChange(route.section);
+    
+    // Handle settlement rendering if needed
+    if (route.settlement) {
+      // Small delay to ensure section is rendered first
+      setTimeout(() => {
+        this.renderSettlementDetails(route.settlement);
+      }, 50);
+    }
+
+    // Scroll to top for better UX
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /**
+   * Remove the 404 section if it exists
+   */
+  cleanup404Section() {
+    const errorSection = document.getElementById('error-404');
+    if (errorSection) {
+      errorSection.remove();
+    }
+  }
+
+  /**
+   * Update navigation UI without triggering navigation events
+   * @param {Object} route - Route object
+   */
+  updateNavigationUI(route) {
+    // Update section navigation without dispatching events
+    this.navigation.showSection(route.section, false);
+    
+    // Update settlement navigation if applicable, also without dispatching events
+    if (route.settlement) {
+      setTimeout(() => {
+        this.navigation.showSettlement(route.settlement, false);
+      }, 10);
+    }
+  }
+
+  /**
+   * Show 404 page for invalid routes
+   * @param {string} invalidPath - The invalid path that was attempted
+   */
+  show404Page(invalidPath) {
+    // Hide all sections
+    const sections = document.querySelectorAll('.content-section');
+    sections.forEach(section => {
+      section.classList.remove('active');
+    });
+
+    // Check if 404 section already exists
+    let errorSection = document.getElementById('error-404');
+    
+    if (!errorSection) {
+      // Create new 404 section
+      errorSection = document.createElement('section');
+      errorSection.id = 'error-404';
+      errorSection.className = 'content-section';
+      errorSection.innerHTML = `
+        <div class="section-header">
+          <h2>Page Not Found</h2>
+        </div>
+        <div class="content-grid">
+          <div class="info-card error-card">
+            <h3>404 - Page Not Found</h3>
+            <p>The requested page "<strong>${invalidPath}</strong>" could not be found.</p>
+            <p>Please check the URL or navigate to one of the available sections:</p>
+            <ul class="error-nav-links">
+              <li><a href="#overview" class="error-link">Overview</a></li>
+              <li><a href="#settlements" class="error-link">Settlements</a></li>
+              <li><a href="#npcs" class="error-link">NPCs</a></li>
+              <li><a href="#threats" class="error-link">Threats</a></li>
+              <li><a href="#events" class="error-link">Events</a></li>
+              <li><a href="#lore" class="error-link">Lore</a></li>
+            </ul>
+          </div>
+        </div>
+      `;
+      
+      // Add to main content area
+      const mainContent = document.querySelector('main.content');
+      if (mainContent) {
+        mainContent.appendChild(errorSection);
+      }
+    } else {
+      // Update existing 404 section with current invalid path
+      const pathElement = errorSection.querySelector('strong');
+      if (pathElement) {
+        pathElement.textContent = invalidPath;
+      }
+    }
+
+    // Show the 404 section
+    errorSection.classList.add('active');
+
+    // Clear navigation active states
+    const navButtons = document.querySelectorAll('.nav-btn');
+    navButtons.forEach(btn => btn.classList.remove('active'));
   }
 
   /**
@@ -156,15 +298,15 @@ export class ScrimshawBayApp {
         this.renderOverview();
         break;
       case 'settlements':
-        // Load default settlement (first active settlement button)
-        this.loadDefaultSettlement();
+        // Only load default settlement if no specific settlement in route
+        const currentRoute = this.routeService.getCurrentRoute();
+        if (!currentRoute.settlement) {
+          this.loadDefaultSettlement();
+        }
         break;
       default:
         break;
     }
-    
-    // Scroll to top after section change for better UX
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   /**
    * Render initial content
@@ -292,11 +434,20 @@ export class ScrimshawBayApp {
    * Load default settlement when settlements section is first shown
    */
   loadDefaultSettlement() {
-    // Find the active settlement button
-    const activeSettlementBtn = safeQuerySelector('.settlement-nav-btn.active');
+    // Select the first settlement button
+    const activeSettlementBtn = safeQuerySelector('.settlement-nav-btn');
+    
     if (activeSettlementBtn) {
       const defaultSettlement = activeSettlementBtn.dataset.settlement;
+      
+      // Update the navigation UI to show this settlement as active
+      this.navigation.showSettlement(defaultSettlement, false);
+      
+      // Render the settlement details
       this.renderSettlementDetails(defaultSettlement);
+      
+      // Update the route to include the settlement (without pushing to history)
+      this.routeService.navigateToSettlement(defaultSettlement, false);
     }
   }
 

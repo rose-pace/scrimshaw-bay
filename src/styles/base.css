@@ -231,6 +231,49 @@ input:focus, textarea:focus, select:focus {
 .p-4 { padding: var(--spacing-lg); }
 .p-5 { padding: var(--spacing-xl); }
 
+/* Error Page Styles */
+.error-card {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+.error-card h3 {
+  color: var(--danger-color, #dc3545);
+  margin-bottom: var(--spacing-lg);
+}
+
+.error-nav-links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.error-nav-links li {
+  display: inline-block;
+}
+
+.error-link {
+  display: inline-block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--secondary-bg);
+  color: var(--accent-text);
+  text-decoration: none;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.error-link:hover {
+  background-color: var(--accent-text);
+  color: var(--primary-bg);
+  transform: translateY(-2px);
+}
+
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   * {
