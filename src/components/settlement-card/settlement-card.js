@@ -14,7 +14,9 @@ import {
 export class SettlementCard {
   constructor() {
     this.dataService = new DataService();
-  }  /**
+  }  
+  
+  /**
    * Create a settlement card element
    * @param {Object} settlement - Settlement data
    * @param {string} settlementKey - Settlement key
@@ -38,6 +40,7 @@ export class SettlementCard {
 
     return card;
   }
+
   /**
    * Create settlement overview cards for the main overview section
    * @returns {HTMLElement} Container with all settlement cards
@@ -55,11 +58,13 @@ export class SettlementCard {
 
     return container;
   }
+
   /**
    * Create settlement detail view
    * @param {string} settlementKey - Settlement key
    * @returns {HTMLElement} Settlement detail element
-   */  createDetailView(settlementKey) {
+   */  
+  createDetailView(settlementKey) {
     const settlement = this.dataService.getSettlement(settlementKey);
     if (!settlement) {
       const errorDiv = document.createElement('div');
@@ -113,7 +118,8 @@ export class SettlementCard {
    * Create locations section for settlement detail
    * @param {Array} locations - Array of location objects
    * @returns {HTMLElement} Locations section element
-   */  createLocationsSection(locations) {
+   */  
+  createLocationsSection(locations) {
     const section = document.createElement('div');
     section.className = 'locations-section';
 
@@ -133,6 +139,7 @@ export class SettlementCard {
 
     return section;
   }
+
   /**
    * Create NPCs section for settlement detail
    * @param {Array} npcs - Array of NPC keys
@@ -161,6 +168,7 @@ export class SettlementCard {
 
     return section;
   }
+  
   /**
    * Create dark secrets section for settlement detail
    * @param {Array} secrets - Array of secret strings

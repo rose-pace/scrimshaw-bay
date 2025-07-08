@@ -27,7 +27,7 @@ export class Navigation {
     
     navButtons.forEach(btn => {
       const cleanup = addEventListenerWithCleanup(btn, 'click', (e) => {
-        const section = e.target.dataset.section;
+        const section = e.currentTarget.dataset.section;
         if (section) {
           this.showSection(section);
         }
@@ -43,7 +43,7 @@ export class Navigation {
     
     settlementButtons.forEach(btn => {
       const cleanup = addEventListenerWithCleanup(btn, 'click', (e) => {
-        const settlement = e.target.dataset.settlement;
+        const settlement = e.currentTarget.dataset.settlement;
         if (settlement) {
           this.showSettlement(settlement);
         }
@@ -83,7 +83,9 @@ export class Navigation {
 
     // Dispatch custom event for section change
     this.dispatchSectionChangeEvent(sectionName);
-  }  /**
+  }  
+  
+  /**
    * Show a settlement within the settlements section
    * @param {string} settlementName - Settlement to show
    */

@@ -12,7 +12,8 @@ import { EventCard } from '@/components/event-card/event-card.js';
 import { LocationDetail } from '@/components/location-detail/location-detail.js';
 import { clearElement, safeQuerySelector, safeQuerySelectorAll, addEventListenerWithCleanup } from '@/utils/dom-utils.js';
 
-export class ScrimshawBayApp {  constructor() {
+export class ScrimshawBayApp {
+  constructor() {
     this.dataService = new DataService();
     this.modal = new Modal();
     this.navigation = new Navigation();
@@ -22,11 +23,11 @@ export class ScrimshawBayApp {  constructor() {
     this.eventCard = new EventCard();
     this.locationDetail = new LocationDetail();
     this.cleanupFunctions = [];
-    
+
     // Make dataService and modal available globally for template utils
     window.dataService = this.dataService;
     window.modal = this.modal;
-    
+
     this.init();
   }
 
@@ -43,14 +44,6 @@ export class ScrimshawBayApp {  constructor() {
    * Setup global event listeners
    */
   setupEventListeners() {
-    // Listen for settlement changes
-    const settlementChangeCleanup = this.navigation.addNavigationChangeListener((type, value) => {
-      if (type === 'settlement') {
-        this.renderSettlementDetails(value);
-      }
-    });
-    this.cleanupFunctions.push(settlementChangeCleanup);
-
     // Listen for settlement card clicks
     const settlementClickCleanup = addEventListenerWithCleanup(document, 'settlementClick', (e) => {
       this.navigation.navigateToSettlement(e.detail.settlement);
@@ -95,7 +88,7 @@ export class ScrimshawBayApp {  constructor() {
     const networkClickCleanup = addEventListenerWithCleanup(document, 'click', (e) => {
       if (e.target.matches('.network-link')) {
         e.preventDefault();
-        
+
         if (e.target.classList.contains('npc-link')) {
           const npcKey = e.target.dataset.npc;
           if (npcKey) {
@@ -110,7 +103,8 @@ export class ScrimshawBayApp {  constructor() {
           const locationKey = e.target.dataset.location;
           if (locationKey) {
             this.modal.showLocationDetails(locationKey);
-          }        } else if (e.target.classList.contains('settlement-link')) {
+          }
+        } else if (e.target.classList.contains('settlement-link')) {
           const settlementKey = e.target.dataset.settlement;
           if (settlementKey) {
             // Close current modal and navigate to settlement
@@ -131,7 +125,8 @@ export class ScrimshawBayApp {  constructor() {
 
   /**
    * Setup navigation listeners
-   */  setupNavigationListeners() {
+   */
+  setupNavigationListeners() {
     const cleanup = this.navigation.addNavigationChangeListener((type, value) => {
       if (type === 'section') {
         this.handleSectionChange(value);
@@ -140,7 +135,9 @@ export class ScrimshawBayApp {  constructor() {
       }
     });
     this.cleanupFunctions.push(cleanup);
-  }  /**
+  }
+
+  /**
    * Handle section changes
    * @param {string} sectionName - Section that was changed to
    */
@@ -165,6 +162,9 @@ export class ScrimshawBayApp {  constructor() {
       default:
         break;
     }
+    
+    // Scroll to top after section change for better UX
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   /**
    * Render initial content
@@ -190,7 +190,9 @@ export class ScrimshawBayApp {  constructor() {
       const settlementCards = this.settlementCard.createOverviewCards();
       settlementOverview.appendChild(settlementCards);
     }
-  }  /**
+  }
+
+  /**
    * Render NPCs section
    */
   renderNPCs() {
@@ -201,7 +203,9 @@ export class ScrimshawBayApp {  constructor() {
 
     const npcCards = this.npcCard.createAllCards();
     npcList.appendChild(npcCards);
-  }/**
+  }
+
+  /**
    * Render events section
    */
   renderEvents() {
@@ -231,7 +235,7 @@ export class ScrimshawBayApp {  constructor() {
 
     // Add any dynamic threat cards if needed
     const threats = this.dataService.getAllThreats();
-    
+
     threats.forEach(threat => {
       // Only add if not already present in static HTML
       const existingCard = threatsSection.querySelector(`[data-threat="${threat.key}"]`);
@@ -245,7 +249,8 @@ export class ScrimshawBayApp {  constructor() {
   /**
    * Render settlement details
    * @param {string} settlementKey - Settlement key
-   */  renderSettlementDetails(settlementKey) {
+   */
+  renderSettlementDetails(settlementKey) {
     const settlementDetails = safeQuerySelector('#settlement-details');
     if (!settlementDetails) {
       console.error('settlement-details element not found');
@@ -255,13 +260,14 @@ export class ScrimshawBayApp {  constructor() {
     clearElement(settlementDetails);
 
     const detailView = this.settlementCard.createDetailView(settlementKey);
-    
+
     if (detailView) {
       settlementDetails.appendChild(detailView);
     } else {
       console.error('Failed to create detail view for settlement:', settlementKey);
     }
   }
+
   /**
    * Create NPC card element
    * @param {Object} npc - NPC data with key
@@ -280,7 +286,9 @@ export class ScrimshawBayApp {  constructor() {
       <button class="npc-link" data-npc="${npc.key}">View Details</button>
     `;
     return card;
-  }  /**
+  }
+
+  /**
    * Load default settlement when settlements section is first shown
    */
   loadDefaultSettlement() {
@@ -295,9 +303,10 @@ export class ScrimshawBayApp {  constructor() {
   /**
    * Destroy the application and clean up resources
    */
-  destroy() {    this.cleanupFunctions.forEach(cleanup => cleanup());
+  destroy() {
+    this.cleanupFunctions.forEach(cleanup => cleanup());
     this.cleanupFunctions = [];
-    
+
     this.navigation.destroy();
     this.modal.closeAllModals();
   }
