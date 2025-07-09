@@ -5,6 +5,7 @@
 import { ModalService } from '@/services/modal-service.js';
 import { DataService } from '@/services/data-service.js';
 import { cloneTemplate } from '@/utils/template-utils.js';
+import { processObjectToList, processArrayFields } from '@/utils/common-utils.js';
 
 export class Modal {
   constructor() {
@@ -96,11 +97,15 @@ export class Modal {
    * @returns {string} NPC body HTML
    */
   createNpcBody(npc, npcKey) {
-    // Prepare services list
-    const servicesList = npc.services ? 
-      npc.services.map(service => `<li>${service}</li>`).join('') : '';
+    // Process array fields using the utility
+    const processedFields = processArrayFields(npc, {
+      services: { checkLength: true },
+      secrets: { checkLength: true },
+      motivations: { checkLength: true },
+      abilities: { checkLength: true }
+    });
     
-    // Prepare knowledge list
+    // Special handling for knowledge (object array)
     const knowledgeList = npc.knowledge ? 
       npc.knowledge.map(knowledge => `
         <div class="knowledge-entry">
@@ -108,32 +113,20 @@ export class Modal {
           <p>${knowledge.info}</p>
         </div>
       `).join('') : '';
-    
-    // Prepare secrets list
-    const secretsList = npc.secrets ? 
-      npc.secrets.map(secret => `<li>${secret}</li>`).join('') : '';
-    
-    // Prepare motivations list
-    const motivationsList = npc.motivations ? 
-      npc.motivations.map(motivation => `<li>${motivation}</li>`).join('') : '';
-    
-    // Prepare abilities list
-    const abilitiesList = npc.abilities ? 
-      npc.abilities.map(ability => `<li>${ability}</li>`).join('') : '';
 
     const template = cloneTemplate('npc-modal-template', {
       role: npc.role,
       description: npc.description,
-      services: npc.services && npc.services.length > 0,
-      servicesList: servicesList,
+      services: processedFields.servicesHasItems,
+      servicesList: processedFields.services,
       knowledge: npc.knowledge && npc.knowledge.length > 0,
       knowledgeList: knowledgeList,
-      secrets: npc.secrets && npc.secrets.length > 0,
-      secretsList: secretsList,
-      motivations: npc.motivations && npc.motivations.length > 0,
-      motivationsList: motivationsList,
-      abilities: npc.abilities && npc.abilities.length > 0,
-      abilitiesList: abilitiesList
+      secrets: processedFields.secretsHasItems,
+      secretsList: processedFields.secrets,
+      motivations: processedFields.motivationsHasItems,
+      motivationsList: processedFields.motivations,
+      abilities: processedFields.abilitiesHasItems,
+      abilitiesList: processedFields.abilities
     }, { returnElement: true });
 
     return template.outerHTML;
@@ -186,13 +179,22 @@ export class Modal {
       }).join('');
     };
     
-    // Prepare content lists
-    const abilitiesList = threat.abilities ? 
-      threat.abilities.map(ability => `<li>${ability}</li>`).join('') : '';
+    // Process array fields using the utility
+    const processedFields = processArrayFields(threat, {
+      abilities: { checkLength: true },
+      encounter_notes: { checkLength: true },
+      process: { checkLength: true },
+      stages: { checkLength: true },
+      weaknesses: { checkLength: true }
+    });
     
-    const effectsList = (threat.influence || threat.effects) ? 
-      (threat.influence || threat.effects).map(effect => `<li>${effect}</li>`).join('') : '';
+    // Handle effects/influence field (could be either) - using utility
+    const effectsSource = threat.influence || threat.effects;
+    const effectsProcessed = processArrayFields({ effects: effectsSource }, {
+      effects: { checkLength: true }
+    });
     
+    // Special handling for creatures (complex objects)
     const creatureList = threat.creatures ? 
       threat.creatures.map(creature => `
         <div class="creature-entry">
@@ -203,35 +205,23 @@ export class Modal {
           </div>
         </div>
       `).join('') : '';
-    
-    const encounterNotesList = threat.encounter_notes ? 
-      threat.encounter_notes.map(note => `<li>${note}</li>`).join('') : '';
-    
-    const processList = threat.process ? 
-      threat.process.map(step => `<li>${step}</li>`).join('') : '';
-    
-    const stagesList = threat.stages ? 
-      threat.stages.map(stage => `<li>${stage}</li>`).join('') : '';
-    
-    const weaknessesList = threat.weaknesses ? 
-      threat.weaknesses.map(weakness => `<li>${weakness}</li>`).join('') : '';
 
     const template = cloneTemplate('threat-modal-template', {
       type: threat.type,
       description: threat.description,
-      abilities: threat.abilities && threat.abilities.length > 0,
-      abilitiesList: abilitiesList,
-      effects: (threat.effects || threat.influence) && (threat.effects || threat.influence).length > 0,
+      abilities: processedFields.abilitiesHasItems,
+      abilitiesList: processedFields.abilitiesList,
+      effects: effectsSource && effectsSource.length > 0,
       effectsTitle: threat.influence ? 'Regional Influence:' : 'Effects:',
-      effectsList: effectsList,
+      effectsList: effectsProcessed.effects,
       creatures: threat.creatures && threat.creatures.length > 0,
       creatureList: creatureList,
-      encounterNotes: threat.encounter_notes && threat.encounter_notes.length > 0,
-      encounterNotesList: encounterNotesList,
-      process: threat.process && threat.process.length > 0,
-      processList: processList,
-      stages: threat.stages && threat.stages.length > 0,
-      stagesList: stagesList,
+      encounterNotes: processedFields.encounter_notesHasItems,
+      encounterNotesList: processedFields.encounter_notes,
+      process: processedFields.processHasItems,
+      processList: processedFields.process,
+      stages: processedFields.stagesHasItems,
+      stagesList: processedFields.stages,
       affectedNpcs: threat.affectedNpcs && threat.affectedNpcs.length > 0,
       npcLinks: createLinks(threat.affectedNpcs, 'npc'),
       affectedLocations: threat.affectedLocations && threat.affectedLocations.length > 0,
@@ -248,8 +238,8 @@ export class Modal {
       statsText: threat.stats || '',
       gameStats: threat.gameStats ? true : false,
       gameStatsText: threat.gameStats || '',
-      weaknesses: threat.weaknesses && threat.weaknesses.length > 0,
-      weaknessesList: weaknessesList
+      weaknesses: processedFields.weaknessesHasItems,
+      weaknessesList: processedFields.weaknesses
     }, { returnElement: true });
 
     return template.outerHTML;
@@ -299,27 +289,45 @@ export class Modal {
       }).join('');
     };
     
-    // Prepare content lists
-    const featuresList = location.features ? 
-      location.features.map(feature => `<li>${feature}</li>`).join('') : '';
+    // Process array fields using the utility
+    const processedFields = processArrayFields(location, {
+      features: { checkLength: true },
+      hazards: { checkLength: true }
+    });
     
-    const hazardsList = location.hazards ? 
-      location.hazards.map(hazard => `<li>${hazard}</li>`).join('') : '';
-    
-    const secretsList = location.secrets ? 
-      location.secrets.map(secret => `<li>${secret}</li>`).join('') : '';
+    // Handle secrets object structure dynamically
+    let secretsList = '';
+    let hasSecrets = false;
+    if (location.secrets && typeof location.secrets === 'object') {
+      // Define special handlers for complex data structures
+      const specialHandlers = {
+        hiddenItems: (items) => {
+          if (!Array.isArray(items)) return [];
+          return items.map(item => 
+            `<strong>${item.item}</strong> (${item.location}): ${item.description}`
+          );
+        }
+      };
+      
+      const secretsArray = processObjectToList(location.secrets, { specialHandlers });
+      
+      if (secretsArray.length > 0) {
+        secretsList = secretsArray.map(secret => `<li>${secret}</li>`).join('');
+        hasSecrets = true;
+      }
+    }
 
     const template = cloneTemplate('location-modal-template', {
       description: location.description,
-      features: location.features && location.features.length > 0,
-      featuresList: featuresList,
+      features: processedFields.featuresHasItems,
+      featuresList: processedFields.features,
       atmosphere: location.atmosphere ? true : false,
       atmosphereText: location.atmosphere || '',
       history: location.history ? true : false,
       historyText: location.history || '',
-      hazards: location.hazards && location.hazards.length > 0,
-      hazardsList: hazardsList,
-      secrets: location.secrets && location.secrets.length > 0,
+      hazards: processedFields.hazardsHasItems,
+      hazardsList: processedFields.hazards,
+      secrets: hasSecrets,
       secretsList: secretsList,
       npcs: location.npcs && location.npcs.length > 0,
       npcLinks: createLinks(location.npcs, 'npc'),

@@ -48,83 +48,86 @@ export class ScrimshawBayApp {
    * Setup global event listeners
    */
   setupEventListeners() {
-    // Listen for settlement card clicks
+    // Listen for settlement card clicks (custom event)
     const settlementClickCleanup = addEventListenerWithCleanup(document, 'settlementClick', (e) => {
       this.routeService.navigateToSettlement(e.detail.settlement);
     });
     this.cleanupFunctions.push(settlementClickCleanup);
 
-    // Listen for NPC link clicks
-    const npcClickCleanup = addEventListenerWithCleanup(document, 'click', (e) => {
-      if (e.target.matches('.npc-link, .npc-mini-link')) {
-        e.preventDefault();
-        const npcKey = e.target.dataset.npc;
+    // Single delegated click handler for all clickable elements
+    const globalClickCleanup = addEventListenerWithCleanup(document, 'click', (e) => {
+      // Helper function to find target element and handle click
+      const findAndHandle = (selectors, handler) => {
+        for (const selector of selectors) {
+          const element = e.target.matches(selector) ? e.target : e.target.closest(selector);
+          if (element) {
+            e.preventDefault();
+            handler(element);
+            return true;
+          }
+        }
+        return false;
+      };
+
+      // NPC link clicks
+      if (findAndHandle(['.npc-link', '.npc-mini-link'], (element) => {
+        const npcKey = element.dataset.npc;
         if (npcKey) {
           this.modal.showNpcDetails(npcKey);
         }
-      }
-    });
-    this.cleanupFunctions.push(npcClickCleanup);
+      })) return;
 
-    // Listen for threat detail button clicks
-    const threatClickCleanup = addEventListenerWithCleanup(document, 'click', (e) => {
-      if (e.target.matches('.details-btn')) {
-        e.preventDefault();
-        const threatKey = e.target.dataset.threat;
+      // Threat detail button clicks
+      if (findAndHandle(['.details-btn'], (element) => {
+        const threatKey = element.dataset.threat;
         if (threatKey) {
           this.modal.showThreatDetails(threatKey);
         }
-      }
-    });
-    this.cleanupFunctions.push(threatClickCleanup);
+      })) return;
 
-    // Listen for location detail button clicks
-    const locationClickCleanup = addEventListenerWithCleanup(document, 'click', (e) => {
-      if (e.target.matches('.location-detail-btn')) {
-        e.preventDefault();
-        const locationKey = e.target.dataset.location;
+      // Location detail button clicks
+      if (findAndHandle(['.location-detail-btn'], (element) => {
+        const locationKey = element.dataset.location;
         if (locationKey) {
           this.modal.showLocationDetails(locationKey);
         }
-      }
-    });
-    this.cleanupFunctions.push(locationClickCleanup);    // Handle network link clicks in modals
-    const networkClickCleanup = addEventListenerWithCleanup(document, 'click', (e) => {
-      if (e.target.matches('.network-link')) {
-        e.preventDefault();
+      })) return;
 
-        if (e.target.classList.contains('npc-link')) {
-          const npcKey = e.target.dataset.npc;
+      // Network link clicks in modals
+      if (findAndHandle(['.network-link'], (element) => {
+        if (element.classList.contains('npc-link')) {
+          const npcKey = element.dataset.npc;
           if (npcKey) {
             this.modal.showNpcDetails(npcKey);
           }
-        } else if (e.target.classList.contains('threat-link')) {
-          const threatKey = e.target.dataset.threat;
+        } else if (element.classList.contains('threat-link')) {
+          const threatKey = element.dataset.threat;
           if (threatKey) {
             this.modal.showThreatDetails(threatKey);
           }
-        } else if (e.target.classList.contains('location-link')) {
-          const locationKey = e.target.dataset.location;
+        } else if (element.classList.contains('location-link')) {
+          const locationKey = element.dataset.location;
           if (locationKey) {
             this.modal.showLocationDetails(locationKey);
           }
-        } else if (e.target.classList.contains('settlement-link')) {
-          const settlementKey = e.target.dataset.settlement;
+        } else if (element.classList.contains('settlement-link')) {
+          const settlementKey = element.dataset.settlement;
           if (settlementKey) {
             // Close current modal and navigate to settlement
             this.modal.closeAllModals();
             this.routeService.navigateToSettlement(settlementKey);
           }
-        } else if (e.target.classList.contains('event-link')) {
-          const eventKey = e.target.dataset.event;
+        } else if (element.classList.contains('event-link')) {
+          const eventKey = element.dataset.event;
           if (eventKey) {
             // For now, just log - could implement event modal later
             console.log('Event clicked:', eventKey);
           }
         }
-      }
+      })) return;
     });
-    this.cleanupFunctions.push(networkClickCleanup);
+    
+    this.cleanupFunctions.push(globalClickCleanup);
   }
 
   /**

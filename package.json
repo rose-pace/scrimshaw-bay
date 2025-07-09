@@ -10,7 +10,12 @@
   "scripts": {
     "start": "python -m http.server 8080",
     "dev": "python -m http.server 8080",
-    "test": "node test/app-tests.js",
+    "test": "node test/test-runner.js",
+    "test:utils": "node test/common-utils.test.js",
+    "test:data": "node test/data-service.test.js",
+    "test:modal": "node test/modal-service.test.js",
+    "test:components": "node test/components.test.js",
+    "test:ui": "node test/ui-navigation.test.js",
     "test:browser": "echo 'Open http://localhost:8080 and check browser console for test results'",
     "serve": "python -m http.server 8080",
     "lint": "echo 'No linting configured - consider adding ESLint'",

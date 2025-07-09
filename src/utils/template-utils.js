@@ -2,6 +2,8 @@
  * HTML Template Utility for working with <template> elements and data slots
  */
 
+import { processArrayFields } from '@/utils/common-utils.js';
+
 /**
  * Clone a template and populate it with data
  * @param {string} templateId - ID of the template element
@@ -209,15 +211,23 @@ export function createLocationItem(location) {
     });
   }
   
-  return cloneTemplate('location-item-template', {
+  const locationElement = cloneTemplate('location-item-template', {
     name: location.name,
     shortDesc: location.shortDesc,
-    detailIndicator: location.hasDetails,
-    detailButton: location.hasDetails,
-    locationId: location.id,
     npcsContainer: location.npcs && location.npcs.length > 0,
     npcs: npcsContainer
   }, { returnElement: true });
+
+  // Only make clickable if location has details
+  if (location.hasDetails && location.id) {
+    const locationName = locationElement.querySelector('.location-name');
+    if (locationName) {
+      locationName.classList.add('location-detail-btn');
+      locationName.setAttribute('data-location', location.id);
+    }
+  }
+
+  return locationElement;
 }
 
 /**
@@ -247,6 +257,13 @@ export function createNpcCard(npc, npcKey) {
     .map(([key, value]) => `${key}: ${value}`)
     .join(', ') : '';
 
+  // Process array fields using the utility
+  const processedFields = processArrayFields(npc, {
+    secrets: { checkLength: true },
+    motivations: { checkLength: true },
+    abilities: { checkLength: true }
+  });
+
   const cardFragment = cloneTemplate('npc-card-template', {
     name: npc.name,
     location: npc.location || '',
@@ -254,12 +271,12 @@ export function createNpcCard(npc, npcKey) {
     description: truncateDescription(npc.description, 120),
     stats: npc.stats ? true : false,
     statsContent: statsContent,
-    secrets: npc.secrets && npc.secrets.length > 0,
-    secretsList: npc.secrets ? npc.secrets.map(secret => `<li>${secret}</li>`).join('') : '',
-    motivations: npc.motivations && npc.motivations.length > 0,
-    motivationsList: npc.motivations ? npc.motivations.map(motivation => `<li>${motivation}</li>`).join('') : '',
-    abilities: npc.abilities && npc.abilities.length > 0,
-    abilitiesList: npc.abilities ? npc.abilities.map(ability => `<li>${ability}</li>`).join('') : ''
+    secrets: processedFields.secretsHasItems,
+    secretsList: processedFields.secrets,
+    motivations: processedFields.motivationsHasItems,
+    motivationsList: processedFields.motivations,
+    abilities: processedFields.abilitiesHasItems,
+    abilitiesList: processedFields.abilities
   }, {
     dataAttributes: {
       npc: npcKey
@@ -300,18 +317,13 @@ export function createThreatCard(threat, threatKey) {
  * @returns {Element} Event card element
  */
 export function createEventCard(event, eventKey) {
-  // Prepare outcomes list
-  const outcomesList = event.outcomes ? 
-    event.outcomes.map(outcome => `<li>${outcome}</li>`).join('') : '';
-    
-  // Prepare hooks list
-  const hooksList = event.hooks ? 
-    event.hooks.map(hook => `<li>${hook}</li>`).join('') : '';
-    
-  // Prepare ritual requirements list
-  const ritualList = event.ritual_requirements ? 
-    event.ritual_requirements.map(req => `<li>${req}</li>`).join('') : '';
-    
+  // Process array fields using the utility
+  const processedFields = processArrayFields(event, {
+    outcomes: { checkLength: true },
+    hooks: { checkLength: true },
+    ritual_requirements: { checkLength: true }
+  });
+  
   // Prepare clues list (handling different clue structures)
   let cluesList = '';
   let cluesTitle = 'Clues:';
@@ -347,12 +359,12 @@ export function createEventCard(event, eventKey) {
     triggerText: event.trigger || '',
     details: (event.outcomes || event.hooks) ? true : false,
     gmInfo: (event.ritual_requirements || event.gulpgrin_details || event.winter_court_clues) ? true : false,
-    outcomes: event.outcomes && event.outcomes.length > 0,
-    outcomesList: outcomesList,
-    hooks: event.hooks && event.hooks.length > 0,
-    hooksList: hooksList,
-    ritual: event.ritual_requirements && event.ritual_requirements.length > 0,
-    ritualList: ritualList,
+    outcomes: processedFields.outcomesHasItems,
+    outcomesList: processedFields.outcomesList,
+    hooks: processedFields.hooksHasItems,
+    hooksList: processedFields.hooksList,
+    ritual: processedFields.ritual_requirementsHasItems,
+    ritualList: processedFields.ritual_requirementsList,
     creature: event.gulpgrin_details ? true : false,
     creatureName: event.gulpgrin_details ? event.gulpgrin_details.name + ':' : '',
     creatureDescription: event.gulpgrin_details ? event.gulpgrin_details.description : '',

@@ -230,11 +230,6 @@
   margin-bottom: var(--spacing-sm);
 }
 
-.detail-indicator {
-  font-size: 1.2rem;
-  opacity: 0.7;
-}
-
 .location-detail-btn {
   background: none;
   border: none;
@@ -257,6 +252,26 @@
   color: var(--primary-text);
   font-size: 1.1rem;
   font-weight: 600;
+}
+
+.location-name.location-detail-btn {
+  cursor: pointer;
+  color: var(--warning-text);
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+  border: none;
+  background: none;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.location-name.location-detail-btn:hover {
+  color: var(--accent-color);
+  text-decoration-color: var(--accent-color);
+  text-shadow: 0 0 4px rgba(255, 193, 7, 0.3);
 }
 
 .location-desc {
