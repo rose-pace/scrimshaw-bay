@@ -54,6 +54,12 @@ export class ScrimshawBayApp {
     });
     this.cleanupFunctions.push(settlementClickCleanup);
 
+    // Listen for NPC card clicks (custom event)
+    const npcClickCleanup = addEventListenerWithCleanup(document, 'npcClick', (e) => {
+      this.modal.showNpcDetails(e.detail.npc);
+    });
+    this.cleanupFunctions.push(npcClickCleanup);
+
     // Single delegated click handler for all clickable elements
     const globalClickCleanup = addEventListenerWithCleanup(document, 'click', (e) => {
       // Helper function to find target element and handle click
@@ -120,8 +126,7 @@ export class ScrimshawBayApp {
         } else if (element.classList.contains('event-link')) {
           const eventKey = element.dataset.event;
           if (eventKey) {
-            // For now, just log - could implement event modal later
-            console.log('Event clicked:', eventKey);
+            this.modal.showEventDetails(eventKey);
           }
         }
       })) return;

@@ -77,6 +77,29 @@ export class Modal {
       closeOnOverlayClick: true
     });
   }
+
+  /**
+   * Shows event details in a modal
+   * @param {string} eventKey - Event identifier
+   */
+  showEventDetails(eventKey) {
+    const event = this.dataService.getEvent(eventKey);
+    if (!event) {
+      console.error(`Event not found: ${eventKey}`);
+      return;
+    }
+
+    const headerContent = this.createEventHeader(event);
+    const bodyContent = this.createEventBody(event, eventKey);
+    
+    return this.modalService.createModal({
+      headerContent: headerContent,
+      content: bodyContent,
+      className: 'event-modal',
+      closeOnOverlayClick: true
+    });
+  }
+
   /**
    * Creates NPC header content
    * @param {Object} npc - NPC data
@@ -118,15 +141,15 @@ export class Modal {
       role: npc.role,
       description: npc.description,
       services: processedFields.servicesHasItems,
-      servicesList: processedFields.services,
+      servicesList: processedFields.servicesList,
       knowledge: npc.knowledge && npc.knowledge.length > 0,
       knowledgeList: knowledgeList,
       secrets: processedFields.secretsHasItems,
-      secretsList: processedFields.secrets,
+      secretsList: processedFields.secretsList,
       motivations: processedFields.motivationsHasItems,
-      motivationsList: processedFields.motivations,
+      motivationsList: processedFields.motivationsList,
       abilities: processedFields.abilitiesHasItems,
-      abilitiesList: processedFields.abilities
+      abilitiesList: processedFields.abilitiesList
     }, { returnElement: true });
 
     return template.outerHTML;
@@ -340,6 +363,156 @@ export class Modal {
     }, { returnElement: true });
 
     return template.outerHTML;
+  }
+
+  /**
+   * Creates event header content
+   * @param {Object} event - Event data
+   * @returns {string} Event header HTML
+   */
+  createEventHeader(event) {
+    return `
+      <div class="event-header-info">
+        <h2>${event.name}</h2>
+        <span class="event-type-tag">Strange Event</span>
+      </div>
+    `;
+  }
+
+  /**
+   * Creates event body content
+   * @param {Object} event - Event data
+   * @param {string} eventKey - Event key
+   * @returns {string} Event body HTML
+   */
+  createEventBody(event, eventKey) {
+    // Helper function to create clickable network links (reuse from threat body)
+    const createLinks = (items, type) => {
+      if (!items || items.length === 0) return '';
+      
+      return items.map(key => {
+        let displayName = key;
+        
+        if (type === 'npc') {
+          const npc = this.dataService.getNpc(key);
+          displayName = npc ? npc.name : key;
+        } else if (type === 'location') {
+          const location = this.dataService.getLocation(key);
+          displayName = location ? location.name : key;
+        } else if (type === 'threat') {
+          const threat = this.dataService.getThreat(key);
+          displayName = threat ? threat.name : key;
+        }
+        
+        return `<button class="network-link ${type}-link" data-${type}="${key}">${displayName}</button>`;
+      }).join('');
+    };
+
+    // Process array fields
+    const processedFields = processArrayFields(event, {
+      outcomes: { checkLength: true },
+      hooks: { checkLength: true },
+      ritual_requirements: { checkLength: true },
+      encounter_table: { checkLength: true }
+    });
+
+    // Prepare special content sections
+    let gulpgrinContent = '';
+    if (event.gulpgrin_details) {
+      gulpgrinContent = `
+        <div class="event-section">
+          <h4>${event.gulpgrin_details.name}:</h4>
+          <p>${event.gulpgrin_details.description}</p>
+          ${event.gulpgrin_details.mechanics ? `<p><strong>Mechanics:</strong> ${event.gulpgrin_details.mechanics}</p>` : ''}
+        </div>
+      `;
+    }
+
+    let winterCourtContent = '';
+    if (event.winter_court_clues) {
+      winterCourtContent = `
+        <div class="event-section">
+          <h4>Winter Court Clues:</h4>
+          <ul>
+            <li><strong>Visual:</strong> ${event.winter_court_clues.observation}</li>
+            <li><strong>Magic:</strong> ${event.winter_court_clues.arcana_check}</li>
+            <li><strong>Implications:</strong> ${event.winter_court_clues.implications}</li>
+          </ul>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="event-network-modal">
+        <div class="event-section">
+          <h4>Description:</h4>
+          <p>${event.description}</p>
+        </div>
+        
+        ${event.trigger ? `
+          <div class="event-section">
+            <h4>Trigger:</h4>
+            <p>${event.trigger}</p>
+          </div>
+        ` : ''}
+        
+        ${processedFields.outcomesHasItems ? `
+          <div class="event-section">
+            <h4>Possible Outcomes:</h4>
+            <ul>${processedFields.outcomesList}</ul>
+          </div>
+        ` : ''}
+        
+        ${processedFields.hooksHasItems ? `
+          <div class="event-section">
+            <h4>Adventure Hooks:</h4>
+            <ul>${processedFields.hooksList}</ul>
+          </div>
+        ` : ''}
+        
+        ${processedFields.ritual_requirementsHasItems ? `
+          <div class="event-section">
+            <h4>Ritual Requirements:</h4>
+            <ol>${processedFields.ritual_requirementsList}</ol>
+          </div>
+        ` : ''}
+        
+        ${processedFields.encounter_tableHasItems ? `
+          <div class="event-section">
+            <h4>Encounter Table:</h4>
+            <ul>${processedFields.encounter_tableList}</ul>
+          </div>
+        ` : ''}
+        
+        ${gulpgrinContent}
+        ${winterCourtContent}
+        
+        <div class="event-network">
+          <h3>Event Network</h3>
+          
+          ${event.relatedNpcs && event.relatedNpcs.length > 0 ? `
+            <div class="network-section">
+              <h4>🧙 Related NPCs:</h4>
+              <div class="network-links">${createLinks(event.relatedNpcs, 'npc')}</div>
+            </div>
+          ` : ''}
+          
+          ${event.relatedLocations && event.relatedLocations.length > 0 ? `
+            <div class="network-section">
+              <h4>📍 Related Locations:</h4>
+              <div class="network-links">${createLinks(event.relatedLocations, 'location')}</div>
+            </div>
+          ` : ''}
+          
+          ${event.relatedThreats && event.relatedThreats.length > 0 ? `
+            <div class="network-section">
+              <h4>⚠️ Related Threats:</h4>
+              <div class="network-links">${createLinks(event.relatedThreats, 'threat')}</div>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
   }
 
   /**

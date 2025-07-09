@@ -272,11 +272,11 @@ export function createNpcCard(npc, npcKey) {
     stats: npc.stats ? true : false,
     statsContent: statsContent,
     secrets: processedFields.secretsHasItems,
-    secretsList: processedFields.secrets,
+    secretsList: processedFields.secretsList,
     motivations: processedFields.motivationsHasItems,
-    motivationsList: processedFields.motivations,
+    motivationsList: processedFields.motivationsList,
     abilities: processedFields.abilitiesHasItems,
-    abilitiesList: processedFields.abilities
+    abilitiesList: processedFields.abilitiesList
   }, {
     dataAttributes: {
       npc: npcKey

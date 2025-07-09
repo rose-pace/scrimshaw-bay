@@ -89,8 +89,22 @@ export class ModalService {
       modalInfo.cleanupFunctions.push(overlayCleanup);
     }
 
-    // Prevent modal content clicks from closing modal
+    // Prevent modal content clicks from closing modal, but allow specific clickable elements to bubble
     const contentCleanup = addEventListenerWithCleanup(modalContent, 'click', (e) => {
+      // Allow network links, buttons with specific classes, and other interactive elements to bubble
+      if (e.target.closest('.network-link') || 
+          e.target.closest('button:not(.close-btn)') || 
+          e.target.closest('a') || 
+          e.target.closest('[data-npc]') || 
+          e.target.closest('[data-threat]') || 
+          e.target.closest('[data-location]') || 
+          e.target.closest('[data-settlement]') || 
+          e.target.closest('[data-event]')) {
+        // Let these events bubble up to the document level
+        return;
+      }
+      
+      // Stop propagation for other clicks to prevent modal from closing
       e.stopPropagation();
     });
     modalInfo.cleanupFunctions.push(contentCleanup);
