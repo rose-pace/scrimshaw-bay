@@ -19,14 +19,14 @@ const campaignData = {
                     name: "Prosperity Row",
                     shortDesc: "Street of abandoned whaling captain mansions",
                     npcs: [],
-                    hasDetails: false
+                    hasDetails: true
                 },
                 {
                     id: "boneYards",
                     name: "The Bone Yards",
                     shortDesc: "Whale processing facilities, now rusted monuments",
                     npcs: [],
-                    hasDetails: false
+                    hasDetails: true
                 },
                 {
                     id: "harborTower",
@@ -609,6 +609,261 @@ const campaignData = {
             relatedEvents: ["strangeNews"]
         },
         
+        prosperityRow: {
+            id: "prosperityRow",
+            name: "Prosperity Row",
+            settlement: "millhaven",
+            type: "Abandoned Mansion District",
+            description: "Once the most prestigious street in Scrimshaw Bay, Prosperity Row stretches along the hillside overlooking the harbor. Grand Victorian mansions built by whaling captains and processing magnates now stand in various states of decay. Overgrown gardens conceal ornate fountains, while broken windows stare down like empty eyes. Some mansions show signs of recent habitation by desperate squatters or eccentric recluses who've made pacts to sustain themselves in their former glory.",
+            publicDescription: "Street of abandoned whaling captain mansions",
+            
+            layout: {
+                mansions: [
+                    {
+                        name: "Grimwald Manor",
+                        owner: "Former Captain Josiah Grimwald",
+                        condition: "Partially maintained",
+                        current_resident: "Eccentric widow who claims to speak with her dead husband",
+                        features: ["Widow's walk with harbor view", "Portrait gallery of sea captains", "Basement wine cellar", "Overgrown hedge maze"]
+                    },
+                    {
+                        name: "Blackthorne Estate",
+                        owner: "Former Captain Silas Blackthorne",
+                        condition: "Structurally unsound",
+                        current_resident: "Squatter family with sick children",
+                        features: ["Grand staircase (partially collapsed)", "Ballroom with water damage", "Servant quarters", "Carriage house"]
+                    },
+                    {
+                        name: "Leviathan House",
+                        owner: "Former Processing Magnate Cornelius Whale",
+                        condition: "Well preserved (suspiciously so)",
+                        current_resident: "Ageless gentleman who never emerges during daylight",
+                        features: ["Library of maritime lore", "Scrimshaw collection room", "Secret passages", "Underground tunnels to harbor"]
+                    },
+                    {
+                        name: "Meridian Mansion",
+                        owner: "Former Captain Thaddeus Meridian",
+                        condition: "Completely abandoned",
+                        current_resident: "None (but strange lights reported at night)",
+                        features: ["Astronomical observatory", "Map room with sea charts", "Hidden vault", "Haunted master bedroom"]
+                    },
+                    {
+                        name: "Mooncrest Villa",
+                        owner: "Former Shipping Heiress Adelaide Mooncrest",
+                        condition: "Gardens overtaken by carnivorous plants",
+                        current_resident: "Hermit botanist studying the mutations",
+                        features: ["Greenhouse complex", "Formal gardens (now wild)", "Conservatory", "Plant nursery (corrupted)"]
+                    }
+                ]
+            },
+            
+            npcs: [],
+            
+            secrets: {
+                gmNotes: "Each mansion holds different secrets and potential allies/enemies. The preserved mansion hides a vampire-like figure with Agog connections. Meridian Mansion contains ghost encounters and hidden treasure. The gardens contain mutated carnivorous plants influenced by bay corruption.",
+                hiddenItems: [
+                    {
+                        item: "Captain's Sea Chest",
+                        location: "Meridian Mansion hidden vault (Investigation DC 18)",
+                        description: "Contains 250 gold pieces, navigation instruments worth 150 gp, and a logbook describing encounters with 'the Deep Ones'"
+                    },
+                    {
+                        item: "Whaling Fortune Cache",
+                        location: "Grimwald Manor basement (behind false wine rack, Perception DC 15)",
+                        description: "Emergency fund of 400 gold pieces and jewelry worth 200 gp"
+                    },
+                    {
+                        item: "Agog Corruption Evidence",
+                        location: "Leviathan House secret passages (Religion DC 16 to understand)",
+                        description: "Ritual chambers with tentacle symbols and preserved specimens showing transformation stages"
+                    },
+                    {
+                        item: "Astronomical Records",
+                        location: "Meridian Mansion observatory (Arcana DC 14)",
+                        description: "Star charts showing celestial events that correspond to increased supernatural activity in the bay"
+                    },
+                    {
+                        item: "Botanical Research Notes",
+                        location: "Mooncrest Villa greenhouse (Nature DC 13)",
+                        description: "Detailed studies of plant mutations caused by bay corruption, including potential cures and applications"
+                    }
+                ],
+                secretDoors: [
+                    "Leviathan House: Secret passage to harbor tunnels (behind bookshelf, Investigation DC 16)",
+                    "Grimwald Manor: Hidden room behind portrait (family secret, Investigation DC 14)",
+                    "Blackthorne Estate: Servant's escape tunnel (in pantry, Perception DC 12)"
+                ],
+                traps: [
+                    "Mooncrest Villa: Carnivorous plants in greenhouse (Perception DC 15, Nature DC 13 to safely navigate)",
+                    "Meridian Mansion: Collapsing floor in master bedroom (Investigation DC 12 to detect weak boards)",
+                    "Blackthorne Estate: Rotten stairs (Acrobatics DC 13 or fall through, taking 1d6 damage)"
+                ],
+                observations: [
+                    "Leviathan House shows no signs of age despite being abandoned for decades",
+                    "Strange lights move through Meridian Mansion on moonless nights",
+                    "Plants in Mooncrest Villa gardens sometimes move without wind",
+                    "Servants' gossip reveals several mansion owners lived far longer than natural",
+                    "Underground tunnels connect several mansions to the harbor district"
+                ]
+            },
+            
+            questHooks: [
+                "Investigate reports of lights and sounds from supposedly empty mansions",
+                "Help the squatter family in Blackthorne Estate find proper housing",
+                "Research the botanical mutations in Mooncrest Villa for potential remedies",
+                "Discover what happened to the missing mansion owners",
+                "Explore the tunnel network connecting mansions to the harbor",
+                "Confront the ageless resident of Leviathan House about his supernatural nature",
+                "Investigate astronomical records for patterns in supernatural events"
+            ],
+            
+            relatedThreats: ["agog"],
+            relatedEvents: ["strangeNews"]
+        },
+        
+        boneYards: {
+            id: "boneYards",
+            name: "The Bone Yards",
+            settlement: "millhaven",
+            type: "Abandoned Whale Processing Complex",
+            description: "A massive industrial complex of interconnected buildings where whales were once processed into oil, bone products, and other valuable materials. The facility stretches along the waterfront like a series of Gothic cathedrals dedicated to maritime industry. Enormous rusted tryworks (oil rendering cauldrons) stand empty, their smokestacks reaching toward the sky. Bone cutting stations with massive saws sit silent, while storage warehouses contain the ghostly remnants of the whaling era. The entire complex reeks of old oil, decay, and something far worse that has taken residence in the abandoned whale oil tanks.",
+            publicDescription: "Whale processing facilities, now rusted monuments",
+            
+            layout: {
+                buildings: [
+                    {
+                        name: "Main Processing Hall",
+                        description: "Cavernous building with whale hoisting equipment and flensing stations",
+                        features: ["Massive winches and pulleys", "Whale cutting platforms", "Drainage channels (now stagnant)", "Tool storage areas"],
+                        hazards: ["Unstable floor grates", "Sharp rusty tools", "Slippery surfaces"]
+                    },
+                    {
+                        name: "The Tryworks",
+                        description: "Building housing enormous cauldrons for rendering whale blubber into oil",
+                        features: ["Six massive iron cauldrons", "Furnace systems", "Oil collection channels", "Smokestacks"],
+                        hazards: ["Toxic fumes from old oil", "Unstable catwalk systems", "Furnace collapse risk"]
+                    },
+                    {
+                        name: "Bone Workshop",
+                        description: "Facility for cutting and processing whale bones into corset stays, tools, and scrimshaw blanks",
+                        features: ["Bone cutting saws", "Grinding wheels", "Drying racks", "Finished goods storage"],
+                        hazards: ["Sharp bone fragments", "Unstable equipment", "Bone dust inhalation"]
+                    },
+                    {
+                        name: "Oil Storage Warehouse",
+                        description: "Massive warehouse with rows of whale oil storage tanks",
+                        features: ["100+ oil storage barrels", "Loading equipment", "Quality testing station", "Shipping manifests"],
+                        hazards: ["Toxic vapors", "Flammable residue", "Corrupted oil transformations"]
+                    },
+                    {
+                        name: "Spermaceti Chamber",
+                        description: "Climate-controlled room for processing the valuable spermaceti from sperm whale heads",
+                        features: ["Cooling systems", "Separation equipment", "Purity testing area", "Luxury storage vaults"],
+                        hazards: ["Chemical contamination", "Preserved specimens", "Strange crystalline formations"]
+                    },
+                    {
+                        name: "Administrative Offices",
+                        description: "Multi-story building housing management offices, records, and worker facilities",
+                        features: ["Company records", "Worker timesheets", "Financial ledgers", "Maps and shipping routes"],
+                        hazards: ["Structural instability", "Mold and rot", "Collapsed sections"]
+                    }
+                ],
+                underground: {
+                    tunnels: "Steam tunnels connect all buildings for heating and power distribution",
+                    chambers: "Underground storage vaults for the most valuable products",
+                    drainage: "Complex drainage system leads to harbor outflow pipes",
+                    hazards: ["Flooding during high tide", "Toxic gas accumulation", "Creature lairs"]
+                }
+            },
+            
+            npcs: [],
+            
+            inventory: {
+                valuable_items: [
+                    {item: "Antique Whaling Tools", location: "Processing Hall tool storage", value: "50-200 gp per set", description: "Well-crafted harpoons, flensing knives, and specialized equipment"},
+                    {item: "Whale Bone Stock", location: "Bone Workshop storage", value: "10-50 gp per piece", description: "Raw whale bone suitable for carving or tool making"},
+                    {item: "Quality Scrimshaw Blanks", location: "Bone Workshop finishing area", value: "25-100 gp each", description: "Prepared whale teeth and bone for scrimshaw art"},
+                    {item: "Spermaceti Reserves", location: "Spermaceti Chamber vaults", value: "100-500 gp per container", description: "Preserved high-quality spermaceti, still valuable to perfumers"}
+                ],
+                corrupted_substances: [
+                    {item: "Transformed Whale Oil", location: "Oil Storage tanks", danger: "High", description: "Oil has become a dark, writhing substance that may be sentient"},
+                    {item: "Crystallized Corruption", location: "Spermaceti Chamber", danger: "Extreme", description: "Strange crystals formed from corrupted spermaceti, emanate psychic energy"},
+                    {item: "Bone Dust Residue", location: "Bone Workshop air vents", danger: "Medium", description: "Inhalation causes temporary transformation effects"}
+                ]
+            },
+            
+            secrets: {
+                gmNotes: "The whale oil tanks contain a collective consciousness formed from corrupted oil that may serve as a lesser avatar of Agog. The underground tunnels are home to transformed workers who couldn't escape when the corruption began. Company records reveal the true timeline of when the whales began showing signs of corruption - decades before the economic collapse.",
+                hiddenItems: [
+                    {
+                        item: "Master Production Records",
+                        location: "Administrative offices, manager's vault (Thieves' Tools DC 16)",
+                        description: "Complete records showing decline in whale quality and first reports of 'diseased' catches dating back 40 years"
+                    },
+                    {
+                        item: "Emergency Company Funds",
+                        location: "Administrative offices, hidden floor safe (Investigation DC 17)",
+                        description: "800 gold pieces intended for final worker payments, plus company seal and contracts"
+                    },
+                    {
+                        item: "Experimental Corruption Samples",
+                        location: "Spermaceti Chamber, refrigerated vault (Arcana DC 15 to understand)",
+                        description: "Preserved specimens showing progression of corruption in whale products"
+                    },
+                    {
+                        item: "Workers' Personal Effects",
+                        location: "Underground tunnels, makeshift camps (Perception DC 13)",
+                        description: "Belongings of workers who hid underground, including diaries describing transformation"
+                    },
+                    {
+                        item: "Quality Control Equipment",
+                        location: "Oil Storage, testing station (Investigation DC 12)",
+                        description: "Alchemical equipment worth 300 gp, still functional for analyzing substances"
+                    }
+                ],
+                secretDoors: [
+                    "Oil Storage: Hidden passage to underground vaults (behind false tank panel, Investigation DC 15)",
+                    "Administrative offices: Manager's escape route to docks (behind filing cabinet, Perception DC 14)",
+                    "Spermaceti Chamber: Emergency exit to steam tunnels (concealed floor hatch, Investigation DC 16)"
+                ],
+                traps: [
+                    "Oil Storage: Toxic vapor pockets (Constitution save DC 15 or poisoned condition)",
+                    "Tryworks: Unstable catwalk collapse (Dexterity save DC 14 or fall 20 feet)",
+                    "Underground: Flooding chambers during high tide (Athletics DC 13 to escape)",
+                    "Bone Workshop: Spinning blade trap (Investigation DC 15 to detect, Thieves' Tools DC 16 to disarm)"
+                ],
+                observations: [
+                    "The whale oil in storage tanks moves and writhes as if alive",
+                    "Strange sounds echo from the underground tunnel system",
+                    "Workers' tools are arranged as if someone was just using them",
+                    "Company records show profits continued despite reported whale scarcity",
+                    "Some storage areas show signs of recent habitation",
+                    "Corruption crystals pulse with faint light in rhythm with ocean tides"
+                ]
+            },
+            
+            inhabitants: [
+                "Transformed workers living in the underground tunnels",
+                "Oil collective consciousness in the storage tanks",
+                "Scavengers searching for valuable materials",
+                "Corrupted rats and seabirds that feed on the residue"
+            ],
+            
+            questHooks: [
+                "Investigate the sentient whale oil and its connection to Agog",
+                "Rescue or put to rest the transformed workers in the tunnels",
+                "Recover valuable whaling equipment and materials for trade",
+                "Research company records to understand the timeline of corruption",
+                "Safely extract and study corruption samples for potential remedies",
+                "Clear the facility of dangers to allow possible renovation",
+                "Track down what happened to the facility's management and workers",
+                "Investigate the underground tunnel connections to other parts of town"
+            ],
+            
+            relatedThreats: ["agog", "corruptedWhales", "transformedCitizens"],
+            relatedEvents: ["strangeNews"]
+        },
+        
         // Netherwick Locations
         caughtCod: {
             id: "caughtCod",
@@ -701,31 +956,6 @@ const campaignData = {
             
             relatedThreats: ["agog", "corruptedWhales"],
             relatedEvents: ["whalingWitness", "strangeNews"]
-        },
-        
-        // Placeholder locations for future development
-        prosperityRow: {
-            id: "prosperityRow",
-            name: "Prosperity Row",
-            settlement: "millhaven",
-            type: "Abandoned Mansion District",
-            description: "[PLACEHOLDER] Street of abandoned whaling captain mansions with hidden secrets and possible supernatural inhabitants.",
-            publicDescription: "Street of abandoned whaling captain mansions",
-            npcs: [],
-            secrets: {gmNotes: "[PLACEHOLDER] Develop mansion interiors, hidden treasures, possible ghost encounters"},
-            questHooks: ["[PLACEHOLDER] Mansion exploration, treasure hunting, supernatural investigation"]
-        },
-        
-        boneYards: {
-            id: "boneYards",
-            name: "The Bone Yards",
-            settlement: "millhaven",
-            type: "Abandoned Processing Facility",
-            description: "[PLACEHOLDER] Massive whale processing facility with industrial horror elements.",
-            publicDescription: "Whale processing facilities, now rusted monuments",
-            npcs: [],
-            secrets: {gmNotes: "[PLACEHOLDER] Industrial hazards, strange substances, possible creature lairs"},
-            questHooks: ["[PLACEHOLDER] Industrial exploration, substance investigation, creature encounters"]
         }
     },
 
