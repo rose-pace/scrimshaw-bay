@@ -120,10 +120,47 @@ class ComponentsTests {
           this.assert(roleElement.textContent.includes('Test Role'), 'NPC role should be correct');
         }
         
-        // Test arrays are processed
-        const secretsSection = npcElement.querySelector('.secrets');
+        // Test secrets, motivations, and abilities sections
+        const secretsSection = npcElement.querySelector('.npc-secrets');
         if (secretsSection) {
-          this.assert(secretsSection.style.display !== 'none', 'Secrets section should be visible');
+          this.assert(secretsSection.style.display !== 'none', 'Secrets section should be visible when NPC has secrets');
+          const secretsList = secretsSection.querySelector('ul');
+          if (secretsList) {
+            this.assert(secretsList.innerHTML.includes('Secret knowledge'), 'Secrets list should contain NPC secrets');
+          }
+        }
+        
+        const motivationsSection = npcElement.querySelector('.npc-motivations');
+        if (motivationsSection) {
+          this.assert(motivationsSection.style.display !== 'none', 'Motivations section should be visible when NPC has motivations');
+          const motivationsList = motivationsSection.querySelector('ul');
+          if (motivationsList) {
+            this.assert(motivationsList.innerHTML.includes('Protect the town'), 'Motivations list should contain NPC motivations');
+          }
+        }
+        
+        const abilitiesSection = npcElement.querySelector('.npc-abilities');
+        if (abilitiesSection) {
+          this.assert(abilitiesSection.style.display !== 'none', 'Abilities section should be visible when NPC has abilities');
+          const abilitiesList = abilitiesSection.querySelector('ul');
+          if (abilitiesList) {
+            this.assert(abilitiesList.innerHTML.includes('Persuasion'), 'Abilities list should contain NPC abilities');
+          }
+        }
+        
+        // Test NPC without secrets/motivations/abilities
+        const minimalNpc = {
+          name: 'Minimal NPC',
+          role: 'Basic Role',
+          description: 'A minimal NPC for testing'
+        };
+        
+        const minimalElement = templateUtils.createNpcCard(minimalNpc, 'minimal');
+        const minimalSecretsSection = minimalElement.querySelector('.npc-secrets');
+        if (minimalSecretsSection) {
+          this.assert(minimalSecretsSection.style.display === 'none' || 
+                     window.getComputedStyle(minimalSecretsSection).display === 'none',
+                     'Secrets section should be hidden when NPC has no secrets');
         }
         
       } else {

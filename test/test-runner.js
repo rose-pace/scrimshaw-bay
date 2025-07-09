@@ -6,6 +6,7 @@
 import CommonUtilsTests from './common-utils.test.js';
 import DataServiceTests from './data-service.test.js';
 import ModalServiceTests from './modal-service.test.js';
+import ModalComponentTests from './modal-component.test.js';
 import ComponentsTests from './components.test.js';
 import UINavigationTests from './ui-navigation.test.js';
 
@@ -65,7 +66,8 @@ class TestRunner {
     // Run all test suites
     await this.runTestSuite(CommonUtilsTests, 'Common Utils');
     await this.runTestSuite(DataServiceTests, 'Data Service');
-    await this.runTestSuite(ModalServiceTests, 'Modal Service'); 
+    await this.runTestSuite(ModalServiceTests, 'Modal Service');
+    await this.runTestSuite(ModalComponentTests, 'Modal Component'); 
     await this.runTestSuite(ComponentsTests, 'Components');
     await this.runTestSuite(UINavigationTests, 'UI & Navigation');
     
