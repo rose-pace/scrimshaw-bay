@@ -23,7 +23,7 @@ These instructions define how GitHub Copilot should assist with this project. Th
 
 ## Code Quality Rules
 - Sort imports for readability
-- Make use of the paths defined in `jsconfig.json` for module imports
+- Never use relative paths for imports; always use the paths defined in `jsconfig.json` or `tsconfig.json`
 - Avoid global variables; encapsulate code in modules
 - Use consistent naming:
   - camelCase: JavaScript variables/functions
