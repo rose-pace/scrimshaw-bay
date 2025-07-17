@@ -111,3 +111,53 @@ export const debounce = (func, wait) => {
     timeout = setTimeout(later, wait);
   };
 };
+
+/**
+ * Checks if a string contains HTML tags
+ * @param {string} str - String to check
+ * @returns {boolean} True if string contains HTML
+ */
+const isHtmlString = (str) => {
+  const htmlRegex = /<[^>]+>/;
+  return htmlRegex.test(str);
+};
+
+/**
+ * Ensures input is converted to a DOM node for slot assignment
+ * @param {string|Element|Text|Node} content - Content to ensure as node
+ * @returns {Element|Text|Node} DOM node ready for slot assignment
+ */
+export const ensureNode = (content) => {
+  // Return existing nodes as-is
+  if (content instanceof Node) {
+    return content;
+  }
+  
+  // Handle string content
+  if (typeof content === 'string') {
+    // Check if string contains HTML
+    if (isHtmlString(content)) {
+      // Create a temporary container to parse HTML safely
+      const tempContainer = document.createElement('div');
+      tempContainer.innerHTML = content;
+      
+      // If only one child, return it directly
+      if (tempContainer.children.length === 1) {
+        return tempContainer.firstElementChild;
+      }
+      
+      // If multiple children or mixed content, return document fragment
+      const fragment = document.createDocumentFragment();
+      while (tempContainer.firstChild) {
+        fragment.appendChild(tempContainer.firstChild);
+      }
+      return fragment;
+    } else {
+      // Plain text - create text node
+      return document.createTextNode(content);
+    }
+  }
+  
+  // For other types, convert to string and create text node
+  return document.createTextNode(String(content));
+};

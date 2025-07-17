@@ -20,6 +20,7 @@ export function cloneTemplate(templateId, data = {}, options = {}) {
   const clone = template.content.cloneNode(true);
   
   // Find all elements with data-slot attributes
+  /** @type {NodeListOf<HTMLElement>} */
   const slotElements = clone.querySelectorAll('[data-slot]');
   
   slotElements.forEach(element => {

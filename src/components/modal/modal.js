@@ -4,6 +4,7 @@
 
 import { ModalService } from '@/services/modal-service.js';
 import { DataService } from '@/services/data-service.js';
+import { LocationDetailModal } from '@/components/location-detail-modal/location-detail-modal.js';
 import { cloneTemplate } from '@/utils/template-utils.js';
 import { processObjectToList, processArrayFields } from '@/utils/common-utils.js';
 
@@ -11,6 +12,11 @@ export class Modal {
   constructor() {
     this.modalService = new ModalService();
     this.dataService = new DataService();
+    
+    // Register the LocationDetailModal component
+    if (!customElements.get('location-detail-modal')) {
+      customElements.define('location-detail-modal', LocationDetailModal);
+    }
   }
   /**
    * Shows NPC details in a modal
@@ -57,7 +63,7 @@ export class Modal {
   }
 
   /**
-   * Shows location details in a modal
+   * Shows location details in a modal using the new LocationDetailModal component
    * @param {string} locationKey - Location identifier
    */
   showLocationDetails(locationKey) {
@@ -68,14 +74,29 @@ export class Modal {
     }
 
     const headerContent = this.createLocationHeader(location);
-    const bodyContent = this.createLocationBody(location, locationKey);
     
-    return this.modalService.createModal({
+    // Create modal first, then populate with component
+    const modalId = this.modalService.createModal({
       headerContent: headerContent,
-      content: bodyContent,
+      content: '<div id="location-content-placeholder">Loading...</div>',
       className: 'location-modal',
       closeOnOverlayClick: true
     });
+
+    // Get the modal body and replace placeholder with component
+    setTimeout(() => {
+      const modalElement = document.querySelector(`[data-modal-id="${modalId}"]`);
+      if (modalElement) {
+        const placeholder = modalElement.querySelector('#location-content-placeholder');
+        if (placeholder) {
+          const locationModal = document.createElement('location-detail-modal');
+          placeholder.parentNode.replaceChild(locationModal, placeholder);
+          locationModal.setLocationData(location);
+        }
+      }
+    }, 0);
+
+    return modalId;
   }
 
   /**
