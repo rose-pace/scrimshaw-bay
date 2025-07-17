@@ -66,6 +66,39 @@ const campaignData = {
             type: "Fishing Village",
             population: "~150",
             description: "What began as a whaling support town has devolved into desperate subsistence fishing. The village clings to life through increasingly meager catches, though locals whisper that the fish taste metallic and wrong.",
+            
+            layout: {
+                village_structure: {
+                    main_area: "Cottages arranged in defensive semicircle around central commons",
+                    docks: "Weathered wooden piers extending into dark bay waters",
+                    work_areas: "Net-mending sheds and fish-drying racks along the shore",
+                    shrine_area: "Small hill overlooking the bay with ancient fisherman's shrine",
+                    approach: "Single muddy road from inland, boat access from bay"
+                },
+                districts: [
+                    {
+                        name: "The Commons",
+                        description: "Central area with The Caught Cod tavern, well, and small market space",
+                        buildings: ["The Caught Cod tavern", "Community well", "Small market stalls (usually empty)", "Message board"]
+                    },
+                    {
+                        name: "Cottage Row",
+                        description: "Semicircle of salt-stained fishing family homes",
+                        buildings: ["12 family cottages", "Shared root cellar", "Community smokehouse", "Chicken coops"]
+                    },
+                    {
+                        name: "The Working Shore",
+                        description: "Waterfront area with docks and work buildings",
+                        buildings: ["Main fishing docks", "Net-mending sheds", "Fish-drying racks", "Boat storage", "Bait house"]
+                    },
+                    {
+                        name: "Shrine Hill",
+                        description: "Small hill with the fisherman's shrine complex, elder's cottage, and village graveyard",
+                        buildings: ["The Fisherman's Shrine (Thessa, Astraea, Rhyssian, Akhetmon)", "Elder's cottage", "Village graveyard", "Weather watching post", "Old beacon tower (defunct)"]
+                    }
+                ]
+            },
+            
             notableLocations: [
                 {
                     id: "caughtCod",
@@ -78,7 +111,7 @@ const campaignData = {
                     id: "weatheredDocks",
                     name: "Weathered Docks",
                     shortDesc: "Docks extending into unnaturally dark water",
-                    npcs: [],
+                    npcs: ["dockWorker", "youngFisherman"],
                     hasDetails: false
                 },
                 {
@@ -92,7 +125,7 @@ const campaignData = {
                     id: "saltCottages",
                     name: "Salt-stained Cottages",
                     shortDesc: "Cottages arranged in a defensive semicircle",
-                    npcs: [],
+                    npcs: ["fisherWife", "sickmChild", "desperateWidow"],
                     hasDetails: false
                 },
                 {
@@ -101,9 +134,33 @@ const campaignData = {
                     shortDesc: "Offerings to ensure safe returns",
                     npcs: ["villageElder"],
                     hasDetails: false
+                },
+                {
+                    id: "communityWell",
+                    name: "The Community Well",
+                    shortDesc: "Central gathering spot with increasingly brackish water",
+                    npcs: ["waterBearer"],
+                    hasDetails: false
+                },
+                {
+                    id: "marketSpace",
+                    name: "Market Commons",
+                    shortDesc: "Small area where what little trade occurs",
+                    npcs: ["fishmonger", "tradingCaptain"],
+                    hasDetails: false
+                },
+                {
+                    id: "baitHouse",
+                    name: "The Bait House",
+                    shortDesc: "Storage for fishing supplies and bait",
+                    npcs: ["baitKeeper"],
+                    hasDetails: false
                 }
             ],
+            
             keyNpcs: ["tavernKeeper", "villageElder", "netsMender"],
+            backgroundNpcs: ["dockWorker", "youngFisherman", "fisherWife", "sickmChild", "desperateWidow", "waterBearer", "fishmonger", "tradingCaptain", "baitKeeper", "senileGrandfather", "anxiousMother", "skepticalFisherman"],
+            
             inhabitants: [
                 "Fishing families who've lived here for generations",
                 "Tavern keeper who collects increasingly disturbing scrimshaw",
@@ -472,10 +529,264 @@ const campaignData = {
             relatedThreats: ["bogCorruption"],
             relatedLocations: ["bogRoad"],
             relatedEvents: ["hagEncounter", "bogTravel"]
+        },
+        
+        // Netherwick Background NPCs
+        dockWorker: {
+            name: "Henrik Saltbeard",
+            location: "Netherwick",
+            role: "Dock Worker & Boat Maintenance",
+            description: "Gruff older man who maintains the docks and helps boats come and go. Missing two fingers from his left hand.",
+            secrets: ["Lost fingers to something that 'bit back' while fishing", "Knows which boats never return"],
+            quick_info: ["Always chewing on dried fish", "Speaks in grunts mostly", "Charges small fees for dock use"],
+            motivations: ["Keep the docks functional", "Avoid the water himself", "Warn newcomers subtly"]
+        },
+        
+        youngFisherman: {
+            name: "Tobias Netcast",
+            location: "Netherwick", 
+            role: "Young Fisherman & Village Gossip",
+            description: "Eager young man in his early twenties, still optimistic despite the village's decline. Son of a fishing family.",
+            secrets: ["Planning to leave for Millhaven soon", "Sweet on the bait keeper's daughter"],
+            quick_info: ["Chatty and friendly to strangers", "Knows everyone's business", "Still believes things will get better"],
+            motivations: ["Make enough money to leave", "Impress his crush", "Help his aging parents"]
+        },
+        
+        fisherWife: {
+            name: "Greta Stormwind",
+            location: "Netherwick",
+            role: "Fisher's Wife & Seamstress",
+            description: "Middle-aged woman whose husband went missing at sea three months ago. Takes in sewing to survive.",
+            secrets: ["Husband's boat was found with strange bite marks", "Keeps his sea chest locked"],
+            quick_info: ["Suspicious of strangers", "Protective of her children", "Skilled with needle and thread"],
+            motivations: ["Protect her children", "Find out what happened to her husband", "Keep food on the table"]
+        },
+        
+        sickmChild: {
+            name: "Little Tam Stormwind",
+            location: "Netherwick",
+            role: "Greta's Sick Child",
+            description: "Seven-year-old boy who's been ill since his father disappeared. Has strange marks on his arms.",
+            secrets: ["Marks look like small barnacles growing under skin", "Dreams of underwater cities"],
+            quick_info: ["Quiet and withdrawn", "Draws disturbing sea creatures", "Afraid of the water now"],
+            motivations: ["Understand his dreams", "Find his father", "Make the marks stop itching"]
+        },
+        
+        desperateWidow: {
+            name: "Vera Blackwater",
+            location: "Netherwick",
+            role: "Widow & Herb Gatherer",
+            description: "Elderly widow who knows which plants help with ailments. Lost three sons to the sea over the years.",
+            secrets: ["Grows plants that shouldn't exist in this climate", "Makes remedies for the transforming villagers"],
+            quick_info: ["Speaks to herself constantly", "Always smells of strange herbs", "Offers remedies for coin"],
+            motivations: ["Help ease others' suffering", "Keep her garden secret", "Remember her sons"]
+        },
+        
+        waterBearer: {
+            name: "Young Sara Tidecaller",
+            location: "Netherwick",
+            role: "Water Bearer & Message Runner",
+            description: "Teenage girl who fetches water and carries messages between households. Fast and reliable.",
+            secrets: ["Well water tastes saltier each day", "Sees things in the water's reflection"],
+            quick_info: ["Quick and energetic", "Knows all the gossip", "Wants to learn to read"],
+            motivations: ["Help her community", "Learn about the outside world", "Understand the visions"]
+        },
+        
+        fishmonger: {
+            name: "Old Cobb Fishscale",
+            location: "Netherwick",
+            role: "Fish Seller & Former Sea Captain",
+            description: "Retired sea captain who now sells the daily catch. Has extensive knowledge of the bay's waters.",
+            secrets: ["Knows the safe fishing spots", "Refuses to eat the current catches himself"],
+            quick_info: ["Missing left eye from whaling accident", "Tells tall tales", "Charges fair prices"],
+            motivations: ["Help families sell their catch", "Share maritime wisdom", "Avoid starvation"]
+        },
+        
+        tradingCaptain: {
+            name: "Captain Mordecai Blackbrine",
+            location: "Netherwick",
+            role: "Visiting Trading Captain",
+            description: "Captain of a small trading vessel who occasionally stops in Netherwick. Seems nervous about something.",
+            secrets: ["Transports black parasites from whaling crews", "Has strange buyers in distant ports"],
+            quick_info: ["Never stays more than a day", "Pays well for certain 'specimens'", "Won't discuss his cargo"],
+            motivations: ["Complete profitable trades", "Avoid asking questions", "Keep his crew safe"]
+        },
+        
+        baitKeeper: {
+            name: "Jebediah Wormfinder",
+            location: "Netherwick",
+            role: "Bait Supplier & Supply Manager",
+            description: "Man who manages fishing supplies and digs for bait. His daughter helps him sort hooks and line.",
+            secrets: ["Some bait moves on its own", "Finding things in the mud that shouldn't be there"],
+            quick_info: ["Always dirty from digging", "Quiet and methodical", "Protective of his daughter"],
+            motivations: ["Keep fishermen supplied", "Protect his daughter", "Understand the strange bait"]
+        },
+        
+        senileGrandfather: {
+            name: "Grandfather Ezra Saltwhiskers",
+            location: "Netherwick",
+            role: "Village Elder & Storyteller",
+            description: "Very old fisherman who sits by the docks and tells stories. Sometimes his tales seem prophetic.",
+            secrets: ["Stories contain real warnings about the bay", "Remembers when the corruption started"],
+            quick_info: ["Speaks in riddles and stories", "Feeds seagulls daily", "Sometimes seems lucid"],
+            motivations: ["Share important memories", "Warn through stories", "Feed the gulls"]
+        },
+        
+        anxiousMother: {
+            name: "Prudence Waveworry",
+            location: "Netherwick",
+            role: "Fisherman's Wife & Village Gossip",
+            description: "Nervous woman whose husband is part of the whaling crew. Constantly worried about his changes.",
+            secrets: ["Husband growing gills behind his ears", "Considering taking children and fleeing"],
+            quick_info: ["Jumpy and nervous", "Asks lots of questions", "Protective of her family"],
+            motivations: ["Keep her family safe", "Learn about husband's condition", "Plan escape if needed"]
+        },
+        
+        skepticalFisherman: {
+            name: "Magnus Doubtcaster",
+            location: "Netherwick",
+            role: "Local Fisherman & Voice of Reason",
+            description: "Practical fisherman who dismisses supernatural explanations but can't explain what he's seeing.",
+            secrets: ["Starting to believe the supernatural explanations", "Caught something he can't identify"],
+            quick_info: ["Stubborn and logical", "Dismisses 'superstition'", "Good with nets and boats"],
+            motivations: ["Find logical explanations", "Keep fishing despite fears", "Protect his reputation"]
         }
     },
 
     locations: {
+        // Netherwick Background Locations
+        communityWell: {
+            id: "communityWell",
+            name: "The Community Well",
+            settlement: "netherwick",
+            type: "Village Infrastructure",
+            description: "The central gathering point of Netherwick, this stone-lined well has served the village for over a century. Lately, the water has taken on a distinctly brackish taste, and residents whisper that it sometimes reflects things that aren't there.",
+            publicDescription: "Central gathering spot with increasingly brackish water",
+            npcs: ["waterBearer", "anxiousMother"],
+            secrets: {
+                gmNotes: "The well is being contaminated by seepage from the bay. Sometimes shows visions of underwater scenes in its reflection.",
+                observations: ["Water tastes increasingly salty", "Residents gather here for news", "Young Sara draws water daily", "Reflections sometimes show underwater scenes"]
+            },
+            questHooks: ["Investigate the contaminated water source", "Decode the visions in the well's reflection"]
+        },
+        
+        marketSpace: {
+            id: "marketSpace",
+            name: "Market Commons", 
+            settlement: "netherwick",
+            type: "Trading Area",
+            description: "A small cleared area in the village center where what little trade occurs. Most days it's empty except for Old Cobb trying to sell the daily catch, but occasionally trading vessels stop by.",
+            publicDescription: "Small area where what little trade occurs",
+            npcs: ["fishmonger", "tradingCaptain"],
+            secrets: {
+                gmNotes: "Captain Blackbrine makes suspicious trades here, dealing in parasites and strange specimens from the whaling crews.",
+                observations: ["Usually empty market stalls", "Old Cobb sells fish daily", "Occasional mysterious trading vessels", "Transactions happen quietly"]
+            },
+            questHooks: ["Investigate the mysterious trading captain", "Follow the money trail of strange trades"]
+        },
+        
+        baitHouse: {
+            id: "baitHouse",
+            name: "The Bait House",
+            settlement: "netherwick",
+            type: "Fishing Supply Storage",
+            description: "A weathered wooden building where Jebediah stores fishing supplies and fresh bait. The smell is overwhelming, and lately, some of the bait seems to move on its own.",
+            publicDescription: "Storage for fishing supplies and bait",
+            npcs: ["baitKeeper"],
+            secrets: {
+                gmNotes: "Some of the bait is actually small corrupted creatures. Jebediah finds strange things while digging that he doesn't understand.",
+                observations: ["Overwhelming smell of fish and rot", "Some bait containers seem to writhe", "Jebediah finds unusual things while digging", "His daughter helps sort supplies"]
+            },
+            questHooks: ["Investigate the moving bait", "Examine strange objects found while digging"]
+        },
+        
+        fishermanShrine: {
+            id: "fishermanShrine",
+            name: "The Fisherman's Shrine",
+            settlement: "netherwick",
+            type: "Religious Complex",
+            description: "A weathered stone shrine complex on a small hill overlooking the bay, serving as the spiritual heart of Netherwick. The main shrine honors Thessa with a carved trident and storm motifs, while smaller alcoves hold offerings to Astraea (star charts carved in stone) and Rhyssian (a small pool fed by a hidden spring). A somber memorial area dedicated to Akhetmon contains simple stone markers for those lost at sea, where families leave flowers and personal effects for the drowned.",
+            publicDescription: "Offerings to ensure safe returns",
+            
+            layout: {
+                main_shrine: {
+                    deity: "Thessa",
+                    description: "Central stone altar with carved trident and wave patterns",
+                    offerings: ["Fish bones", "Small coins", "Carved ship models", "Storm-worn shells"]
+                },
+                star_alcove: {
+                    deity: "Astraea",
+                    description: "Small alcove with stone star charts and navigation symbols",
+                    offerings: ["Polished stones", "Compass roses drawn in sand", "Dried flowers arranged in star patterns"]
+                },
+                spring_pool: {
+                    deity: "Rhyssian",
+                    description: "Natural spring pool with smooth river stones arranged around the edge",
+                    offerings: ["Written secrets on parchment (dissolved in water)", "Small keys", "Knotted rope"]
+                },
+                memorial_area: {
+                    deity: "Akhetmon",
+                    description: "Quiet corner with simple stone markers and a small purple-misted brazier, adjacent to the village graveyard",
+                    offerings: ["Personal effects of the lost", "Dried flowers", "Small portraits", "Letters to the dead"]
+                },
+                village_graveyard: {
+                    description: "Small cemetery with weathered headstones overlooking the bay, adjacent to Akhetmon's memorial",
+                    features: ["Weathered stone headstones", "Iron fence (partially rusted)", "Older graves from whaling era", "Recent graves with maritime symbols", "Path connecting to Akhetmon memorial"]
+                }
+            },
+            
+            npcs: ["villageElder"],
+            
+            secrets: {
+                gmNotes: "Old Thaddeus performs midnight rituals here, combining elements from all four shrines. The spring pool sometimes shows visions of the drowned, and the memorial area is where families first notice if their lost loved ones are truly at peace.",
+                hiddenItems: [
+                    {
+                        item: "Ancient Ritual Instructions",
+                        location: "Behind Thessa's altar (Religion DC 15)",
+                        description: "Old stone tablet with maritime protection rituals, some crossed out and replaced with darker rites"
+                    },
+                    {
+                        item: "Navigation Charts",
+                        location: "Astraea's alcove, carved into stone (Investigation DC 12)",
+                        description: "Star charts showing safe passage routes, with recent additions marking dangerous areas"
+                    },
+                    {
+                        item: "Memorial Records",
+                        location: "Akhetmon's area, hidden under loose stones (Perception DC 13)",
+                        description: "List of names and dates of those lost to the bay, with disturbing notes about 'unrestful' spirits and cross-references to disturbed graves"
+                    },
+                    {
+                        item: "Graveyard Caretaker's Notes",
+                        location: "Village graveyard, hidden in old mausoleum (Investigation DC 14)",
+                        description: "Record of grave disturbances, missing bodies, and strange sounds at night - suggests some of the drowned don't stay buried"
+                    }
+                ],
+                observations: [
+                    "The spring pool's water tastes pure despite the village well's corruption",
+                    "Some memorial markers have been recently disturbed or moved",
+                    "Old Thaddeus visits at all hours, especially during new moons",
+                    "Star charts show markings that don't match current celestial patterns",
+                    "Families often leave more offerings at Akhetmon's memorial than the other shrines",
+                    "The graveyard has many recent burials, but some graves appear to have been disturbed",
+                    "Families often hold vigil between the memorial and graveyard during funeral rites"
+                ]
+            },
+            
+            questHooks: [
+                "Investigate Old Thaddeus's midnight rituals",
+                "Decode the disturbing additions to ancient protection rites",
+                "Research the increasing number of 'unrestful' spirits",
+                "Follow the star charts to discover safe vs. dangerous fishing areas",
+                "Help families find peace with their lost loved ones",
+                "Understand why the spring water remains pure",
+                "Investigate the disturbed graves in the village cemetery",
+                "Determine why some of the dead seem restless"
+            ],
+            
+            relatedThreats: ["agog", "corruptedWhales"],
+            relatedEvents: ["strangeNews", "whalingWitness"]
+        },
+        
         // Millhaven Locations
         harborTower: {
             id: "harborTower",
