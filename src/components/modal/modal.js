@@ -12,11 +12,6 @@ export class Modal {
   constructor() {
     this.modalService = new ModalService();
     this.dataService = new DataService();
-    
-    // Register the LocationDetailModal component
-    if (!customElements.get('location-detail-modal')) {
-      customElements.define('location-detail-modal', LocationDetailModal);
-    }
   }
   /**
    * Shows NPC details in a modal
@@ -89,7 +84,7 @@ export class Modal {
       if (modalElement) {
         const placeholder = modalElement.querySelector('#location-content-placeholder');
         if (placeholder) {
-          const locationModal = document.createElement('location-detail-modal');
+          const locationModal = LocationDetailModal.create();
           placeholder.parentNode.replaceChild(locationModal, placeholder);
           locationModal.setLocationData(location);
         }
