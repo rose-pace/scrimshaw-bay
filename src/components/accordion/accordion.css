@@ -1,0 +1,25 @@
+/**
+ * Accordion wrapper styles
+ * Gothic horror theme with dark, muted colors
+ */
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+/* Focus management for keyboard navigation */
+:host {
+  outline: none;
+}
+
+/* Ensure proper spacing between items */
+::slotted(accordion-item) {
+  margin-bottom: 0.25rem;
+}
+
+::slotted(accordion-item:last-child) {
+  margin-bottom: 0;
+}

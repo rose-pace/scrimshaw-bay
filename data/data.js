@@ -133,7 +133,7 @@ const campaignData = {
                     name: "The Fisherman's Shrine",
                     shortDesc: "Offerings to ensure safe returns",
                     npcs: ["villageElder"],
-                    hasDetails: false
+                    hasDetails: true
                 },
                 {
                     id: "communityWell",

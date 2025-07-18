@@ -162,6 +162,20 @@ export const processArrayFields = (obj, fieldConfigs) => {
     
     const fieldValue = obj[fieldName];
     
+    // Special handling for quick_info field - create tags instead of list
+    if (fieldName === 'quick_info' && Array.isArray(fieldValue)) {
+      const tagsHtml = fieldValue.map(info => 
+        `<span class="quick-info-tag">${info}</span>`
+      ).join('');
+      
+      result[`${fieldName}List`] = tagsHtml || fallback;
+      
+      if (checkLength) {
+        result[`${fieldName}HasItems`] = fieldValue && fieldValue.length > 0;
+      }
+      return;
+    }
+    
     // Only process if fieldValue is actually an array
     if (!Array.isArray(fieldValue)) {
       result[`${fieldName}List`] = fallback;

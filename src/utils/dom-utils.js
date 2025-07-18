@@ -149,6 +149,7 @@ export const ensureNode = (content) => {
       // If multiple children or mixed content, return document fragment
       const fragment = document.createDocumentFragment();
       while (tempContainer.firstChild) {
+        // appendChild automatically removes the node from its current parent (tempContainer)
         fragment.appendChild(tempContainer.firstChild);
       }
       return fragment;

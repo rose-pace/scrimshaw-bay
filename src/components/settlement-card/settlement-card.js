@@ -3,6 +3,7 @@
  */
 
 import { DataService } from '@/services/data-service.js';
+import { BackgroundNpcs } from '@/components/background-npcs/background-npcs.js';
 import { 
   cloneTemplate,
   createSettlementCard,
@@ -99,6 +100,12 @@ export class SettlementCard {
     if (settlement.keyNpcs && settlement.keyNpcs.length > 0) {
       const npcsSection = this.createNpcsSection(settlement.keyNpcs);
       content.appendChild(npcsSection);
+    }
+
+    // Background NPCs
+    if (settlement.backgroundNpcs && settlement.backgroundNpcs.length > 0) {
+      const backgroundNpcsSection = this.createBackgroundNpcsSection(settlement.backgroundNpcs, settlement.name);
+      content.appendChild(backgroundNpcsSection);
     }
 
     // Dark Secrets (GM Only)
@@ -198,6 +205,27 @@ export class SettlementCard {
     section.appendChild(secretsContent);
 
     return section;
+  }
+
+  /**
+   * Create background NPCs section for settlement detail
+   * @param {Array} backgroundNpcs - Array of background NPC keys
+   * @param {string} settlementName - Name of the settlement
+   * @returns {HTMLElement} Background NPCs section element
+   */
+  createBackgroundNpcsSection(backgroundNpcs, settlementName) {
+    console.log('SettlementCard: Creating background NPCs section', { backgroundNpcs, settlementName });
+    
+    const backgroundNpcsComponent = document.createElement('background-npcs');
+    console.log('SettlementCard: Created background-npcs element', backgroundNpcsComponent);
+    
+    // Listen for the component to be ready
+    backgroundNpcsComponent.addEventListener('componentReady', () => {
+      console.log('SettlementCard: Component ready, calling displayBackgroundNpcs');
+      backgroundNpcsComponent.displayBackgroundNpcs(backgroundNpcs, settlementName);
+    });
+    
+    return backgroundNpcsComponent;
   }
 
   /**

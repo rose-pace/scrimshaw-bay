@@ -1,28 +1,26 @@
 import { ensureNode } from '@/utils/dom-utils.js';
-import styles from './gm-section-item.css' assert { type: 'css' };
+import { ShadowComponent } from '@/components/base/shadow-component.js';
+import styles from './gm-section-item.css' with { type: 'css' };
 
-export class GmSectionItem extends HTMLElement {
+export class GmSectionItem extends ShadowComponent {
   constructor() {
     super();
   }
 
   /**
-   * Called when the element is added to the DOM
+   * Setup shadow DOM structure and styles
    */
-  connectedCallback() {
-    const shadow = this.attachShadow({ mode: 'open', slotAssignment: 'manual' });
+  setupShadowDOM() {
+    this.applyStyles(styles);
     
-    // Adopt the imported stylesheet
-    shadow.adoptedStyleSheets = [styles];
-    
-    shadow.innerHTML = `
-    <div class="gm-section">
-      <h4>
-        <slot name="title">Section Title</slot>
-      </h4>
-      <slot name="content">Content goes here...</slot>
-    </div>
-  `;
+    this._shadowRoot.innerHTML = `
+      <div class="gm-section">
+        <h4>
+          <slot name="title">Section Title</slot>
+        </h4>
+        <slot name="content">Content goes here...</slot>
+      </div>
+    `;
   }
 
   /**
@@ -31,21 +29,33 @@ export class GmSectionItem extends HTMLElement {
    * @param {Element|Text|string} content - Section content
    */
   setContent(title, content) {
-    const slots = this.shadowRoot.querySelectorAll('slot');
+    // If not ready yet, store the data for later
+    if (!this.isReady()) {
+      this.storePendingData({ title, content });
+      return;
+    }
+
     const titleNode = ensureNode(title);
     const contentNode = ensureNode(content);
 
-    Array.from(slots).forEach(slot => {
-      switch (slot.name) {
-        case 'title':
-          slot.assign(titleNode);
-          break;
-        case 'content':
-          slot.assign(contentNode);
-          break;
-        default:
-          slot.assign();
-      }
-    });
+    this.safeSlotAssign('title', titleNode);
+    this.safeSlotAssign('content', contentNode);
+  }
+
+  /**
+   * Process pending data that was stored before connection
+   */
+  processPendingData() {
+    if (this.pendingData) {
+      this.setContent(this.pendingData.title, this.pendingData.content);
+    }
+  }
+
+  /**
+   * Factory method to create GM section item component instances
+   * @returns {GmSectionItem} New GM section item component element
+   */
+  static create() {
+    return document.createElement('gm-section-item');
   }
 }

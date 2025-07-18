@@ -1,0 +1,215 @@
+/* Shrine Layout Component Styles */
+
+:host {
+  display: block;
+  margin: var(--spacing-md) 0;
+}
+
+.shrine-layout {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-subtle);
+}
+
+.shrine-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.shrine-title {
+  color: var(--primary-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.shrine-icon {
+  font-size: 1.2rem;
+  color: var(--accent-color);
+}
+
+.shrine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.shrine-area {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-md);
+  transition: all var(--transition-normal);
+}
+
+.shrine-area:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.shrine-area-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.shrine-area-name {
+  color: var(--primary-text);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.deity-name {
+  color: var(--accent-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+  background-color: var(--accent-color);
+  color: var(--primary-bg);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+}
+
+.shrine-description {
+  color: var(--secondary-text);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: var(--spacing-md);
+}
+
+.offerings-section {
+  margin-top: var(--spacing-md);
+}
+
+.offerings-title {
+  color: var(--primary-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.offerings-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.offerings-list li {
+  color: var(--secondary-text);
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.offerings-list li::before {
+  content: '⚱️';
+  position: absolute;
+  left: 0;
+  font-size: 0.8rem;
+}
+
+.features-section {
+  margin-top: var(--spacing-md);
+}
+
+.features-title {
+  color: var(--primary-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.features-list li {
+  color: var(--secondary-text);
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.features-list li::before {
+  content: '🏛️';
+  position: absolute;
+  left: 0;
+  font-size: 0.8rem;
+}
+
+.graveyard-area {
+  background-color: var(--tertiary-bg);
+  border: 1px solid var(--warning-text);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+.graveyard-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.graveyard-title {
+  color: var(--warning-text);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.graveyard-icon {
+  font-size: 1.1rem;
+  color: var(--warning-text);
+}
+
+.graveyard-description {
+  color: var(--secondary-text);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: var(--spacing-md);
+}
+
+.graveyard-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+.graveyard-feature {
+  background-color: var(--secondary-bg);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.graveyard-feature-text {
+  color: var(--secondary-text);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .shrine-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .graveyard-features {
+    grid-template-columns: 1fr;
+  }
+}

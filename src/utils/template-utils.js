@@ -46,7 +46,7 @@ export function cloneTemplate(templateId, data = {}, options = {}) {
             slotName === 'effectsList' || slotName === 'creatureList' || slotName === 'encounterNotesList' ||
             slotName === 'processList' || slotName === 'stagesList' || slotName === 'weaknessesList' ||
             slotName === 'featuresList' || slotName === 'hazardsList' || slotName === 'eventLinks' ||
-            slotName === 'settlementLinks') {
+            slotName === 'settlementLinks' || slotName === 'quickInfoList') {
           element.innerHTML = value;
         } else {
           element.textContent = value;
@@ -141,6 +141,8 @@ export function cloneTemplate(templateId, data = {}, options = {}) {
       } else if (slotName === 'npcs' && value) {
         element.style.display = '';
       } else if (slotName === 'connectedLocations' && value) {
+        element.style.display = '';
+      } else if (slotName === 'quickInfo' && value) {
         element.style.display = '';
       }
     }
@@ -262,7 +264,8 @@ export function createNpcCard(npc, npcKey) {
   const processedFields = processArrayFields(npc, {
     secrets: { checkLength: true },
     motivations: { checkLength: true },
-    abilities: { checkLength: true }
+    abilities: { checkLength: true },
+    quick_info: { checkLength: true }
   });
 
   const cardFragment = cloneTemplate('npc-card-template', {
@@ -277,7 +280,9 @@ export function createNpcCard(npc, npcKey) {
     motivations: processedFields.motivationsHasItems,
     motivationsList: processedFields.motivationsList,
     abilities: processedFields.abilitiesHasItems,
-    abilitiesList: processedFields.abilitiesList
+    abilitiesList: processedFields.abilitiesList,
+    quickInfo: processedFields.quick_infoHasItems,
+    quickInfoList: processedFields.quick_infoList
   }, {
     dataAttributes: {
       npc: npcKey
