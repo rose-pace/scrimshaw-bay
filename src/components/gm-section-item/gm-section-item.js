@@ -59,3 +59,5 @@ export class GmSectionItem extends ShadowComponent {
     return document.createElement('gm-section-item');
   }
 }
+
+customElements.define('gm-section-item', GmSectionItem);

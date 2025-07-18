@@ -162,3 +162,5 @@ export class VillageLayout extends ShadowComponent {
     return document.createElement('village-layout');
   }
 }
+
+customElements.define('village-layout', VillageLayout);

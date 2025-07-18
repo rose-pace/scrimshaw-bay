@@ -5,15 +5,13 @@
 import { DataService } from '@/services/data-service.js';
 import { RouteService } from '@/services/route-service.js';
 import { EventCard } from '@/components/event-card/event-card.js';
-import { GmSectionItem } from '@/components/gm-section-item/gm-section-item.js';
 import { LocationDetail } from '@/components/location-detail/location-detail.js';
 import { Modal } from '@/components/modal/modal.js';
 import { Navigation } from '@/components/navigation/navigation.js';
 import { NpcCard } from '@/components/npc-card/npc-card.js';
 import { SettlementCard } from '@/components/settlement-card/settlement-card.js';
 import { ThreatCard } from '@/components/threat-card/threat-card.js';
-import { BackgroundNpcs } from '@/components/background-npcs/background-npcs.js';
-import { clearElement, safeQuerySelector, safeQuerySelectorAll, addEventListenerWithCleanup } from '@/utils/dom-utils.js';
+import { clearElement, safeQuerySelector, addEventListenerWithCleanup } from '@/utils/dom-utils.js';
 
 export class ScrimshawBayApp {
   constructor() {
@@ -27,10 +25,6 @@ export class ScrimshawBayApp {
     this.eventCard = new EventCard();
     this.locationDetail = new LocationDetail();
     this.cleanupFunctions = [];
-
-    // Ensure all components are registered
-    customElements.define('gm-section-item', GmSectionItem);
-    customElements.define('background-npcs', BackgroundNpcs);
 
     // Make dataService and modal available globally for template utils
     window.dataService = this.dataService;

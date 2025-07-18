@@ -155,3 +155,5 @@ export class BackgroundNpcs extends ShadowComponent {
     return document.createElement('background-npcs');
   }
 }
+
+customElements.define('background-npcs', BackgroundNpcs);

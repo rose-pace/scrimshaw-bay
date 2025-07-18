@@ -14,20 +14,6 @@ export class LocationDetailModal extends ShadowComponent {
    * Setup shadow DOM structure and styles
    */
   setupShadowDOM() {
-    // Register components
-    if (!customElements.get('gm-section-item')) {
-      customElements.define('gm-section-item', GmSectionItem);
-    }
-    if (!customElements.get('village-layout')) {
-      customElements.define('village-layout', VillageLayout);
-    }
-    if (!customElements.get('shrine-layout')) {
-      customElements.define('shrine-layout', ShrineLayout);
-    }
-    if (!customElements.get('enhanced-inventory')) {
-      customElements.define('enhanced-inventory', EnhancedInventory);
-    }
-
     this._shadowRoot.innerHTML = `
       <div class="location-network-modal">
         <div class="location-section">
@@ -184,14 +170,14 @@ export class LocationDetailModal extends ShadowComponent {
 
     // Check if this is a village layout with districts
     if (layout.village_structure && layout.districts) {
-      const villageLayout = document.createElement('village-layout');
+      const villageLayout = VillageLayout.create();
       villageLayout.setLayoutData(layout);
       return villageLayout;
     }
 
     // Check if this is a shrine layout
     if (layout.main_shrine || layout.star_alcove || layout.spring_pool || layout.memorial_area) {
-      const shrineLayout = document.createElement('shrine-layout');
+      const shrineLayout = ShrineLayout.create();
       shrineLayout.displayShrineLayout(layout);
       return shrineLayout;
     }
@@ -521,7 +507,7 @@ export class LocationDetailModal extends ShadowComponent {
       return;
     }
 
-    const gmSection = document.createElement('gm-section-item');
+    const gmSection = GmSectionItem.create();
     const formattedContent = this.formatGmContent(content);
     
     gmSection.setContent(title, formattedContent);
@@ -626,7 +612,7 @@ export class LocationDetailModal extends ShadowComponent {
       return null;
     }
 
-    const enhancedInventory = document.createElement('enhanced-inventory');
+    const enhancedInventory = EnhancedInventory.create();
     enhancedInventory.displayInventory(inventory);
     return enhancedInventory;
   }
@@ -636,6 +622,6 @@ export class LocationDetailModal extends ShadowComponent {
    * @returns {LocationDetailModal} New location detail modal component element
    */
   static create() {
-    return document.createElement('location-detail-modal');
+    return LocationDetailModal.create();
   }
 }

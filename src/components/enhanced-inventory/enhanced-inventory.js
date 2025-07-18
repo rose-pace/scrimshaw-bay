@@ -203,3 +203,5 @@ export class EnhancedInventory extends ShadowComponent {
     return document.createElement('enhanced-inventory');
   }
 }
+
+customElements.define('enhanced-inventory', EnhancedInventory);

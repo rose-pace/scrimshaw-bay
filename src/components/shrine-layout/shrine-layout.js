@@ -219,3 +219,5 @@ export class ShrineLayout extends ShadowComponent {
     return document.createElement('shrine-layout');
   }
 }
+
+customElements.define('shrine-layout', ShrineLayout);
