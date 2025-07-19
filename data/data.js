@@ -537,9 +537,9 @@ const campaignData = {
             location: "Netherwick",
             role: "Dock Worker & Boat Maintenance",
             description: "Gruff older man who maintains the docks and helps boats come and go. Missing two fingers from his left hand.",
-            secrets: ["Lost fingers to something that 'bit back' while fishing", "Knows which boats never return"],
+            secrets: ["Lost fingers on left hand to something that 'bit back' while fishing", "Knows which boats return—and which linger when they shouldn't"],
             quick_info: ["Always chewing on dried fish", "Speaks in grunts mostly", "Charges small fees for dock use"],
-            motivations: ["Keep the docks functional", "Avoid the water himself", "Warn newcomers subtly"]
+            motivations: ["Keep the docks functional", "Avoids the water himself", "Warn newcomers subtly"]
         },
         
         youngFisherman: {
