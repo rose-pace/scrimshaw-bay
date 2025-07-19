@@ -141,7 +141,8 @@ export class Modal {
       services: { checkLength: true },
       secrets: { checkLength: true },
       motivations: { checkLength: true },
-      abilities: { checkLength: true }
+      abilities: { checkLength: true },
+      quick_info: { checkLength: true }
     });
     
     // Special handling for knowledge (object array)
@@ -156,6 +157,8 @@ export class Modal {
     const template = cloneTemplate('npc-modal-template', {
       role: npc.role,
       description: npc.description,
+      quickInfo: processedFields.quick_infoHasItems,
+      quickInfoList: processedFields.quick_infoList,
       services: processedFields.servicesHasItems,
       servicesList: processedFields.servicesList,
       knowledge: npc.knowledge && npc.knowledge.length > 0,
