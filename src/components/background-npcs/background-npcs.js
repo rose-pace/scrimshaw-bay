@@ -6,7 +6,9 @@
 import { DataService } from '@/services/data-service.js';
 import { ShadowComponent } from '@/components/base/shadow-component.js';
 import { Accordion } from '@/components/accordion/accordion.js';
-import { BackgroundNpcAccordionItem } from './background-npc-accordion-item.js';
+import { AccordionItem } from '@/components/accordion/accordion-item.js';
+import { NpcHeader } from './npc-header/npc-header.js';
+import { NpcContent } from './npc-content/npc-content.js';
 import styles from './background-npcs.css' with { type: 'css' };
 
 export class BackgroundNpcs extends ShadowComponent {
@@ -47,7 +49,7 @@ export class BackgroundNpcs extends ShadowComponent {
    * @param {Array<string>} npcKeys - Array of NPC keys
    * @param {string} settlementName - Name of the settlement
    */
-  displayBackgroundNpcs(npcKeys, settlementName) {
+  async displayBackgroundNpcs(npcKeys, settlementName) {
     console.log('BackgroundNpcs: displayBackgroundNpcs called', { npcKeys, settlementName, isReady: this.isReady() });
     
     // If not ready yet, store the data for later
@@ -75,38 +77,29 @@ export class BackgroundNpcs extends ShadowComponent {
     accordion.className = 'background-npcs-accordion';
     
     // Create accordion items for each NPC
+    const accordionItemPromises = [];
     npcKeys.forEach(npcKey => {
       const npc = this.dataService.getNpc(npcKey);
       if (npc) {
         console.log('BackgroundNpcs: Creating accordion item for NPC', npcKey, npc.name);
-        const npcAccordionItem = BackgroundNpcAccordionItem.create();
-        npcAccordionItem.setAttribute('npc-key', npcKey);
         
-        // Forward npcClick events from accordion items
-        npcAccordionItem.addEventListener('npcClick', (event) => {
-          event.stopPropagation();
-          this.dispatchNpcClickEvent(event.detail.npc);
-        });
-        
-        accordion.appendChild(npcAccordionItem);
+        // Create standard accordion item
+        const accordionItem = this.createNpcAccordionItem(npcKey, npc);
+        accordionItemPromises.push(accordionItem);
       } else {
         console.warn('BackgroundNpcs: NPC not found:', npcKey);
       }
     });
 
+    const accordionItems = await Promise.all(accordionItemPromises)
+
+    // Add accordion items using the new method
+    accordion.addAccordionItems(accordionItems);
+
     console.log('BackgroundNpcs: Assigning to slots');
     // Assign to slots
     this.safeSlotAssign('count', countBadge);
     this.safeSlotAssign('npcs-grid', accordion);
-
-    const debugAccordion = this._shadowRoot.querySelector('.background-npcs-accordion');
-    if (debugAccordion) {
-      console.log('BackgroundNpcs: Accordion found:', debugAccordion);
-    }
-    else {
-      console.warn('BackgroundNpcs: Accordion not found in shadow DOM');
-    }
-    console.log('BackgroundNpcs: Assignment complete');
   }
 
   /**
@@ -153,6 +146,47 @@ export class BackgroundNpcs extends ShadowComponent {
    */
   static create() {
     return document.createElement('background-npcs');
+  }
+  
+  /**
+   * Factory function to create an NPC accordion item
+   * @param {string} npcKey - The key of the NPC
+   * @param {Object} npc - The NPC data object
+   * @returns {Promise<AccordionItem>} A promise that resolves to the created accordion item
+   */
+  async createNpcAccordionItem(npcKey, npc) {
+    return new Promise((resolve, reject) => {
+      if (!npcKey || !npc) {
+        console.error('BackgroundNpcs: Invalid NPC data for key', npcKey);
+        reject(new Error('Invalid NPC data'));
+        return;
+      }
+
+      const accordionItem = AccordionItem.create();
+
+      accordionItem.addEventListener('componentReady', () => {
+          console.log('BackgroundNpcs: Accordion item component ready for NPC', npcKey);
+
+          // Create NPC header component
+          const npcHeader = NpcHeader.create();
+          npcHeader.setNpcData(npc);
+
+          // Create NPC content component
+          const npcContent = NpcContent.create();
+          npcContent.setNpcData(npcKey, npc);
+
+          // Forward npcClick events from content component
+          npcContent.addEventListener('npcClick', (event) => {
+              event.stopPropagation();
+              this.dispatchNpcClickEvent(event.detail.npc);
+          });
+
+          // Assign components to accordion item slots
+          accordionItem.setHeader(npcHeader);
+          accordionItem.setContent(npcContent);
+      });
+      resolve(accordionItem);
+    });
   }
 }
 

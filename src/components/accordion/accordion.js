@@ -4,6 +4,7 @@
  */
 
 import { ShadowComponent } from '@/components/base/shadow-component.js';
+import { AccordionItem } from './accordion-item.js';
 import styles from './accordion.css' with { type: 'css' };
 
 export class Accordion extends ShadowComponent {
@@ -63,10 +64,68 @@ export class Accordion extends ShadowComponent {
   }
 
   /**
-   * Process pending data and ensure all items start collapsed
+   * Safely add accordion item children with type enforcement
+   * Stores pending items if accordion is not ready yet
+   * @param {AccordionItem|AccordionItem[]} items - AccordionItem instance(s) to add
+   * @throws {Error} If items are not AccordionItem instances
+   */
+  addAccordionItems(items) {
+    const itemArray = Array.isArray(items) ? items : [items];
+    
+    // Type enforcement - check that all items are AccordionItem instances
+    for (const item of itemArray) {
+      if (!(item instanceof AccordionItem)) {
+        const isValidItem = item instanceof HTMLElement && item.tagName.toLowerCase().includes('accordion-item');
+        
+        if (!isValidItem) {
+          throw new Error(`Expected AccordionItem instance, got ${item.constructor.name || typeof item}`);
+        }
+      }
+    }
+    
+    // If not ready yet, store the items for later
+    if (!this.isReady()) {
+      console.log('Accordion: Not ready, storing pending accordion items');
+      const currentPending = this.pendingData?.accordionItems || [];
+      this.storePendingData({ 
+        ...this.pendingData,
+        accordionItems: [...currentPending, ...itemArray] 
+      });
+      return;
+    }
+    
+    // Component is ready, add items directly
+    console.log('Accordion: Adding accordion items to component');
+    this.safeSlotAssign(itemArray);
+    
+    // Ensure new items follow the current state rules
+    this.ensureDefaultCollapsedState();
+    
+    if (this.exclusive) {
+      this.enforceExclusiveMode();
+    }
+  }
+
+  /**
+   * Process pending data including accordion items
    */
   processPendingData() {
     super.processPendingData();
+    
+    // Process any pending accordion items
+    if (this.pendingData?.accordionItems) {
+      console.log('Accordion: Processing pending accordion items', this.pendingData.accordionItems);
+      const pendingItems = this.pendingData.accordionItems;
+      
+      // Clear pending items to avoid infinite loop
+      delete this.pendingData.accordionItems;
+      if (Object.keys(this.pendingData).length === 0) {
+        this.pendingData = null;
+      }
+      
+      // Add the pending items
+      this.addAccordionItems(pendingItems);
+    }
     
     // Ensure all items start collapsed unless explicitly expanded
     this.ensureDefaultCollapsedState();

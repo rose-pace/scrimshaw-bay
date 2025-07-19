@@ -43,12 +43,12 @@
   width: 100%;
 }
 
-/* Accordion item styling */
-::slotted(background-npc-accordion-item) {
+/* Accordion item styling for NPC items */
+::slotted(accordion-item) {
   margin-bottom: 0.5rem;
 }
 
-::slotted(background-npc-accordion-item:last-child) {
+::slotted(accordion-item:last-child) {
   margin-bottom: 0;
 }
 

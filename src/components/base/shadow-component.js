@@ -102,17 +102,37 @@ export class ShadowComponent extends HTMLElement {
 
   /**
    * Safe slot assignment that only works when component is ready
+   * 
+   * @overload
    * @param {string} slotName - Name of the slot
    * @param {Node|Node[]} nodes - Node(s) to assign to slot
+   * 
+   * @overload
+   * @param {Node|Node[]} nodes - Node(s) to assign to the default slot
+   * 
+   * @example
+   * // Assign to named slot
+   * component.safeSlotAssign('header', headerElement);
+   * 
+   * @example
+   * // Assign to default slot (overloaded usage)
+   * component.safeSlotAssign(contentElements);
    */
   safeSlotAssign(slotName, nodes) {
     if (!this.isReady()) {
       console.warn(`ShadowComponent: Cannot assign to slot "${slotName}" - component not ready`);
       return;
     }
-    
+
+    // Check if slotName is actually the node collection and node is undefined
+    if (typeof slotName !== 'string' || !slotName.trim()) {
+      // If only nodes are provided, then assign them to the default slot
+      nodes = slotName;
+      slotName = 'default';
+    }
+
     /** @type {HTMLSlotElement} */
-    const slot = this._shadowRoot.querySelector(`slot[name="${slotName}"]`);
+    const slot = slotName === 'default' ? this._shadowRoot.querySelector('slot') : this._shadowRoot.querySelector(`slot[name="${slotName}"]`);
     if (!slot) {
       console.warn(`ShadowComponent: Slot "${slotName}" not found in shadow DOM`);
       return;

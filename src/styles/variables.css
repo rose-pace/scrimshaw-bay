@@ -14,6 +14,16 @@
   --header-font: 'Cinzel', serif;
   --body-font: 'Crimson Text', serif;
   
+  /* Interactive states */
+  --border-color-hover: #6a6a6a;
+  --card-bg-hover: rgba(255, 255, 255, 0.05);
+  --primary-text-hover: #f0f0f0;
+  --accent-color: #8b7355;
+  
+  /* Shadow effects */
+  --shadow-subtle: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-elevated: 0 4px 8px rgba(0, 0, 0, 0.2);
+  
   /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;

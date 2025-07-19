@@ -9,6 +9,7 @@ import ModalServiceTests from './modal-service.test.js';
 import ModalComponentTests from './modal-component.test.js';
 import ComponentsTests from './components.test.js';
 import UINavigationTests from './ui-navigation.test.js';
+import AccordionTests from './accordion.test.js';
 
 class TestRunner {
   constructor() {
@@ -70,6 +71,7 @@ class TestRunner {
     await this.runTestSuite(ModalComponentTests, 'Modal Component'); 
     await this.runTestSuite(ComponentsTests, 'Components');
     await this.runTestSuite(UINavigationTests, 'UI & Navigation');
+    await this.runTestSuite(AccordionTests, 'Accordion');
     
     const endTime = Date.now();
     const duration = endTime - startTime;

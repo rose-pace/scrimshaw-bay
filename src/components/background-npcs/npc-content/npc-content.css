@@ -1,0 +1,145 @@
+/**
+ * NPC Content Component Styles
+ * Gothic horror theme for NPC detailed content display
+ */
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.npc-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.npc-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent-text, #8b7355);
+  border-bottom: 1px solid var(--border-color, #555);
+  padding-bottom: 0.25rem;
+}
+
+.npc-description {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--primary-text, #e0e0e0);
+}
+
+.npc-quick-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.quick-info-tag {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--card-bg, #3a3a3a);
+  color: var(--primary-text, #e0e0e0);
+  border: 1px solid var(--border-color, #555);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.quick-info-tag:hover {
+  background: var(--card-bg-hover, rgba(255, 255, 255, 0.05));
+  border-color: var(--accent-color, #8b7355);
+}
+
+.motivations-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+}
+
+.motivations-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  color: var(--primary-text, #e0e0e0);
+}
+
+.motivations-list li:last-child {
+  margin-bottom: 0;
+}
+
+.detail-item {
+  padding: 0.75rem;
+  background: var(--secondary-bg, #2d2d2d);
+  border-left: 3px solid var(--accent-color, #8b7355);
+  border-radius: 0 4px 4px 0;
+  line-height: 1.5;
+  color: var(--primary-text, #e0e0e0);
+}
+
+.detail-item strong {
+  color: var(--accent-text, #8b7355);
+  font-weight: 600;
+}
+
+.npc-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color, #555);
+}
+
+.npc-detail-button {
+  padding: 0.5rem 1rem;
+  background: var(--accent-color, #8b7355);
+  color: var(--primary-bg, #1a1a1a);
+  border: none;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.npc-detail-button:hover {
+  background: var(--accent-text, #d4a574);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.npc-detail-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-color, #8b7355);
+}
+
+.npc-detail-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation for content reveal */
+.npc-content {
+  animation: fadeInContent 0.3s ease-out;
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .npc-content {
+    animation: none;
+  }
+}
