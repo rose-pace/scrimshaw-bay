@@ -113,8 +113,22 @@
 .npc-section h4, .threat-section h4, .location-section h4 {
   color: var(--accent-text);
   font-family: var(--header-font);
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 0;
   font-size: 1.2rem;
+}
+
+.npc-section h5, .threat-section h5, .location-section h5 {
+  color: var(--accent-text);
+  margin-bottom: var(--spacing-xs);
+  font-size: 1rem;
+}
+
+.npc-section .knowledge-list .knowledge-entry, .threat-section .knowledge-list .knowledge-entry, .location-section .knowledge-list .knowledge-entry {
+  background-color: rgba(139, 115, 85, 0.1);
+  border-left: 3px solid var(--accent-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  margin-bottom: var(--spacing-sm);
 }
 
 /* GM Sections */

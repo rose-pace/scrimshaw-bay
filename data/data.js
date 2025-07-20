@@ -495,12 +495,12 @@ const campaignData = {
             secrets: ["Has made deals with bog entities", "Knows location of lost settlements", "Can sense safe paths supernaturally", "Has encountered Marshwalker Elves and learned some of their signs", "Knows which areas Bogskaldr frequent and Marsh Giant territories", "Knows the rhyming call to summon Bettey Nettle and Clattershanks"],
             abilities: ["Bog navigation", "Danger sensing", "Wetland survival", "Creature tracking", "Basic knowledge of bog creature behavior"],
             motivations: ["Make money from desperate travelers", "Avoid the deep bogs", "Keep certain areas secret", "Survive encounters with bog creatures"],
-            creature_knowledge: {
-                "Bogskaldr": "Knows their ambush spots and feeding times",
-                "Marsh Giants": "Understands their territorial boundaries and tribute customs", 
-                "Marshwalker Elves": "Has seen their signs and knows some safe-passage rituals",
-                "Bettey Nettle & Clattershanks": "Knows the summoning ritual and has traded with them before"
-            },
+            knowledge: [
+                { topic: "Bogskaldr", info: "Knows their ambush spots and feeding times"},
+                { topic: "Marsh Giants", info: "Understands their territorial boundaries and tribute customs"},
+                { topic: "Marshwalker Elves", info: "Has seen their signs and knows some safe-passage rituals"},
+                { topic: "Bettey Nettle & Clattershanks", info: "Knows the summoning ritual and has traded with them before"}
+            ],
             relatedThreats: ["bogCreatures", "bogCorruption"],
             relatedLocations: ["bogRoad", "canalLocks", "watchtower"],
             relatedEvents: ["bogTravel", "strangeNews", "hagEncounter"]
@@ -620,11 +620,11 @@ const campaignData = {
             secrets: ["Grows plants that shouldn't exist in this climate", "Makes remedies for the transforming villagers"],
             quick_info: ["Speaks to herself constantly", "Always smells of strange herbs", "Offers remedies for coin"],
             motivations: ["Help ease others' suffering", "Keep her garden secret", "Remember her sons"],
-            creature_knowledge: {
-              "Eldest Son": "Marcus Blackwater (lost 15 years ago, age 25 when disappeared)",
-              "Middle Son": "Theron Blackwater (lost 8 years ago, age 22 when disappeared)",
-              "Youngest Son": "Edwin Blackwater (lost 3 years ago, age 19 when disappeared)"
-            }
+            knowledge: [
+              { topic: "Eldest Son", info: "Marcus Blackwater (lost 15 years ago, age 25 when disappeared)" },
+              { topic: "Middle Son", info: "Theron Blackwater (lost 8 years ago, age 22 when disappeared)" },
+              { topic: "Youngest Son", info: "Edwin Blackwater (lost 3 years ago, age 19 when disappeared)" }
+            ]
         },
         
         waterBearer: {
