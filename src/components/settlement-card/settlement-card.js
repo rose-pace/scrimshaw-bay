@@ -4,6 +4,10 @@
 
 import { DataService } from '@/services/data-service.js';
 import { BackgroundNpcs } from '@/components/background-npcs/background-npcs.js';
+import { Accordion } from '@/components/accordion/accordion.js';
+import { AccordionItem } from '@/components/accordion/accordion-item.js';
+import { NpcHeader } from '@/components/background-npcs/npc-header/npc-header.js';
+import { NpcContent } from '@/components/background-npcs/npc-content/npc-content.js';
 import { 
   cloneTemplate,
   createSettlementCard,
@@ -63,9 +67,9 @@ export class SettlementCard {
   /**
    * Create settlement detail view
    * @param {string} settlementKey - Settlement key
-   * @returns {HTMLElement} Settlement detail element
+   * @returns {Promise<HTMLElement>} Settlement detail element
    */  
-  createDetailView(settlementKey) {
+  async createDetailView(settlementKey) {
     const settlement = this.dataService.getSettlement(settlementKey);
     if (!settlement) {
       const errorDiv = document.createElement('div');
@@ -98,7 +102,7 @@ export class SettlementCard {
 
     // Key NPCs
     if (settlement.keyNpcs && settlement.keyNpcs.length > 0) {
-      const npcsSection = this.createNpcsSection(settlement.keyNpcs);
+      const npcsSection = await this.createNpcsSection(settlement.keyNpcs);
       content.appendChild(npcsSection);
     }
 
@@ -152,26 +156,37 @@ export class SettlementCard {
    * @param {Array} npcs - Array of NPC keys
    * @returns {HTMLElement} NPCs section element
    */
-  createNpcsSection(npcs) {
+  async createNpcsSection(npcs) {
     const section = document.createElement('div');
     section.className = 'key-npcs-section';
 
     const header = document.createElement('h4');
     header.innerHTML = 'Key NPCs';
 
-    const npcsList = document.createElement('div');
-    npcsList.className = 'key-npcs-list';
+    // Create accordion wrapper for NPCs
+    const accordion = Accordion.create();
+    accordion.className = 'key-npcs-accordion';
 
+    // Create accordion items for each NPC
+    const accordionItemPromises = [];
     npcs.forEach(npcKey => {
       const npc = this.dataService.getNpc(npcKey);
       if (npc) {
-        const npcItem = createNpcLink(npc, npcKey);
-        npcsList.appendChild(npcItem);
+        // Create standard accordion item
+        const accordionItem = this.createKeyNpcAccordionItem(npcKey, npc);
+        accordionItemPromises.push(accordionItem);
+      } else {
+        console.warn('SettlementCard: Key NPC not found:', npcKey);
       }
     });
 
+    const accordionItems = await Promise.all(accordionItemPromises);
+
+    // Add accordion items using the new method
+    accordion.addAccordionItems(accordionItems);
+
     section.appendChild(header);
-    section.appendChild(npcsList);
+    section.appendChild(accordion);
 
     return section;
   }
@@ -226,6 +241,59 @@ export class SettlementCard {
     });
     
     return backgroundNpcsComponent;
+  }
+
+  /**
+   * Factory function to create a Key NPC accordion item
+   * @param {string} npcKey - The key of the NPC
+   * @param {Object} npc - The NPC data object
+   * @returns {Promise<AccordionItem>} A promise that resolves to the created accordion item
+   */
+  async createKeyNpcAccordionItem(npcKey, npc) {
+    return new Promise((resolve, reject) => {
+      if (!npcKey || !npc) {
+        console.error('SettlementCard: Invalid NPC data for key', npcKey);
+        reject(new Error('Invalid NPC data'));
+        return;
+      }
+
+      const accordionItem = AccordionItem.create();
+
+      accordionItem.addEventListener('componentReady', () => {
+        console.log('SettlementCard: Accordion item component ready for key NPC', npcKey);
+
+        // Create NPC header component
+        const npcHeader = NpcHeader.create();
+        npcHeader.setNpcData(npc);
+
+        // Create NPC content component
+        const npcContent = NpcContent.create();
+        npcContent.setNpcData(npcKey, npc);
+
+        // Forward npcClick events from content component
+        npcContent.addEventListener('npcClick', (event) => {
+          event.stopPropagation();
+          this.dispatchNpcClickEvent(event.detail.npc);
+        });
+
+        // Assign components to accordion item slots
+        accordionItem.setHeader(npcHeader);
+        accordionItem.setContent(npcContent);
+      });
+      
+      resolve(accordionItem);
+    });
+  }
+
+  /**
+   * Dispatch NPC click event
+   * @param {string} npcKey - NPC key
+   */
+  dispatchNpcClickEvent(npcKey) {
+    const event = new CustomEvent('npcClick', {
+      detail: { npc: npcKey }
+    });
+    document.dispatchEvent(event);
   }
 
   /**

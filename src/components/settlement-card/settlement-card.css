@@ -307,6 +307,10 @@
   border-radius: var(--border-radius-md);
   padding: var(--spacing-lg);
   border: 1px solid var(--border-color);
+  --key-npc-name-color: var(--accent-text);
+  --key-npc-name-font: var(--header-font);
+  --key-npc-name-size: 1.3rem;
+  --key-npc-name-weight: 600;
 }
 
 .key-npcs-section h4 {
@@ -359,6 +363,48 @@
   font-size: 0.9rem;
   font-style: italic;
   margin-top: 0.25rem;
+}
+
+/* Key NPCs Accordion Styles */
+.key-npcs-section .key-npcs-accordion {
+  margin-top: var(--spacing-md);
+}
+
+.key-npcs-count {
+  background-color: var(--accent-text);
+  color: var(--primary-bg);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: var(--spacing-sm);
+}
+
+/* Style slotted NPC name elements to match npc-card.css styles */
+.key-npcs-section npc-header::part(npc-name),
+.key-npcs-section ::slotted(.npc-name) {
+  color: var(--accent-text);
+  font-family: var(--header-font);
+  font-size: 1.3rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Alternative selector for targeting the NPC name in shadow DOM content */
+.key-npcs-section accordion-item npc-header .npc-name {
+  color: var(--accent-text) !important;
+  font-family: var(--header-font) !important;
+  font-size: 1.3rem !important;
+  margin: 0 !important;
+  font-weight: 600 !important;
+}
+
+/* CSS custom properties that can penetrate shadow DOM boundaries */
+.key-npcs-section accordion-item {
+  --npc-name-color: var(--accent-text);
+  --npc-name-font-family: var(--header-font);
+  --npc-name-font-size: 1.3rem;
+  --npc-name-font-weight: 600;
 }
 
 /* Dark Secrets Section */

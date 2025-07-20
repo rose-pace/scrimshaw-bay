@@ -191,8 +191,8 @@ export class ScrimshawBayApp {
     // Handle settlement rendering if needed
     if (route.settlement) {
       // Small delay to ensure section is rendered first
-      setTimeout(() => {
-        this.renderSettlementDetails(route.settlement);
+      setTimeout(async () => {
+        await this.renderSettlementDetails(route.settlement);
       }, 50);
     }
 
@@ -309,7 +309,7 @@ export class ScrimshawBayApp {
         // Only load default settlement if no specific settlement in route
         const currentRoute = this.routeService.getCurrentRoute();
         if (!currentRoute.settlement) {
-          this.loadDefaultSettlement();
+          this.loadDefaultSettlement().catch(console.error);
         }
         break;
       default:
@@ -400,7 +400,7 @@ export class ScrimshawBayApp {
    * Render settlement details
    * @param {string} settlementKey - Settlement key
    */
-  renderSettlementDetails(settlementKey) {
+  async renderSettlementDetails(settlementKey) {
     const settlementDetails = safeQuerySelector('#settlement-details');
     if (!settlementDetails) {
       console.error('settlement-details element not found');
@@ -409,7 +409,7 @@ export class ScrimshawBayApp {
 
     clearElement(settlementDetails);
 
-    const detailView = this.settlementCard.createDetailView(settlementKey);
+    const detailView = await this.settlementCard.createDetailView(settlementKey);
 
     if (detailView) {
       settlementDetails.appendChild(detailView);
@@ -441,7 +441,7 @@ export class ScrimshawBayApp {
   /**
    * Load default settlement when settlements section is first shown
    */
-  loadDefaultSettlement() {
+  async loadDefaultSettlement() {
     // Select the first settlement button
     const activeSettlementBtn = safeQuerySelector('.settlement-nav-btn');
     
@@ -452,7 +452,7 @@ export class ScrimshawBayApp {
       this.navigation.showSettlement(defaultSettlement, false);
       
       // Render the settlement details
-      this.renderSettlementDetails(defaultSettlement);
+      await this.renderSettlementDetails(defaultSettlement);
       
       // Update the route to include the settlement (without pushing to history)
       this.routeService.navigateToSettlement(defaultSettlement, false);

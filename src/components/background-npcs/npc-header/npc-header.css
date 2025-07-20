@@ -28,9 +28,10 @@
 
 .npc-name {
   margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--primary-text, #e0e0e0);
+  font-size: var(--npc-name-font-size, 1.1rem);
+  font-weight: var(--npc-name-font-weight, 600);
+  font-family: var(--npc-name-font-family, inherit);
+  color: var(--npc-name-color, var(--primary-text, #e0e0e0));
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
