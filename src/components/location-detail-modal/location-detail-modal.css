@@ -155,3 +155,8 @@
   color: var(--primary-bg);
 }
 
+.event-link {
+  background-color: var(--info-text);
+  color: var(--primary-bg);
+}
+
