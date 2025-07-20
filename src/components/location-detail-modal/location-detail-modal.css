@@ -1,0 +1,157 @@
+/* Location Detail Modal Component Styles - Shadow DOM Only */
+
+.location-network-modal {
+  padding: var(--spacing-lg);
+  color: var(--primary-text);
+}
+
+/* Location Sections - Shadow DOM */
+.location-section {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.location-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.location-section h4 {
+  color: var(--accent-text);
+  font-family: var(--header-font);
+  margin-bottom: 0;
+  font-size: 1.2rem;
+}
+
+.location-section h5 {
+  color: var(--accent-text);
+  margin-bottom: var(--spacing-xs);
+  font-size: 1rem;
+}
+
+/* Slotted content styling - only direct slotted elements */
+::slotted(p) {
+  margin: var(--spacing-sm) 0;
+  line-height: 1.6;
+}
+
+::slotted(ul) {
+  margin: var(--spacing-sm) 0;
+  padding-left: 1.5rem;
+}
+
+::slotted(li) {
+  margin-bottom: var(--spacing-xs);
+  line-height: 1.5;
+}
+
+/* Slotted custom components */
+::slotted(village-layout),
+::slotted(shrine-layout),
+::slotted(enhanced-inventory) {
+  display: block;
+  width: 100%;
+}
+
+/* GM Sections - Shadow DOM */
+.gm-sections {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 2px solid var(--danger-text);
+  background-color: rgba(198, 45, 66, 0.1);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+}
+
+.gm-header {
+  margin-bottom: var(--spacing-lg);
+}
+
+.gm-header h3 {
+  color: var(--danger-text);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.4rem;
+}
+
+.gm-note {
+  color: var(--secondary-text);
+  font-style: italic;
+  margin-bottom: 0;
+}
+
+.gm-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.gm-section h4 {
+  color: var(--danger-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.gm-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Network Sections - Shadow DOM */
+.location-network {
+  margin: var(--spacing-md) 0;
+}
+
+.location-network h3 {
+  color: var(--accent-text);
+  font-family: var(--header-font);
+  margin-bottom: var(--spacing-lg);
+  font-size: 1.2rem;
+}
+
+.network-section {
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-md);
+  background-color: var(--secondary-bg);
+  border-radius: 6px;
+  border-left: 3px solid var(--accent-text);
+}
+
+.network-section h4 {
+  color: var(--accent-text);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.1rem;
+}
+
+.network-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.network-link {
+  background-color: var(--secondary-bg);
+  color: var(--primary-text);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.network-link:hover {
+  background-color: var(--accent-text);
+  color: var(--primary-bg);
+  transform: translateY(-1px);
+}
+
+.npc-link {
+  background-color: var(--accent-bg);
+}
+
+.threat-link {
+  background-color: var(--danger-text);
+}
+
+.location-link {
+  background-color: var(--warning-text);
+  color: var(--primary-bg);
+}
+

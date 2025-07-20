@@ -3,6 +3,7 @@ import { VillageLayout } from '@/components/village-layout/village-layout.js';
 import { ShrineLayout } from '@/components/shrine-layout/shrine-layout.js';
 import { EnhancedInventory } from '@/components/enhanced-inventory/enhanced-inventory.js';
 import { ShadowComponent } from '@/components/base/shadow-component.js';
+import styles from './location-detail-modal.css' with { type: 'css' };
 
 export class LocationDetailModal extends ShadowComponent {
   constructor() {
@@ -14,6 +15,8 @@ export class LocationDetailModal extends ShadowComponent {
    * Setup shadow DOM structure and styles
    */
   setupShadowDOM() {
+    this.applyStyles(styles);
+    
     this._shadowRoot.innerHTML = `
       <div class="location-network-modal">
         <div class="location-section">
@@ -622,6 +625,9 @@ export class LocationDetailModal extends ShadowComponent {
    * @returns {LocationDetailModal} New location detail modal component element
    */
   static create() {
-    return LocationDetailModal.create();
+    return document.createElement('location-detail-modal');
   }
 }
+
+// Register the custom element
+customElements.define('location-detail-modal', LocationDetailModal);

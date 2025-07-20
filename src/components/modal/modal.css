@@ -347,8 +347,314 @@
   margin-bottom: var(--spacing-xs);
 }
 
-/* Responsive Modal */
+/* Location Detail Modal Layout Styles - Light DOM Content */
+.buildings-layout,
+.mansions-layout,
+.shrine-layout,
+.generic-layout {
+  margin: var(--spacing-md) 0;
+}
+
+.buildings-layout h5,
+.mansions-layout h5,
+.shrine-layout h5 {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--accent-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.buildings-grid,
+.mansions-grid,
+.shrine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+.building-card,
+.mansion-card,
+.deity-card,
+.graveyard-card {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  border-left: 3px solid var(--accent-text);
+  padding: var(--spacing-md);
+}
+
+.building-card h6,
+.mansion-card h6,
+.deity-card h6,
+.graveyard-card h6 {
+  margin: 0 0 var(--spacing-sm) 0;
+  color: var(--accent-text);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.building-card p,
+.mansion-card p,
+.deity-card p,
+.graveyard-card p {
+  margin: var(--spacing-xs) 0;
+  line-height: 1.5;
+}
+
+.building-card strong,
+.mansion-card strong,
+.deity-card strong,
+.graveyard-card strong {
+  color: var(--accent-text);
+}
+
+.building-card ul,
+.mansion-card ul,
+.deity-card ul,
+.graveyard-card ul {
+  margin: var(--spacing-xs) 0;
+  padding-left: 1.5rem;
+}
+
+.building-card li,
+.mansion-card li,
+.deity-card li,
+.graveyard-card li {
+  margin-bottom: var(--spacing-xs);
+  line-height: 1.4;
+}
+
+.underground-section {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background-color: var(--secondary-bg);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.underground-section h5 {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--accent-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.underground-section > div {
+  margin-bottom: var(--spacing-xs);
+}
+
+.layout-item {
+  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-xs);
+  background-color: var(--secondary-bg);
+  border-radius: var(--border-radius-sm);
+  border-left: 2px solid var(--accent-text);
+}
+
+.layout-item strong {
+  color: var(--accent-text);
+}
+
+/* GM Content Styles - Light DOM */
+.gm-object-list {
+  margin: var(--spacing-md) 0;
+}
+
+.gm-item-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.gm-item-card:last-child {
+  margin-bottom: 0;
+}
+
+.gm-item-card .item-header {
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-xs);
+  color: var(--accent-text);
+}
+
+.gm-item-card .item-location {
+  margin-bottom: var(--spacing-xs);
+  font-style: italic;
+  color: var(--secondary-text);
+}
+
+.gm-item-card .item-description {
+  line-height: 1.5;
+}
+
+.gm-item-card .item-field {
+  margin-bottom: var(--spacing-xs);
+}
+
+.gm-item-card .item-field:last-child {
+  margin-bottom: 0;
+}
+
+.gm-string-list {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 0;
+}
+
+.gm-string-list li {
+  margin-bottom: var(--spacing-xs);
+  line-height: 1.5;
+}
+
+/* Enhanced Inventory Styles - Light DOM */
+.enhanced-inventory {
+  background-color: var(--secondary-bg);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.inventory-category {
+  margin-bottom: var(--spacing-lg);
+}
+
+.inventory-category h5 {
+  color: var(--accent-text);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-xs);
+}
+
+.inventory-items {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.inventory-item {
+  background-color: var(--card-bg);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.inventory-item strong {
+  color: var(--accent-text);
+}
+
+/* Hidden Items - Light DOM */
+.hidden-items {
+  margin-top: var(--spacing-md);
+}
+
+.hidden-items h5 {
+  color: var(--danger-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.hidden-item {
+  background-color: var(--card-bg);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--danger-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.hidden-item:last-child {
+  margin-bottom: 0;
+}
+
+.hidden-item h6 {
+  color: var(--danger-text);
+  margin-bottom: var(--spacing-xs);
+  font-size: 1rem;
+}
+
+.hidden-item p {
+  margin-bottom: var(--spacing-xs);
+}
+
+.hidden-item p:last-child {
+  margin-bottom: 0;
+}
+
+/* Observations - Light DOM */
+.observations {
+  margin-top: var(--spacing-md);
+}
+
+.observations h5 {
+  color: var(--danger-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.observations ul {
+  margin-bottom: 0;
+}
+
+.observations li {
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Layout Areas - Light DOM */
+.layout-areas {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.area-entry {
+  background-color: var(--secondary-bg);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.area-entry h5 {
+  color: var(--accent-text);
+  margin-bottom: var(--spacing-sm);
+  font-size: 1.1rem;
+}
+
+.area-features {
+  margin-top: var(--spacing-sm);
+}
+
+.area-features strong {
+  color: var(--accent-text);
+}
+
+.area-features ul {
+  margin-top: var(--spacing-xs);
+  margin-bottom: 0;
+}
+
+.area-features li {
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Hazard Styling - Light DOM */
+.building-card li[style*="color: #d32f2f"],
+.underground-section li[style*="color: #d32f2f"] {
+  color: var(--danger-text) !important;
+  font-weight: 500;
+}
+
+.building-card strong[style*="color: #d32f2f"],
+.underground-section strong[style*="color: #d32f2f"] {
+  color: var(--danger-text) !important;
+}
+
+/* Layout responsive styles - Light DOM */
 @media (max-width: 768px) {
+  .buildings-grid,
+  .mansions-grid,
+  .shrine-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
   .modal-content {
     width: 95%;
     max-height: 95vh;
