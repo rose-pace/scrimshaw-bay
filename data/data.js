@@ -159,8 +159,8 @@ const campaignData = {
             ],
             
             keyNpcs: ["tavernKeeper", "villageElder", "netsMender"],
-            backgroundNpcs: ["dockWorker", "youngFisherman", "fisherWife", "sickmChild", "desperateWidow", "waterBearer", "fishmonger", "tradingCaptain", "baitKeeper", "senileGrandfather", "anxiousMother", "skepticalFisherman"],
-            
+            backgroundNpcs: ["dockWorker", "youngFisherman", "barnabyNetcast", "meredithNetcast", "fisherWife", "sickmChild", "mollyStormwind", "benStormwind", "desperateWidow", "waterBearer", "fishmonger", "tradingCaptain", "baitKeeper", "rosieWormfinder", "senileGrandfather", "anxiousMother", "willlemWaveworry", "pennyWaveworry", "skepticalFisherman"],
+
             inhabitants: [
                 "Fishing families who've lived here for generations",
                 "Tavern keeper who collects increasingly disturbing scrimshaw",
@@ -552,11 +552,31 @@ const campaignData = {
             motivations: ["Make enough money to leave", "Impress his crush", "Help his aging parents"]
         },
         
+        barnabyNetcast: {
+            name: "Barnaby Netcast",
+            location: "Netherwick",
+            role: "Aging Fisherman & Tobias's Father",
+            description: "Older fisherman whose body is wearing down from decades at sea. Father to the optimistic young Tobias.",
+            secrets: ["Knows his fishing days are numbered", "Worried about son leaving the village"],
+            quick_info: ["Weathered and tired", "Proud of his son", "Still skilled despite age"],
+            motivations: ["Provide for family while he can", "Pass on fishing knowledge", "Keep son safe"]
+        },
+        
+        meredithNetcast: {
+            name: "Meredith Netcast",
+            location: "Netherwick",
+            role: "Net Mender & Tobias's Mother",
+            description: "Skilled woman who mends nets for the village fishermen. Tobias's mother who worries about his plans to leave.",
+            secrets: ["Secretly hopes Tobias will stay", "Knows which families are planning to leave"],
+            quick_info: ["Skilled with needlework", "Gossips while working", "Protective of her son"],
+            motivations: ["Keep family together", "Earn income through net repair", "Support husband's fishing"]
+        },
+        
         fisherWife: {
             name: "Greta Stormwind",
             location: "Netherwick",
             role: "Fisher's Wife & Seamstress",
-            description: "Middle-aged woman whose husband went missing at sea three months ago. Takes in sewing to survive.",
+            description: "Middle-aged woman whose husband, Garrett Stormwind, went missing at sea three months ago. Takes in sewing to survive.",
             secrets: ["Husband's boat was found with strange bite marks", "Keeps his sea chest locked"],
             quick_info: ["Suspicious of strangers", "Protective of her children", "Skilled with needle and thread"],
             motivations: ["Protect her children", "Find out what happened to her husband", "Keep food on the table"]
@@ -572,14 +592,39 @@ const campaignData = {
             motivations: ["Understand his dreams", "Find his father", "Make the marks stop itching"]
         },
         
+        mollyStormwind: {
+            name: "Molly Stormwind",
+            location: "Netherwick",
+            role: "Seamstress Helper & Greta's Daughter",
+            description: "Twelve-year-old girl who helps her mother Greta with sewing work. Mature for her age due to family hardship.",
+            secrets: ["Remembers more about father's disappearance than she admits", "Helps care for sick brother Tam"],
+            quick_info: ["Serious and responsible", "Good with needle and thread", "Protective of little brother"],
+            motivations: ["Help support the family", "Protect her little brother", "Learn about father's fate"]
+        },
+        
+        benStormwind: {
+            name: "Ben Stormwind",
+            location: "Netherwick",
+            role: "Child & Greta's Son",
+            description: "Nine-year-old boy who's been afraid of the water since his father disappeared. Brother to Tam and Molly.",
+            secrets: ["Has nightmares about the water", "Draws pictures of sea monsters"],
+            quick_info: ["Afraid of the bay", "Stays close to home", "Imaginative but fearful"],
+            motivations: ["Stay safe from the water", "Help his sick brother", "Understand what happened to father"]
+        },
+        
         desperateWidow: {
             name: "Vera Blackwater",
             location: "Netherwick",
             role: "Widow & Herb Gatherer",
-            description: "Elderly widow who knows which plants help with ailments. Lost three sons to the sea over the years.",
+            description: "Elderly widow who knows which plants help with ailments. Lost three sons to the sea over the years, Marcus, Theron, and Edwin.",
             secrets: ["Grows plants that shouldn't exist in this climate", "Makes remedies for the transforming villagers"],
             quick_info: ["Speaks to herself constantly", "Always smells of strange herbs", "Offers remedies for coin"],
-            motivations: ["Help ease others' suffering", "Keep her garden secret", "Remember her sons"]
+            motivations: ["Help ease others' suffering", "Keep her garden secret", "Remember her sons"],
+            creature_knowledge: {
+              "Eldest Son": "Marcus Blackwater (lost 15 years ago, age 25 when disappeared)",
+              "Middle Son": "Theron Blackwater (lost 8 years ago, age 22 when disappeared)",
+              "Youngest Son": "Edwin Blackwater (lost 3 years ago, age 19 when disappeared)"
+            }
         },
         
         waterBearer: {
@@ -622,6 +667,16 @@ const campaignData = {
             motivations: ["Keep fishermen supplied", "Protect his daughter", "Understand the strange bait"]
         },
         
+        rosieWormfinder: {
+            name: "Rosie Wormfinder",
+            location: "Netherwick",
+            role: "Supply Sorter & Jebediah's Daughter",
+            description: "Sixteen-year-old girl who helps her father sort fishing supplies. Object of young Tobias's affection.",
+            secrets: ["Knows Tobias likes her", "Wants to learn to read and write", "Finds strange things in the bait sometimes"],
+            quick_info: ["Hardworking and practical", "Dreams of life beyond the village", "Kind but focused"],
+            motivations: ["Help her father's business", "Learn new skills", "Decide between staying or leaving"]
+        },
+        
         senileGrandfather: {
             name: "Grandfather Ezra Saltwhiskers",
             location: "Netherwick",
@@ -636,10 +691,30 @@ const campaignData = {
             name: "Prudence Waveworry",
             location: "Netherwick",
             role: "Fisherman's Wife & Village Gossip",
-            description: "Nervous woman whose husband is part of the whaling crew. Constantly worried about his changes.",
+            description: "Nervous woman whose husband, Crispin Waveworry, is part of a whaling crew. Constantly worried about his changes.",
             secrets: ["Husband growing gills behind his ears", "Considering taking children and fleeing"],
             quick_info: ["Jumpy and nervous", "Asks lots of questions", "Protective of her family"],
             motivations: ["Keep her family safe", "Learn about husband's condition", "Plan escape if needed"]
+        },
+        
+        willlemWaveworry: {
+            name: "Young Willem Waveworry",
+            location: "Netherwick",
+            role: "Child & Prudence's Son",
+            description: "Eight-year-old boy who doesn't understand why his mother is so worried about his father lately.",
+            secrets: ["Notices father smells like fish more than usual", "Heard parents arguing at night"],
+            quick_info: ["Curious and energetic", "Asks lots of questions", "Loves his father"],
+            motivations: ["Understand why everyone seems worried", "Spend time with father", "Play and explore"]
+        },
+        
+        pennyWaveworry: {
+            name: "Penny Waveworry",
+            location: "Netherwick",
+            role: "Young Child & Prudence's Daughter",
+            description: "Five-year-old girl who clings to her increasingly anxious mother. Too young to understand the family's situation.",
+            secrets: ["Father's hugs feel different lately", "Senses mother's fear"],
+            quick_info: ["Clingy and sensitive", "Picks up on emotions", "Needs comfort"],
+            motivations: ["Stay close to mother", "Get attention from busy father", "Feel safe"]
         },
         
         skepticalFisherman: {
