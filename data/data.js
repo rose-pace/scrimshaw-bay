@@ -140,21 +140,21 @@ const campaignData = {
                     name: "The Community Well",
                     shortDesc: "Central gathering spot with increasingly brackish water",
                     npcs: ["waterBearer"],
-                    hasDetails: false
+                    hasDetails: true
                 },
                 {
                     id: "marketSpace",
                     name: "Market Commons",
                     shortDesc: "Small area where what little trade occurs",
                     npcs: ["fishmonger", "tradingCaptain"],
-                    hasDetails: false
+                    hasDetails: true
                 },
                 {
                     id: "baitHouse",
                     name: "The Bait House",
                     shortDesc: "Storage for fishing supplies and bait",
                     npcs: ["baitKeeper"],
-                    hasDetails: false
+                    hasDetails: true
                 }
             ],
             
@@ -1461,7 +1461,7 @@ const campaignData = {
             effects: ["Physical transformation", "Mental corruption", "Loss of humanity", "Aquatic adaptation"],
             timeline: "Transformation takes 2-6 months depending on exposure",
             affectedNpcs: ["netsMender", "tavernKeeper", "villageElder"],
-            affectedLocations: ["weatheredDocks", "caughtCod", "fishermanShrine"],
+            affectedLocations: ["boneYards", "caughtCod", "fishermanShrine"],
             affectedSettlements: ["millhaven", "netherwick"],
             relatedEvents: ["whalingWitness", "strangeNews"],
             relatedThreats: ["agog", "transformedCitizens"],
