@@ -68,7 +68,7 @@ const campaignData = {
       description: 'What began as a whaling support town has devolved into desperate subsistence fishing. The village clings to life through increasingly meager catches, though locals whisper that the fish taste metallic and wrong.',
 
       layout: {
-        village_structure: {
+        structure: {
           main_area: 'Cottages arranged in defensive semicircle around central commons',
           docks: 'Weathered wooden piers extending into dark bay waters',
           work_areas: 'Net-mending sheds and fish-drying racks along the shore',
@@ -92,7 +92,7 @@ const campaignData = {
             buildings: ['Main fishing docks', 'Net-mending sheds', 'Fish-drying racks', 'Boat storage', 'Bait house']
           },
           {
-            name: 'shrine Hill',
+            name: 'Shrine Hill',
             description: 'small hill with the fisherman\'s shrine complex, elder\'s cottage, and village graveyard',
             buildings: ['The Fisherman\'s Shrine (Thessa, Astraea, Rhyssian, Akhetmon)', 'Elder\'s cottage', 'Village graveyard', 'Weather watching post', 'Old beacon tower (defunct)']
           }

@@ -15,7 +15,7 @@ export const settlementSchema = {
     layout: {
       type: 'object',
       properties: {
-        village_structure: { type: 'object' },
+        structure: { type: 'object' },
         districts: {
           type: 'array',
           items: {
