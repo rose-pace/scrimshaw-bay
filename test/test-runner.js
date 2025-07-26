@@ -10,6 +10,7 @@ import ModalComponentTests from './modal-component.test.js';
 import ComponentsTests from './components.test.js';
 import UINavigationTests from './ui-navigation.test.js';
 import AccordionTests from './accordion.test.js';
+import { SchemaValidationTests, DataIntegrityTests } from './schema-validation.test.js';
 
 class TestRunner {
   constructor() {
@@ -72,6 +73,8 @@ class TestRunner {
     await this.runTestSuite(ComponentsTests, 'Components');
     await this.runTestSuite(UINavigationTests, 'UI & Navigation');
     await this.runTestSuite(AccordionTests, 'Accordion');
+    await this.runTestSuite(SchemaValidationTests, 'Schema Validation');
+    await this.runTestSuite(DataIntegrityTests, 'Data Integrity');
     
     const endTime = Date.now();
     const duration = endTime - startTime;
