@@ -1,3 +1,5 @@
+import reset from '@/styles/reset.css' with { type: 'css' };
+
 /**
  * Base class for web components with shadow DOM and deferred rendering
  * Provides lifecycle management for components that need to render before being connected to the DOM
@@ -181,7 +183,7 @@ export class ShadowComponent extends HTMLElement {
     if (!this._shadowRoot) return;
     
     const styleArray = Array.isArray(styles) ? styles : [styles];
-    this._shadowRoot.adoptedStyleSheets = styleArray;
+    this._shadowRoot.adoptedStyleSheets = [reset, ...styleArray];
   }
 
   /**

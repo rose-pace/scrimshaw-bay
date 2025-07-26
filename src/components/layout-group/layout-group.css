@@ -1,0 +1,62 @@
+/* Layout Group Component Styles */
+
+:host {
+  display: block;
+}
+
+.layout-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.layout-group:last-child {
+  margin-bottom: 0;
+}
+
+.group-title {
+  color: var(--accent-text);
+  font-family: var(--header-font);
+  margin-bottom: var(--spacing-md);
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-xs);
+}
+
+.group-items {
+  width: 100%;
+}
+
+.layout-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+/* Group type variations */
+.group-type-primary .group-title {
+  color: var(--accent-color);
+  font-size: 1.2rem;
+}
+
+.group-type-secondary .group-title {
+  color: var(--secondary-text);
+  font-size: 1rem;
+  font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .layout-items-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  .group-title {
+    font-size: 1rem;
+  }
+  
+  .group-type-primary .group-title {
+    font-size: 1.1rem;
+  }
+}

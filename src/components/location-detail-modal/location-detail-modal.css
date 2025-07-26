@@ -1,7 +1,6 @@
 /* Location Detail Modal Component Styles - Shadow DOM Only */
 
-.location-network-modal {
-  padding: var(--spacing-lg);
+.location-detail-modal {
   color: var(--primary-text);
 }
 

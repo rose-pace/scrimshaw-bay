@@ -1,0 +1,144 @@
+/* Layout Item Component Styles */
+
+:host {
+  display: block;
+}
+
+.layout-item {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  transition: box-shadow 0.2s ease;
+  margin-bottom: var(--spacing-sm);
+}
+
+.layout-item:hover {
+  box-shadow: var(--shadow-subtle);
+}
+
+.item-header {
+  margin-bottom: var(--spacing-sm);
+  padding-bottom: var(--spacing-xs);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.item-name {
+  color: var(--primary-text);
+  font-family: var(--header-font);
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.item-description p {
+  color: var(--secondary-text);
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.9rem;
+}
+
+.item-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.item-field {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.item-field strong {
+  color: var(--accent-text);
+}
+
+.item-field span {
+  color: var(--secondary-text);
+}
+
+.item-lists {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.item-list {
+  margin: 0;
+}
+
+.list-title {
+  color: var(--accent-text);
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: var(--spacing-xs);
+}
+
+.list-items {
+  margin: 0;
+  padding-left: var(--spacing-md);
+  list-style-type: disc;
+}
+
+.list-items li {
+  color: var(--secondary-text);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: var(--spacing-xs);
+}
+
+.list-items li:last-child {
+  margin-bottom: 0;
+}
+
+/* Hazards special styling */
+.item-list-hazards .list-title {
+  color: #d32f2f;
+}
+
+.list-items-hazards li {
+  color: #d32f2f;
+}
+
+/* Offerings special styling */
+.item-list-offerings .list-title {
+  color: var(--accent-color);
+}
+
+.list-items-offerings li {
+  color: var(--accent-color);
+  font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .layout-item {
+    padding: var(--spacing-sm);
+  }
+  
+  .item-name {
+    font-size: 0.95rem;
+  }
+  
+  .item-description p {
+    font-size: 0.85rem;
+  }
+  
+  .item-field {
+    font-size: 0.85rem;
+  }
+  
+  .list-title {
+    font-size: 0.85rem;
+  }
+  
+  .list-items li {
+    font-size: 0.8rem;
+  }
+}

@@ -784,30 +784,57 @@ const campaignData = {
             publicDescription: "Offerings to ensure safe returns",
             
             layout: {
-                main_shrine: {
-                    deity: "Thessa",
-                    description: "Central stone altar with carved trident and wave patterns",
-                    offerings: ["Fish bones", "Small coins", "Carved ship models", "Storm-worn shells"]
-                },
-                star_alcove: {
-                    deity: "Astraea",
-                    description: "Small alcove with stone star charts and navigation symbols",
-                    offerings: ["Polished stones", "Compass roses drawn in sand", "Dried flowers arranged in star patterns"]
-                },
-                spring_pool: {
-                    deity: "Rhyssian",
-                    description: "Natural spring pool with smooth river stones arranged around the edge",
-                    offerings: ["Written secrets on parchment (dissolved in water)", "Small keys", "Knotted rope"]
-                },
-                memorial_area: {
-                    deity: "Akhetmon",
-                    description: "Quiet corner with simple stone markers and a small purple-misted brazier, adjacent to the village graveyard",
-                    offerings: ["Personal effects of the lost", "Dried flowers", "Small portraits", "Letters to the dead"]
-                },
-                village_graveyard: {
-                    description: "Small cemetery with weathered headstones overlooking the bay, adjacent to Akhetmon's memorial",
-                    features: ["Weathered stone headstones", "Iron fence (partially rusted)", "Older graves from whaling era", "Recent graves with maritime symbols", "Path connecting to Akhetmon memorial"]
-                }
+                groups: [
+                    {
+                        title: "Shrine Areas",
+                        type: "primary",
+                        items: [
+                            {
+                                name: "Main Shrine",
+                                description: "Central stone altar with carved trident and wave patterns",
+                                fields: {
+                                    deity: "Thessa"
+                                },
+                                offerings: ["Fish bones", "Small coins", "Carved ship models", "Storm-worn shells"]
+                            },
+                            {
+                                name: "Star Alcove",
+                                description: "Small alcove with stone star charts and navigation symbols",
+                                fields: {
+                                    deity: "Astraea"
+                                },
+                                offerings: ["Polished stones", "Compass roses drawn in sand", "Dried flowers arranged in star patterns"]
+                            },
+                            {
+                                name: "Spring Pool",
+                                description: "Natural spring pool with smooth river stones arranged around the edge",
+                                fields: {
+                                    deity: "Rhyssian"
+                                },
+                                offerings: ["Written secrets on parchment (dissolved in water)", "Small keys", "Knotted rope"]
+                            },
+                            {
+                                name: "Memorial Area",
+                                description: "Quiet corner with simple stone markers and a small purple-misted brazier, adjacent to the village graveyard",
+                                fields: {
+                                    deity: "Akhetmon"
+                                },
+                                offerings: ["Personal effects of the lost", "Dried flowers", "Small portraits", "Letters to the dead"]
+                            }
+                        ]
+                    },
+                    {
+                        title: "Graveyard",
+                        type: "secondary",
+                        items: [
+                            {
+                                name: "Village Graveyard",
+                                description: "Small cemetery with weathered headstones overlooking the bay, adjacent to Akhetmon's memorial",
+                                features: ["Weathered stone headstones", "Iron fence (partially rusted)", "Older graves from whaling era", "Recent graves with maritime symbols", "Path connecting to Akhetmon memorial"]
+                            }
+                        ]
+                    }
+                ]
             },
             
             npcs: ["villageElder"],
@@ -872,21 +899,27 @@ const campaignData = {
             publicDescription: "Still functional lighthouse, manned by a reclusive keeper",
             
             layout: {
-                floors: [
+                groups: [
                     {
-                        name: "Ground Floor",
-                        description: "Harbor master's office with charts, logs, and maritime equipment",
-                        features: ["Large nautical charts on walls", "Ship manifests and logs", "Emergency supplies", "Communication equipment"]
-                    },
-                    {
-                        name: "Second Floor",
-                        description: "Silas's living quarters - simple but well-maintained",
-                        features: ["Bed and personal belongings", "Small kitchen", "Telescope by window", "Personal journal (hidden)"]
-                    },
-                    {
-                        name: "Lighthouse Top",
-                        description: "The lighthouse beacon and observation area",
-                        features: ["Powerful lighthouse beacon", "360-degree view of bay", "Weather monitoring equipment", "Emergency signal flags"]
+                        title: "Floors",
+                        type: "primary",
+                        items: [
+                            {
+                                name: "Ground Floor",
+                                description: "Harbor master's office with charts, logs, and maritime equipment",
+                                features: ["Large nautical charts on walls", "Ship manifests and logs", "Emergency supplies", "Communication equipment"]
+                            },
+                            {
+                                name: "Second Floor",
+                                description: "Silas's living quarters - simple but well-maintained",
+                                features: ["Bed and personal belongings", "Small kitchen", "Telescope by window", "Personal journal (hidden)"]
+                            },
+                            {
+                                name: "Lighthouse Top",
+                                description: "The lighthouse beacon and observation area",
+                                features: ["Powerful lighthouse beacon", "360-degree view of bay", "Weather monitoring equipment", "Emergency signal flags"]
+                            }
+                        ]
                     }
                 ]
             },
@@ -1004,41 +1037,62 @@ const campaignData = {
             publicDescription: "Street of abandoned whaling captain mansions",
             
             layout: {
-                mansions: [
+                groups: [
                     {
-                        name: "Grimwald Manor",
-                        owner: "Former Captain Josiah Grimwald",
-                        condition: "Partially maintained",
-                        current_resident: "Eccentric widow who claims to speak with her dead husband",
-                        features: ["Widow's walk with harbor view", "Portrait gallery of sea captains", "Basement wine cellar", "Overgrown hedge maze"]
-                    },
-                    {
-                        name: "Blackthorne Estate",
-                        owner: "Former Captain Silas Blackthorne",
-                        condition: "Structurally unsound",
-                        current_resident: "Squatter family with sick children",
-                        features: ["Grand staircase (partially collapsed)", "Ballroom with water damage", "Servant quarters", "Carriage house"]
-                    },
-                    {
-                        name: "Leviathan House",
-                        owner: "Former Processing Magnate Cornelius Whale",
-                        condition: "Well preserved (suspiciously so)",
-                        current_resident: "Ageless gentleman who never emerges during daylight",
-                        features: ["Library of maritime lore", "Scrimshaw collection room", "Secret passages", "Underground tunnels to harbor"]
-                    },
-                    {
-                        name: "Meridian Mansion",
-                        owner: "Former Captain Thaddeus Meridian",
-                        condition: "Completely abandoned",
-                        current_resident: "None (but strange lights reported at night)",
-                        features: ["Astronomical observatory", "Map room with sea charts", "Hidden vault", "Haunted master bedroom"]
-                    },
-                    {
-                        name: "Mooncrest Villa",
-                        owner: "Former Shipping Heiress Adelaide Mooncrest",
-                        condition: "Gardens overtaken by carnivorous plants",
-                        current_resident: "Hermit botanist studying the mutations",
-                        features: ["Greenhouse complex", "Formal gardens (now wild)", "Conservatory", "Plant nursery (corrupted)"]
+                        title: "Mansions",
+                        type: "primary",
+                        items: [
+                            {
+                                name: "Grimwald Manor",
+                                description: "A partially maintained mansion with commanding views",
+                                fields: {
+                                    owner: "Former Captain Josiah Grimwald",
+                                    condition: "Partially maintained",
+                                    currentResident: "Eccentric widow who claims to speak with her dead husband"
+                                },
+                                features: ["Widow's walk with harbor view", "Portrait gallery of sea captains", "Basement wine cellar", "Overgrown hedge maze"]
+                            },
+                            {
+                                name: "Blackthorne Estate",
+                                description: "A once-grand estate now falling into disrepair",
+                                fields: {
+                                    owner: "Former Captain Silas Blackthorne",
+                                    condition: "Structurally unsound",
+                                    currentResident: "Squatter family with sick children"
+                                },
+                                features: ["Grand staircase (partially collapsed)", "Ballroom with water damage", "Servant quarters", "Carriage house"]
+                            },
+                            {
+                                name: "Leviathan House",
+                                description: "A mysteriously well-preserved mansion with dark secrets",
+                                fields: {
+                                    owner: "Former Processing Magnate Cornelius Whale",
+                                    condition: "Well preserved (suspiciously so)",
+                                    currentResident: "Ageless gentleman who never emerges during daylight"
+                                },
+                                features: ["Library of maritime lore", "Scrimshaw collection room", "Secret passages", "Underground tunnels to harbor"]
+                            },
+                            {
+                                name: "Meridian Mansion",
+                                description: "An abandoned mansion with strange nocturnal activity",
+                                fields: {
+                                    owner: "Former Captain Thaddeus Meridian",
+                                    condition: "Completely abandoned",
+                                    currentResident: "None (but strange lights reported at night)"
+                                },
+                                features: ["Astronomical observatory", "Map room with sea charts", "Hidden vault", "Haunted master bedroom"]
+                            },
+                            {
+                                name: "Mooncrest Villa",
+                                description: "A villa overrun by unnatural plant growth",
+                                fields: {
+                                    owner: "Former Shipping Heiress Adelaide Mooncrest",
+                                    condition: "Gardens overtaken by carnivorous plants",
+                                    currentResident: "Hermit botanist studying the mutations"
+                                },
+                                features: ["Greenhouse complex", "Formal gardens (now wild)", "Conservatory", "Plant nursery (corrupted)"]
+                            }
+                        ]
                     }
                 ]
             },
@@ -1116,50 +1170,69 @@ const campaignData = {
             publicDescription: "Whale processing facilities, now rusted monuments",
             
             layout: {
-                buildings: [
+                groups: [
                     {
-                        name: "Main Processing Hall",
-                        description: "Cavernous building with whale hoisting equipment and flensing stations",
-                        features: ["Massive winches and pulleys", "Whale cutting platforms", "Drainage channels (now stagnant)", "Tool storage areas"],
-                        hazards: ["Unstable floor grates", "Sharp rusty tools", "Slippery surfaces"]
+                        title: "Buildings",
+                        type: "primary",
+                        items: [
+                            {
+                                name: "Main Processing Hall",
+                                description: "Cavernous building with whale hoisting equipment and flensing stations",
+                                features: ["Massive winches and pulleys", "Whale cutting platforms", "Drainage channels (now stagnant)", "Tool storage areas"],
+                                hazards: ["Unstable floor grates", "Sharp rusty tools", "Slippery surfaces"]
+                            },
+                            {
+                                name: "The Tryworks",
+                                description: "Building housing enormous cauldrons for rendering whale blubber into oil",
+                                features: ["Six massive iron cauldrons", "Furnace systems", "Oil collection channels", "Smokestacks"],
+                                hazards: ["Toxic fumes from old oil", "Unstable catwalk systems", "Furnace collapse risk"]
+                            },
+                            {
+                                name: "Bone Workshop",
+                                description: "Facility for cutting and processing whale bones into corset stays, tools, and scrimshaw blanks",
+                                features: ["Bone cutting saws", "Grinding wheels", "Drying racks", "Finished goods storage"],
+                                hazards: ["Sharp bone fragments", "Unstable equipment", "Bone dust inhalation"]
+                            },
+                            {
+                                name: "Oil Storage Warehouse",
+                                description: "Massive warehouse with rows of whale oil storage tanks",
+                                features: ["100+ oil storage barrels", "Loading equipment", "Quality testing station", "Shipping manifests"],
+                                hazards: ["Toxic vapors", "Flammable residue", "Corrupted oil transformations"]
+                            },
+                            {
+                                name: "Spermaceti Chamber",
+                                description: "Climate-controlled room for processing the valuable spermaceti from sperm whale heads",
+                                features: ["Cooling systems", "Separation equipment", "Purity testing area", "Luxury storage vaults"],
+                                hazards: ["Chemical contamination", "Preserved specimens", "Strange crystalline formations"]
+                            },
+                            {
+                                name: "Administrative Offices",
+                                description: "Multi-story building housing management offices, records, and worker facilities",
+                                features: ["Company records", "Worker timesheets", "Financial ledgers", "Maps and shipping routes"],
+                                hazards: ["Structural instability", "Mold and rot", "Collapsed sections"]
+                            }
+                        ]
                     },
                     {
-                        name: "The Tryworks",
-                        description: "Building housing enormous cauldrons for rendering whale blubber into oil",
-                        features: ["Six massive iron cauldrons", "Furnace systems", "Oil collection channels", "Smokestacks"],
-                        hazards: ["Toxic fumes from old oil", "Unstable catwalk systems", "Furnace collapse risk"]
-                    },
-                    {
-                        name: "Bone Workshop",
-                        description: "Facility for cutting and processing whale bones into corset stays, tools, and scrimshaw blanks",
-                        features: ["Bone cutting saws", "Grinding wheels", "Drying racks", "Finished goods storage"],
-                        hazards: ["Sharp bone fragments", "Unstable equipment", "Bone dust inhalation"]
-                    },
-                    {
-                        name: "Oil Storage Warehouse",
-                        description: "Massive warehouse with rows of whale oil storage tanks",
-                        features: ["100+ oil storage barrels", "Loading equipment", "Quality testing station", "Shipping manifests"],
-                        hazards: ["Toxic vapors", "Flammable residue", "Corrupted oil transformations"]
-                    },
-                    {
-                        name: "Spermaceti Chamber",
-                        description: "Climate-controlled room for processing the valuable spermaceti from sperm whale heads",
-                        features: ["Cooling systems", "Separation equipment", "Purity testing area", "Luxury storage vaults"],
-                        hazards: ["Chemical contamination", "Preserved specimens", "Strange crystalline formations"]
-                    },
-                    {
-                        name: "Administrative Offices",
-                        description: "Multi-story building housing management offices, records, and worker facilities",
-                        features: ["Company records", "Worker timesheets", "Financial ledgers", "Maps and shipping routes"],
-                        hazards: ["Structural instability", "Mold and rot", "Collapsed sections"]
+                        title: "Underground Areas",
+                        type: "secondary",
+                        items: [
+                            {
+                                name: "Steam Tunnels",
+                                description: "Steam tunnels connect all buildings for heating and power distribution"
+                            },
+                            {
+                                name: "Storage Vaults",
+                                description: "Underground storage vaults for the most valuable products"
+                            },
+                            {
+                                name: "Drainage System",
+                                description: "Complex drainage system leads to harbor outflow pipes",
+                                hazards: ["Flooding during high tide", "Toxic gas accumulation", "Creature lairs"]
+                            }
+                        ]
                     }
-                ],
-                underground: {
-                    tunnels: "Steam tunnels connect all buildings for heating and power distribution",
-                    chambers: "Underground storage vaults for the most valuable products",
-                    drainage: "Complex drainage system leads to harbor outflow pipes",
-                    hazards: ["Flooding during high tide", "Toxic gas accumulation", "Creature lairs"]
-                }
+                ]
             },
             
             npcs: [],
@@ -1260,26 +1333,32 @@ const campaignData = {
             publicDescription: "Tavern filled with disturbing maritime scrimshaw",
             
             layout: {
-                areas: [
+                groups: [
                     {
-                        name: "Main Taproom",
-                        description: "Common area with tables, bar, and scrimshaw displays",
-                        features: ["Long wooden bar", "Tables for 20 patrons", "Scrimshaw collection on walls", "Fireplace (rarely lit)"]
-                    },
-                    {
-                        name: "Private Rooms",
-                        description: "Three small rooms for rent (rarely used)",
-                        features: ["Simple beds", "Washbasins", "Small windows", "Lock boxes for valuables"]
-                    },
-                    {
-                        name: "Cellar",
-                        description: "Storage area for ale barrels and supplies",
-                        features: ["Ale and spirits storage", "Food preservation", "Hidden scrimshaw pieces", "Stone walls"]
-                    },
-                    {
-                        name: "Marta's Quarters",
-                        description: "Tavern keeper's private living space",
-                        features: ["Personal belongings", "Scrimshaw tools", "Locked chest", "Window overlooking docks"]
+                        title: "Areas",
+                        type: "primary",
+                        items: [
+                            {
+                                name: "Main Taproom",
+                                description: "Common area with tables, bar, and scrimshaw displays",
+                                features: ["Long wooden bar", "Tables for 20 patrons", "Scrimshaw collection on walls", "Iron stove for warmth"]
+                            },
+                            {
+                                name: "Private Rooms",
+                                description: "Three small rooms for rent (rarely used)",
+                                features: ["Simple beds", "Washbasins", "Small windows", "Lock boxes for valuables"]
+                            },
+                            {
+                                name: "Cellar",
+                                description: "Storage area for ale barrels and supplies",
+                                features: ["Ale and spirits storage", "Food preservation", "Hidden scrimshaw pieces", "Stone walls"]
+                            },
+                            {
+                                name: "Marta's Quarters",
+                                description: "Tavern keeper's private living space",
+                                features: ["Personal belongings", "Scrimshaw tools", "Locked chest", "Window overlooking docks"]
+                            }
+                        ]
                     }
                 ]
             },

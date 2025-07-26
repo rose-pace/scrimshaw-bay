@@ -1,0 +1,31 @@
+/* Layout Wrapper Component Styles */
+
+:host {
+  display: block;
+  margin: var(--spacing-md) 0;
+}
+
+.layout-wrapper {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-subtle);
+}
+
+.layout-groups-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .layout-wrapper {
+    padding: var(--spacing-md);
+  }
+  
+  .layout-groups-container {
+    gap: var(--spacing-lg);
+  }
+}
