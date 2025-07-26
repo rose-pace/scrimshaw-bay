@@ -125,7 +125,7 @@ const campaignData = {
           id: 'saltCottages',
           name: 'salt-stained Cottages',
           shortDesc: 'Cottages arranged in a defensive semicircle',
-          npcs: ['fisherWife', 'SickmChild', 'desperateWidow'],
+          npcs: ['fisherWife', 'sickmChild', 'desperateWidow'],
           hasDetails: false
         },
         {
@@ -159,7 +159,7 @@ const campaignData = {
       ],
 
       keyNpcs: ['tavernKeeper', 'villageElder', 'netsMender'],
-      backgroundNpcs: ['dockWorker', 'youngFisherman', 'barnabyNetcast', 'meredithNetcast', 'fisherWife', 'SickmChild', 'mollyStormwind', 'benStormwind', 'desperateWidow', 'waterBearer', 'fishmonger', 'tradingCaptain', 'baitKeeper', 'rosieWormfinder', 'SenileGrandfather', 'anxiousMother', 'willlemWaveworry', 'pennyWaveworry', 'SkepticalFisherman'],
+      backgroundNpcs: ['dockWorker', 'youngFisherman', 'barnabyNetcast', 'meredithNetcast', 'fisherWife', 'sickmChild', 'mollyStormwind', 'benStormwind', 'desperateWidow', 'waterBearer', 'fishmonger', 'tradingCaptain', 'baitKeeper', 'rosieWormfinder', 'senileGrandfather', 'anxiousMother', 'willlemWaveworry', 'pennyWaveworry', 'skepticalFisherman'],
 
       inhabitants: [
         'Fishing families who\'ve lived here for generations',
@@ -202,7 +202,7 @@ const campaignData = {
           id: 'companyStore',
           name: 'The Company Store',
           shortDesc: 'still operating with a skeleton crew',
-          npcs: ['StoreClerk'],
+          npcs: ['storeClerk'],
           hasDetails: false
         },
         {
@@ -220,7 +220,7 @@ const campaignData = {
           hasDetails: false
         }
       ],
-      keyNpcs: ['companySupervisor', 'StoreClerk', 'maintenanceWorker'],
+      keyNpcs: ['companySupervisor', 'storeClerk', 'maintenanceWorker'],
       inhabitants: [
         'Company supervisor who refuses to abandon his post',
         'store clerk maintaining records of increasingly bizarre inventory',
@@ -364,7 +364,7 @@ const campaignData = {
       abilities: ['Vampire-like longevity', 'Night vision', 'Tentacled attacks', 'Command over sea creatures'],
       motivations: ['Serve Agog\'s will', 'Maintain control over the bay', 'Spread corruption'],
       relatedThreats: ['agog'],
-      relatedLocations: ['ScrimmholmeManor', 'observatory'],
+      relatedLocations: ['scrimmholmeManor', 'observatory'],
       relatedEvents: ['lordInvitation']
     },
     harborMaster: {
@@ -377,7 +377,7 @@ const campaignData = {
       motivations: ['Warn ships away from danger', 'Document the corruption', 'Survive another night'],
       relatedThreats: ['agog'],
       relatedLocations: ['harborTower'],
-      relatedEvents: ['StrangeNews']
+      relatedEvents: ['strangeNews']
     },
     priestLeviathan: {
       name: 'Father Cornelius Blackwater',
@@ -407,7 +407,7 @@ const campaignData = {
       motivations: ['Protect the village', 'Maintain ancient pacts', 'Guide the young away from the sea'],
       relatedThreats: ['agog', 'corruptedWhales'],
       relatedLocations: ['fishermanShrine', 'weatheredDocks'],
-      relatedEvents: ['whalingWitness', 'StrangeNews']
+      relatedEvents: ['whalingWitness', 'strangeNews']
     },
     netsMender: {
       name: 'silas Weaver',
@@ -419,7 +419,7 @@ const campaignData = {
       motivations: ['Hide his transformation', 'Understand the voices', 'Provide for his family'],
       relatedThreats: ['corruptedWhales', 'transformedCitizens', 'agog'],
       relatedLocations: ['netSheds', 'weatheredDocks'],
-      relatedEvents: ['whalingWitness', 'StrangeNews']
+      relatedEvents: ['whalingWitness', 'strangeNews']
     },
     companySupervisor: {
       name: 'Cornelius Ashford III',
@@ -430,8 +430,8 @@ const campaignData = {
       abilities: ['Business management', 'Ironwood expertise', 'Unnatural longevity'],
       motivations: ['Preserve family legacy', 'Maintain control', 'Hide the corruption'],
       relatedThreats: ['agog', 'ironwoodCorruption'],
-      relatedLocations: ['SupervisorMansion', 'ashfordSawmill'],
-      relatedEvents: ['StrangeNews']
+      relatedLocations: ['supervisorMansion', 'ashfordSawmill'],
+      relatedEvents: ['strangeNews']
     },
     storeClerk: {
       name: 'Martha Codwell',
@@ -503,7 +503,7 @@ const campaignData = {
       ],
       relatedThreats: ['bogCreatures', 'bogCorruption'],
       relatedLocations: ['bogRoad', 'canalLocks', 'watchtower'],
-      relatedEvents: ['bogTravel', 'StrangeNews', 'hagEncounter']
+      relatedEvents: ['bogTravel', 'strangeNews', 'hagEncounter']
     },
     betteyNettle: {
       name: 'Bettey Nettle',
@@ -886,7 +886,7 @@ const campaignData = {
       ],
 
       relatedThreats: ['agog', 'corruptedWhales'],
-      relatedEvents: ['StrangeNews', 'whalingWitness']
+      relatedEvents: ['strangeNews', 'whalingWitness']
     },
 
     // Millhaven Locations
@@ -956,7 +956,7 @@ const campaignData = {
       ],
 
       relatedThreats: ['agog'],
-      relatedEvents: ['StrangeNews']
+      relatedEvents: ['strangeNews']
     },
 
     stLeviathan: {
@@ -1025,7 +1025,7 @@ const campaignData = {
       ],
 
       relatedThreats: ['agog'],
-      relatedEvents: ['StrangeNews']
+      relatedEvents: ['strangeNews']
     },
 
     prosperityRow: {
@@ -1158,7 +1158,7 @@ const campaignData = {
       ],
 
       relatedThreats: ['agog'],
-      relatedEvents: ['StrangeNews']
+      relatedEvents: ['strangeNews']
     },
 
     boneYards: {
@@ -1320,7 +1320,7 @@ const campaignData = {
       ],
 
       relatedThreats: ['agog', 'corruptedWhales', 'transformedCitizens'],
-      relatedEvents: ['StrangeNews']
+      relatedEvents: ['strangeNews']
     },
 
     // Netherwick Locations
@@ -1420,7 +1420,7 @@ const campaignData = {
       ],
 
       relatedThreats: ['agog', 'corruptedWhales'],
-      relatedEvents: ['whalingWitness', 'StrangeNews']
+      relatedEvents: ['whalingWitness', 'strangeNews']
     }
   },
 
@@ -1433,9 +1433,9 @@ const campaignData = {
       influence: ['Dark waters', 'Marine mutation', 'Madness', 'Parasitic infection'],
       stats: 'CR 26 (90,000 XP) - See Agog stat block',
       affectedNpcs: ['bayardScrimm', 'harborMaster', 'villageElder', 'companySupervisor'],
-      affectedLocations: ['harborTower', 'ScrimmholmeManor', 'fishermanShrine', 'canalLocks'],
+      affectedLocations: ['harborTower', 'scrimmholmeManor', 'fishermanShrine', 'canalLocks'],
       affectedSettlements: ['millhaven', 'netherwick', 'ashford', 'thornwick', 'fenway'],
-      relatedEvents: ['whalingWitness', 'StrangeNews', 'lordInvitation'],
+      relatedEvents: ['whalingWitness', 'strangeNews', 'lordInvitation'],
       relatedThreats: ['corruptedWhales', 'transformedCitizens'],
       corruptionLevel: 'Extreme - Primary source of all regional corruption'
     },
@@ -1447,7 +1447,7 @@ const campaignData = {
       influence: ['Controls Thornwick Isle', 'Commands corrupted servants', 'Spreads Agog\'s corruption', 'Feeds during nighttime raids'],
       stats: 'Use Vampire Lord stats with tentacled modifications - CR 15 (13,000 XP)',
       affectedNpcs: ['groundskeeper', 'boatman'],
-      affectedLocations: ['ScrimmholmeManor', 'privateDocks', 'observatory', 'villageBelow'],
+      affectedLocations: ['scrimmholmeManor', 'privateDocks', 'observatory', 'villageBelow'],
       affectedSettlements: ['thornwick'],
       relatedEvents: ['lordInvitation'],
       relatedThreats: ['agog'],
@@ -1463,7 +1463,7 @@ const campaignData = {
       affectedNpcs: ['netsMender', 'tavernKeeper', 'villageElder'],
       affectedLocations: ['boneYards', 'caughtCod', 'fishermanShrine'],
       affectedSettlements: ['millhaven', 'netherwick'],
-      relatedEvents: ['whalingWitness', 'StrangeNews'],
+      relatedEvents: ['whalingWitness', 'strangeNews'],
       relatedThreats: ['agog', 'transformedCitizens'],
       corruptionLevel: 'High - Direct vector for Agog\'s influence'
     },
@@ -1481,7 +1481,7 @@ const campaignData = {
       affectedNpcs: ['netsMender', 'maintenanceWorker', 'groundskeeper', 'boatman'],
       affectedLocations: ['netSheds', 'ashfordSawmill', 'villageBelow', 'privateDocks'],
       affectedSettlements: ['netherwick', 'ashford', 'thornwick'],
-      relatedEvents: ['StrangeNews', 'whalingWitness'],
+      relatedEvents: ['strangeNews', 'whalingWitness'],
       relatedThreats: ['agog', 'corruptedWhales'],
       corruptionLevel: 'Medium - Secondary effect of parasitic exposure'
     },
@@ -1491,10 +1491,10 @@ const campaignData = {
       description: 'The legendary ironwood timber has begun rotting despite its natural durability, infected by something seeping from the bay waters.',
       effects: ['Structural failures', 'Economic collapse', 'Strange symbols appearing', 'Machinery malfunction'],
       timeline: 'Corruption spreads over months, accelerating near water',
-      affectedNpcs: ['companySupervisor', 'StoreClerk', 'maintenanceWorker'],
+      affectedNpcs: ['companySupervisor', 'storeClerk', 'maintenanceWorker'],
       affectedLocations: ['ashfordSawmill', 'lumberYards', 'companyStore'],
       affectedSettlements: ['ashford'],
-      relatedEvents: ['StrangeNews'],
+      relatedEvents: ['strangeNews'],
       relatedThreats: ['agog'],
       corruptionLevel: 'Medium - Localized but economically devastating'
     },
@@ -1507,7 +1507,7 @@ const campaignData = {
       affectedNpcs: ['canalKeeper', 'bogGuide', 'innKeeper'],
       affectedLocations: ['canalLocks', 'bogRoad', 'fenwayInn'],
       affectedSettlements: ['fenway'],
-      relatedEvents: ['StrangeNews'],
+      relatedEvents: ['strangeNews'],
       relatedThreats: ['agog'],
       corruptionLevel: 'Medium - Isolated but expanding'
     },
@@ -1550,7 +1550,7 @@ const campaignData = {
       affectedNpcs: ['bogGuide', 'canalKeeper', 'innKeeper'],
       affectedLocations: ['canalLocks', 'bogRoad', 'portageStation'],
       affectedSettlements: ['fenway'],
-      relatedEvents: ['bogTravel', 'StrangeNews'],
+      relatedEvents: ['bogTravel', 'strangeNews'],
       relatedThreats: ['bogCorruption'],
       corruptionLevel: 'Low - Natural hazards rather than supernatural corruption'
     }
@@ -1574,7 +1574,7 @@ const campaignData = {
       outcomes: ['Investigation requests', 'Family pleas for help', 'Reward offers'],
       hooks: ['Pattern in disappearances', 'Connection to whaling', 'Underwater discoveries'],
       relatedNpcs: ['harborMaster', 'priestLeviathan', 'innKeeper', 'companySupervisor'],
-      relatedLocations: ['harborTower', 'StLeviathan', 'fenwayInn', 'SupervisorMansion'],
+      relatedLocations: ['harborTower', 'StLeviathan', 'fenwayInn', 'supervisorMansion'],
       relatedThreats: ['agog', 'transformedCitizens', 'corruptedWhales']
     },
     bogTravel: {
@@ -1601,7 +1601,7 @@ const campaignData = {
       outcomes: ['Dinner invitation', 'Tour of estate', 'Revelation of true nature'],
       hooks: ['Why is he interested?', 'What does he want?', 'How to escape alive?'],
       relatedNpcs: ['bayardScrimm', 'groundskeeper', 'boatman'],
-      relatedLocations: ['ScrimmholmeManor', 'privateDocks', 'observatory'],
+      relatedLocations: ['scrimmholmeManor', 'privateDocks', 'observatory'],
       relatedThreats: ['agog']
     },
     hagEncounter: {
