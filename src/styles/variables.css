@@ -41,4 +41,71 @@
   --transition-fast: 0.15s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
+  
+  /* Responsive Grid Template Columns */
+  /* These variables automatically adjust at different screen sizes */
+  --grid-cols-2: 1fr;
+  --grid-cols-3: 1fr;
+  --grid-cols-4: 1fr;
+  --grid-cols-5: 1fr;
+  --grid-cols-6: 1fr;
+  --grid-cols-7: 1fr;
+  --grid-cols-8: 1fr;
+
+  /* Responsive Grid Gap */
+  --grid-gap: var(--spacing-sm);
+}
+
+/* Responsive Grid Column Adjustments */
+/* Breakpoints: sm=640px, md=768px, lg=1024px, xl=1280px, 2xl=1536px */
+@media (min-width: 640px) {
+  :root {
+    --grid-cols-3: repeat(2, 1fr);
+    --grid-cols-4: repeat(2, 1fr);
+    --grid-cols-5: repeat(2, 1fr);
+    --grid-cols-6: repeat(2, 1fr);
+    --grid-cols-7: repeat(2, 1fr);
+    --grid-cols-8: repeat(2, 1fr);
+    --grid-gap: var(--spacing-md);
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --grid-cols-2: repeat(2, 1fr);
+    --grid-cols-5: repeat(3, 1fr);
+    --grid-cols-6: repeat(3, 1fr);
+    --grid-cols-7: repeat(3, 1fr);
+    --grid-cols-8: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --grid-cols-3: repeat(3, 1fr);
+    --grid-cols-4: repeat(3, 1fr);
+    --grid-cols-5: repeat(4, 1fr);
+    --grid-cols-6: repeat(4, 1fr);
+    --grid-cols-7: repeat(4, 1fr);
+    --grid-cols-8: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --grid-cols-4: repeat(4, 1fr);
+    --grid-cols-5: repeat(5, 1fr);
+    --grid-cols-6: repeat(5, 1fr);
+    --grid-cols-7: repeat(5, 1fr);
+    --grid-cols-8: repeat(6, 1fr);
+    --grid-gap: var(--spacing-lg);
+  }
+}
+
+@media (min-width: 1536px) {
+  :root {
+    --grid-cols-6: repeat(6, 1fr);
+    --grid-cols-7: repeat(7, 1fr);
+    --grid-cols-8: repeat(8, 1fr);
+  }
 }
