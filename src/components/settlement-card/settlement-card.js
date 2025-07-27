@@ -8,6 +8,7 @@ import { Accordion } from '@/components/accordion/accordion.js';
 import { AccordionItem } from '@/components/accordion/accordion-item.js';
 import { NpcHeader } from '@/components/background-npcs/npc-header/npc-header.js';
 import { NpcContent } from '@/components/background-npcs/npc-content/npc-content.js';
+import { SettlementLayout } from '@/components/settlement-layout/settlement-layout.js';
 import { 
   cloneTemplate,
   createSettlementCard,
@@ -90,6 +91,12 @@ export class SettlementCard {
     description.className = 'settlement-description';
     description.innerHTML = `<p>${settlement.description}</p>`;
 
+    // Settlement Layout (if available)
+    let layoutSection = null;
+    if (settlement.layout) {
+      layoutSection = this.createLayoutSection(settlement.layout);
+    }
+
     // Content sections
     const content = document.createElement('div');
     content.className = 'settlement-content';
@@ -120,6 +127,12 @@ export class SettlementCard {
 
     container.appendChild(header);
     container.appendChild(description);
+    
+    // Add layout section if available
+    if (layoutSection) {
+      container.appendChild(layoutSection);
+    }
+    
     container.appendChild(content);
 
     return container;
@@ -326,5 +339,30 @@ export class SettlementCard {
       detail: { settlement: settlementKey }
     });
     document.dispatchEvent(event);
+  }
+
+  /**
+   * Create layout section for settlement detail
+   * @param {Object} layoutData - Layout data object with structure and districts
+   * @returns {HTMLElement} Layout section element
+   */
+  createLayoutSection(layoutData) {
+    const section = document.createElement('div');
+    section.className = 'settlement-layout-section';
+
+    // Create settlement layout component
+    const settlementLayout = SettlementLayout.create();
+    
+    // Set layout data once component is ready
+    if (settlementLayout.isReady && settlementLayout.isReady()) {
+      settlementLayout.setLayoutData(layoutData);
+    } else {
+      settlementLayout.addEventListener('componentReady', () => {
+        settlementLayout.setLayoutData(layoutData);
+      }, { once: true });
+    }
+
+    section.appendChild(settlementLayout);
+    return section;
   }
 }

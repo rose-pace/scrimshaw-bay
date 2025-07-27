@@ -1,0 +1,151 @@
+/* Settlement Layout Component Styles */
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.settlement-layout {
+  background-color: var(--primary-bg);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+}
+
+.layout-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.layout-title {
+  color: var(--primary-text);
+  font-family: var(--header-font);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 var(--spacing-sm) 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.layout-subtitle {
+  color: var(--secondary-text);
+  font-family: var(--body-font);
+  font-size: 1rem;
+  margin: 0;
+  font-style: italic;
+}
+
+.layout-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+/* Districts Section Styles */
+.districts-wrapper {
+  display: block;
+}
+
+.districts-header {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.districts-title {
+  color: var(--primary-text);
+  font-family: var(--header-font);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 var(--spacing-xs) 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.districts-subtitle {
+  color: var(--secondary-text);
+  font-family: var(--body-font);
+  font-size: 0.9rem;
+  margin: 0;
+  font-style: italic;
+}
+
+.districts-container {
+  /* Grid layout now handled by ResponsiveGrid component */
+  display: block;
+}
+
+/* Empty State Styles */
+.empty-state {
+  background-color: var(--secondary-bg);
+  border: 2px dashed var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-xxl);
+  text-align: center;
+}
+
+.empty-content h4 {
+  color: var(--primary-text);
+  font-family: var(--header-font);
+  font-size: 1.2rem;
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.empty-content p {
+  color: var(--secondary-text);
+  font-family: var(--body-font);
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .settlement-layout {
+    padding: var(--spacing-lg);
+  }
+  
+  .layout-header {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .layout-title {
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+  }
+  
+  .layout-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .layout-content {
+    gap: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .settlement-layout {
+    padding: var(--spacing-md);
+  }
+  
+  .layout-title {
+    font-size: 1.1rem;
+  }
+  
+  .layout-subtitle,
+  .districts-title {
+    font-size: 0.85rem;
+  }
+  
+  .districts-subtitle {
+    font-size: 0.8rem;
+  }
+}
+
+/* Focus and accessibility */
+.settlement-layout:focus-within {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 4px;
+}

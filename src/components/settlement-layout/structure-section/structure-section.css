@@ -1,0 +1,85 @@
+/* Structure Section Component Styles */
+
+:host {
+  display: block;
+  margin-bottom: var(--spacing-lg);
+}
+
+.structure-section {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-subtle);
+}
+
+.section-header {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.section-title {
+  color: var(--primary-text);
+  font-family: var(--header-font);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 var(--spacing-xs) 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-description {
+  color: var(--secondary-text);
+  font-family: var(--body-font);
+  font-size: 0.9rem;
+  margin: 0;
+  font-style: italic;
+}
+
+.structure-items {
+  /* Grid layout now handled by ResponsiveGrid component */
+  display: block;
+}
+
+/* Empty state styling */
+.empty-state {
+  color: var(--secondary-text);
+  font-family: var(--body-font);
+  font-size: 0.9rem;
+  font-style: italic;
+  text-align: center;
+  padding: var(--spacing-xl);
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius-md);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .structure-section {
+    padding: var(--spacing-md);
+  }
+  
+  .section-header {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .section-title {
+    font-size: 1.1rem;
+  }
+  
+  .section-description {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .structure-section {
+    padding: var(--spacing-sm);
+  }
+  
+  .section-title {
+    font-size: 1rem;
+  }
+}

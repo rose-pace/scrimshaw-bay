@@ -1,0 +1,52 @@
+/* Structure Item Component Styles */
+
+:host {
+  display: block;
+  height: 100%; /* Allow component to stretch in grid */
+}
+
+.structure-item {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-md);
+  transition: all var(--transition-fast);
+  height: 100%; /* Fill available height in grid cell */
+  display: flex;
+  flex-direction: column;
+}
+
+.structure-item:hover {
+  box-shadow: var(--shadow-subtle);
+  border-color: var(--border-color-hover);
+}
+
+.structure-label {
+  color: var(--accent-text);
+  font-family: var(--header-font);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  text-transform: capitalize;
+}
+
+.structure-description {
+  color: var(--secondary-text);
+  font-family: var(--body-font);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1; /* Allow description to expand and fill remaining space */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .structure-item {
+    padding: var(--spacing-sm);
+  }
+  
+  .structure-label,
+  .structure-description {
+    font-size: 0.85rem;
+  }
+}

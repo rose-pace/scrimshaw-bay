@@ -1,0 +1,286 @@
+/* Responsive Grid Component Styles */
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.responsive-grid {
+  display: grid;
+  gap: var(--spacing-md);
+  width: 100%;
+  align-items: stretch; /* Ensure items stretch to match tallest in row */
+}
+
+/* Base mobile layout - always single column on smallest screens */
+.responsive-grid {
+  grid-template-columns: 1fr;
+}
+
+/* Grid column configurations for different max column counts */
+
+/* 2 Column Maximum Grid */
+.grid-cols-2 {
+  /* Mobile: 1 column */
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .grid-cols-2 {
+    /* md+: 2 columns */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 3 Column Maximum Grid */
+.grid-cols-3 {
+  /* Mobile: 1 column */
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid-cols-3 {
+    /* sm: 2 columns */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-cols-3 {
+    /* lg+: 3 columns */
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 4 Column Maximum Grid */
+.grid-cols-4 {
+  /* Mobile: 1 column */
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid-cols-4 {
+    /* sm: 2 columns */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-cols-4 {
+    /* lg: 3 columns */
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-cols-4 {
+    /* xl+: 4 columns */
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 5 Column Maximum Grid */
+.grid-cols-5 {
+  /* Mobile: 1 column */
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid-cols-5 {
+    /* sm: 2 columns */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-cols-5 {
+    /* md: 3 columns */
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-cols-5 {
+    /* lg: 4 columns */
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-cols-5 {
+    /* xl+: 5 columns */
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* 6 Column Maximum Grid */
+.grid-cols-6 {
+  /* Mobile: 1 column */
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid-cols-6 {
+    /* sm: 2 columns */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-cols-6 {
+    /* md: 3 columns */
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-cols-6 {
+    /* lg: 4 columns */
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-cols-6 {
+    /* xl: 5 columns */
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 1536px) {
+  .grid-cols-6 {
+    /* 2xl+: 6 columns */
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* 7 Column Maximum Grid */
+.grid-cols-7 {
+  /* Mobile: 1 column */
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid-cols-7 {
+    /* sm: 2 columns */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-cols-7 {
+    /* md: 3 columns */
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-cols-7 {
+    /* lg: 4 columns */
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-cols-7 {
+    /* xl: 6 columns */
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 1536px) {
+  .grid-cols-7 {
+    /* 2xl+: 7 columns */
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+/* 8 Column Maximum Grid */
+.grid-cols-8 {
+  /* Mobile: 1 column */
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .grid-cols-8 {
+    /* sm: 2 columns */
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-cols-8 {
+    /* md: 3 columns */
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-cols-8 {
+    /* lg: 4 columns */
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-cols-8 {
+    /* xl: 6 columns */
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 1536px) {
+  .grid-cols-8 {
+    /* 2xl+: 8 columns */
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
+/* Empty state styling */
+.grid-empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--secondary-text);
+  font-family: var(--body-font);
+  font-size: 0.9rem;
+  font-style: italic;
+  padding: var(--spacing-xl);
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius-md);
+}
+
+/* Ensure grid items have consistent sizing and stretch to full height */
+.responsive-grid ::slotted(*) {
+  width: 100%;
+  height: 100%; /* Make slotted items fill their grid cell height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Target the actual content containers within slotted elements */
+.responsive-grid ::slotted(*) > * {
+  flex: 1; /* Allow the main content to expand */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Focus and accessibility */
+.responsive-grid:focus-within {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+  border-radius: var(--border-radius-md);
+}
+
+/* Responsive gap adjustments */
+@media (max-width: 640px) {
+  .responsive-grid {
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (min-width: 1280px) {
+  .responsive-grid {
+    gap: var(--spacing-lg);
+  }
+}

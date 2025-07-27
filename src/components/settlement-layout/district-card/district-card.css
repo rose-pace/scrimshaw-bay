@@ -1,0 +1,98 @@
+/* District Card Component Styles */
+
+:host {
+  display: block;
+  height: 100%; /* Allow component to stretch in grid */
+}
+
+.district-card {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-subtle);
+  height: 100%; /* Fill available height in grid cell */
+  display: flex;
+  flex-direction: column;
+}
+
+.district-card:hover {
+  box-shadow: var(--shadow-elevated);
+  border-color: var(--border-color-hover);
+  background-color: var(--card-bg-hover);
+}
+
+.district-header {
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.district-name {
+  color: var(--primary-text);
+  font-family: var(--header-font);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.district-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  flex: 1; /* Allow content to expand and fill remaining space */
+}
+
+.district-description {
+  color: var(--secondary-text);
+  font-family: var(--body-font);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.buildings-section {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--spacing-sm);
+}
+
+/* Focus states for accessibility */
+.district-card:focus-within {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .district-card {
+    padding: var(--spacing-md);
+  }
+  
+  .district-name {
+    font-size: 1rem;
+  }
+  
+  .district-description {
+    font-size: 0.85rem;
+  }
+  
+  .district-content {
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .district-card {
+    padding: var(--spacing-sm);
+  }
+  
+  .district-header {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .district-name {
+    font-size: 0.95rem;
+  }
+}

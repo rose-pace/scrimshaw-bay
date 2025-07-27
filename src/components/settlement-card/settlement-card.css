@@ -195,6 +195,16 @@
   gap: var(--spacing-lg);
 }
 
+/* Settlement Layout Section */
+.settlement-layout-section {
+  margin: var(--spacing-lg) 0;
+  border-top: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+  padding: var(--spacing-lg) 0;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: var(--border-radius-md);
+}
+
 /* Locations Section */
 .locations-section {
   background-color: var(--secondary-bg);
