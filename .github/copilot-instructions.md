@@ -61,6 +61,91 @@ images/
 index.html
 ```
 
+## Web Component Architecture
+
+### Base Component Pattern
+- All components must extend `ShadowComponent` from `src/components/base/shadow-component.js`
+- Use factory `create()` methods instead of direct `document.createElement()` calls
+- Leverage `safeSlotAssign()` for slot-based content management with deferred rendering support
+- Always call `setupShadowDOM()` in component constructor to initialize shadow DOM and CSS
+
+### Component Structure
+```javascript
+// Component class extending ShadowComponent
+export class ComponentNameElement extends ShadowComponent {
+  constructor() {
+    super();
+  }
+
+  setupShadowDOM() {
+    // Automatically loads CSS and sets up shadow DOM
+    super.setupShadowDOM(import.meta.url);
+
+    // Set up component structure
+    this.innerHTML = `
+      <div class="component-name">
+        <slot name="content"></slot>
+      </div>
+    `;
+  }
+  
+  // Use safeSlotAssign() for content management
+  setData(data) {
+    this.safeSlotAssign('content', data.content);
+  }
+
+  // Factory pattern for component creation
+  static create() {
+    return document.createElement('component-name');
+  }
+}
+
+// Register the custom element
+customElements.define('component-name', ComponentNameElement);
+```
+
+### CSS and Shadow DOM Integration
+- CSS files are automatically imported and applied to shadow DOM via `setupShadowDOM(import.meta.url)`
+- Use `:host` selector for component root styling
+- Use `::slotted()` selectors to style slotted content
+- Component CSS is automatically scoped and isolated within shadow DOM
+
+### Responsive Design with CSS Variables
+- Use CSS custom properties for values that change across screen sizes
+- Define responsive variables in `src/styles/variables.css` that automatically adjust at breakpoints
+- Example responsive grid pattern:
+  ```css
+  /* In variables.css - centralized responsive logic */
+  :root {
+    --grid-cols-4: 1fr; /* Mobile default */
+  }
+  
+  @media (min-width: 640px) {
+    :root {
+      --grid-cols-4: repeat(2, 1fr); /* Tablet */
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    :root {
+      --grid-cols-4: repeat(4, 1fr); /* Desktop */
+    }
+  }
+  
+  /* In component CSS - simple variable usage */
+  .grid {
+    grid-template-columns: var(--grid-cols-4); /* Automatically responsive */
+  }
+  ```
+- Avoid media queries in component CSS; use responsive variables instead
+- All responsive behavior should be centrally controlled from `variables.css`
+
+### Event Handling and Lifecycle
+- Use deferred rendering patterns when content depends on external data
+- Clean up event listeners in component lifecycle methods
+- Leverage shadow DOM encapsulation for event delegation
+- Use custom events for component communication
+
 ## Commit Message Standards
 - Use short and concise statements that start with an active verb
 - Describe each change in a single statement ending in a semicolon (;)
