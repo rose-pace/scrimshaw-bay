@@ -90,13 +90,13 @@ export class StructureSection extends ShadowComponent {
 
     // Create responsive grid with 4 column max and add items
     if (structureItems.length > 0) {
-      const grid = ResponsiveGrid.create(4);
+      const grid = ResponsiveGrid.create();
       
       if (grid.isReady && grid.isReady()) {
-        grid.setGridData(structureItems, 4);
+        grid.setGridData(structureItems, 5);
       } else {
         grid.addEventListener('componentReady', () => {
-          grid.setGridData(structureItems, 4);
+          grid.setGridData(structureItems, 5);
         }, { once: true });
       }
       
