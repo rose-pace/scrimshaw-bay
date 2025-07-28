@@ -169,8 +169,4 @@
   opacity: 0.5;
 }
 
-@media (max-width: 768px) {
-  .items-grid {
-    grid-template-columns: 1fr;
-  }
-}
+/* No media queries needed - responsive behavior handled by variables.css */

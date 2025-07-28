@@ -3,7 +3,7 @@
 /* Header Styles */
 .main-header {
   background: linear-gradient(135deg, var(--secondary-bg), var(--card-bg));
-  padding: var(--spacing-xl);
+  padding: var(--card-padding);
   text-align: center;
   border-bottom: 2px solid var(--border-color);
   box-shadow: 0 2px 10px var(--shadow-color);
@@ -11,7 +11,7 @@
 
 .main-header h1 {
   font-family: var(--header-font);
-  font-size: 3rem;
+  font-size: var(--page-title-size);
   font-weight: 600;
   color: var(--accent-text);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -19,7 +19,7 @@
 }
 
 .subtitle {
-  font-size: 1.2rem;
+  font-size: var(--card-subtitle-size);
   color: var(--secondary-text);
   font-style: italic;
   margin-bottom: 0;
@@ -64,7 +64,7 @@
 .content {
   max-width: 1400px;
   margin: 0 auto;
-  padding: var(--spacing-xl);
+  padding: var(--card-padding);
 }
 
 .content-section {
@@ -93,7 +93,7 @@
 
 .section-header h2 {
   font-family: var(--header-font);
-  font-size: 2.5rem;
+  font-size: var(--card-title-size);
   color: var(--accent-text);
   margin-bottom: var(--spacing-md);
 }
@@ -108,7 +108,7 @@
 
 .stat-card {
   background-color: var(--card-bg);
-  padding: var(--spacing-lg);
+  padding: var(--card-padding);
   border-radius: var(--border-radius-md);
   border: 1px solid var(--border-color);
   text-align: center;
@@ -119,11 +119,11 @@
   font-family: var(--header-font);
   color: var(--accent-text);
   margin-bottom: var(--spacing-sm);
-  font-size: 1.1rem;
+  font-size: var(--card-subtitle-size);
 }
 
 .stat-card p {
-  font-size: 1.1rem;
+  font-size: var(--card-subtitle-size);
   font-weight: 600;
 }
 
@@ -136,7 +136,7 @@
 
 .info-card {
   background-color: var(--card-bg);
-  padding: var(--spacing-xl);
+  padding: var(--card-padding);
   border-radius: var(--border-radius-md);
   border: 1px solid var(--border-color);
   box-shadow: 0 4px 12px var(--shadow-color);
@@ -146,7 +146,7 @@
   font-family: var(--header-font);
   color: var(--accent-text);
   margin-bottom: var(--spacing-md);
-  font-size: 1.5rem;
+  font-size: var(--card-title-size);
 }
 
 .info-card ul {
@@ -206,7 +206,7 @@
 
 .lore-card {
   background-color: var(--card-bg);
-  padding: var(--spacing-xl);
+  padding: var(--card-padding);
   border-radius: var(--border-radius-md);
   border: 1px solid var(--border-color);
   box-shadow: 0 4px 12px var(--shadow-color);
@@ -229,7 +229,7 @@
   background-color: var(--secondary-bg);
   border: 2px solid var(--border-color);
   border-radius: var(--border-radius-md);
-  padding: var(--spacing-lg);
+  padding: var(--card-padding);
   cursor: pointer;
   transition: all var(--transition-normal);
   text-align: center;
@@ -247,7 +247,7 @@
   font-family: var(--header-font);
   color: var(--accent-text);
   margin-bottom: var(--spacing-sm);
-  font-size: 1.3rem;
+  font-size: var(--card-title-size);
 }
 
 .settlement-card p {
@@ -260,7 +260,7 @@
   color: var(--primary-bg);
   padding: 0.25rem 0.75rem;
   border-radius: 15px;
-  font-size: 0.9rem;
+  font-size: var(--card-text-size);
   font-weight: 600;
 }
 
@@ -276,50 +276,4 @@
   overflow: hidden;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .content {
-    padding: var(--spacing-md);
-  }
-  
-  .content-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
-  }
-  
-  .main-header h1 {
-    font-size: 2rem;
-  }
-  
-  .section-header h2 {
-    font-size: 1.8rem;
-  }
-  
-  .main-nav {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .nav-btn {
-    width: 100%;
-    max-width: 200px;
-  }
-}
-
-@media (max-width: 480px) {
-  .settlement-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .info-card, .threat-card, .npc-card, .event-card {
-    padding: var(--spacing-md);
-  }
-  
-  .main-header {
-    padding: var(--spacing-md);
-  }
-  
-  .main-header h1 {
-    font-size: 1.8rem;
-  }
-}
+/* No media queries needed - responsive behavior handled by variables.css */

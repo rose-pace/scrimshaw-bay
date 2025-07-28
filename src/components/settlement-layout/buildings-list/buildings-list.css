@@ -11,7 +11,7 @@
 .buildings-title {
   color: var(--accent-text);
   font-family: var(--header-font);
-  font-size: 0.85rem;
+  font-size: var(--card-small-text-size);
   font-weight: 600;
   margin: 0 0 var(--spacing-xs) 0;
   text-transform: uppercase;
@@ -30,7 +30,7 @@
 .building-item {
   color: var(--secondary-text);
   font-family: var(--body-font);
-  font-size: 0.85rem;
+  font-size: var(--card-small-text-size);
   line-height: 1.4;
   padding: var(--spacing-xs) 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -59,7 +59,7 @@
 .empty-state {
   color: var(--secondary-text);
   font-family: var(--body-font);
-  font-size: 0.8rem;
+  font-size: var(--card-small-text-size);
   font-style: italic;
   margin: 0;
   padding: var(--spacing-sm);
@@ -68,18 +68,4 @@
   border-radius: var(--border-radius-sm);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .buildings-title {
-    font-size: 0.8rem;
-  }
-  
-  .building-item {
-    font-size: 0.8rem;
-    padding-left: var(--spacing-sm);
-  }
-  
-  .building-item:before {
-    left: var(--spacing-xs);
-  }
-}
+

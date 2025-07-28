@@ -8,7 +8,7 @@
 .settlement-layout {
   background-color: var(--primary-bg);
   border-radius: var(--border-radius-lg);
-  padding: var(--spacing-xl);
+  padding: var(--card-padding);
   margin-bottom: var(--spacing-lg);
 }
 
@@ -22,7 +22,7 @@
 .layout-title {
   color: var(--primary-text);
   font-family: var(--header-font);
-  font-size: 1.6rem;
+  font-size: var(--layout-title-size);
   font-weight: 700;
   margin: 0 0 var(--spacing-sm) 0;
   text-transform: uppercase;
@@ -32,7 +32,7 @@
 .layout-subtitle {
   color: var(--secondary-text);
   font-family: var(--body-font);
-  font-size: 1rem;
+  font-size: var(--card-text-size);
   margin: 0;
   font-style: italic;
 }
@@ -57,7 +57,7 @@
 .districts-title {
   color: var(--primary-text);
   font-family: var(--header-font);
-  font-size: 1.3rem;
+  font-size: var(--card-subtitle-size);
   font-weight: 700;
   margin: 0 0 var(--spacing-xs) 0;
   text-transform: uppercase;
@@ -67,7 +67,7 @@
 .districts-subtitle {
   color: var(--secondary-text);
   font-family: var(--body-font);
-  font-size: 0.9rem;
+  font-size: var(--card-small-text-size);
   margin: 0;
   font-style: italic;
 }
@@ -89,59 +89,16 @@
 .empty-content h4 {
   color: var(--primary-text);
   font-family: var(--header-font);
-  font-size: 1.2rem;
+  font-size: var(--card-subtitle-size);
   margin: 0 0 var(--spacing-md) 0;
 }
 
 .empty-content p {
   color: var(--secondary-text);
   font-family: var(--body-font);
-  font-size: 0.9rem;
+  font-size: var(--card-small-text-size);
   margin: 0;
   line-height: 1.5;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .settlement-layout {
-    padding: var(--spacing-lg);
-  }
-  
-  .layout-header {
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .layout-title {
-    font-size: 1.3rem;
-    letter-spacing: 1px;
-  }
-  
-  .layout-subtitle {
-    font-size: 0.9rem;
-  }
-  
-  .layout-content {
-    gap: var(--spacing-lg);
-  }
-}
-
-@media (max-width: 480px) {
-  .settlement-layout {
-    padding: var(--spacing-md);
-  }
-  
-  .layout-title {
-    font-size: 1.1rem;
-  }
-  
-  .layout-subtitle,
-  .districts-title {
-    font-size: 0.85rem;
-  }
-  
-  .districts-subtitle {
-    font-size: 0.8rem;
-  }
 }
 
 /* Focus and accessibility */

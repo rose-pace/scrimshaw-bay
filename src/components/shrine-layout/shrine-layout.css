@@ -204,12 +204,4 @@
   margin: 0;
 }
 
-@media (max-width: 768px) {
-  .shrine-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .graveyard-features {
-    grid-template-columns: 1fr;
-  }
-}
+/* No media queries needed - responsive behavior handled by variables.css */

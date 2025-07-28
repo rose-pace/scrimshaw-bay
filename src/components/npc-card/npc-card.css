@@ -195,42 +195,4 @@
   font-weight: bold;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .npc-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: var(--spacing-md);
-  }
-  
-  .npc-card {
-    padding: var(--spacing-md);
-  }
-  
-  .npc-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-sm);
-  }
-  
-  .npc-name {
-    font-size: 1.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .npc-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .npc-card {
-    padding: var(--spacing-sm);
-  }
-  
-  .npc-header {
-    margin-bottom: var(--spacing-sm);
-  }
-  
-  .npc-name {
-    font-size: 1.1rem;
-  }
-}
+/* No media queries needed - responsive behavior handled by variables.css */

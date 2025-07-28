@@ -116,29 +116,4 @@
   font-style: italic;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .layout-item {
-    padding: var(--spacing-sm);
-  }
-  
-  .item-name {
-    font-size: 0.95rem;
-  }
-  
-  .item-description p {
-    font-size: 0.85rem;
-  }
-  
-  .item-field {
-    font-size: 0.85rem;
-  }
-  
-  .list-title {
-    font-size: 0.85rem;
-  }
-  
-  .list-items li {
-    font-size: 0.8rem;
-  }
-}
+/* No media queries needed - responsive behavior handled by variables.css */

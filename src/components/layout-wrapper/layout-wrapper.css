@@ -19,13 +19,4 @@
   gap: var(--spacing-xl);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .layout-wrapper {
-    padding: var(--spacing-md);
-  }
-  
-  .layout-groups-container {
-    gap: var(--spacing-lg);
-  }
-}
+/* No media queries needed - responsive behavior handled by variables.css */

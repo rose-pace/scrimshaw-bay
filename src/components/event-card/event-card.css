@@ -9,9 +9,10 @@
   background-color: var(--card-bg);
   border: 2px solid var(--border-color);
   border-radius: var(--border-radius-md);
-  padding: var(--spacing-lg);
+  padding: var(--card-padding);
   transition: all var(--transition-normal);
   border-left: 4px solid var(--warning-text);
+  position: relative;
 }
 
 .event-card:hover {
@@ -23,7 +24,7 @@
 .event-card h3 {
   color: var(--accent-text);
   font-family: var(--header-font);
-  font-size: 1.4rem;
+  font-size: var(--card-title-size);
   margin-bottom: var(--spacing-sm);
   border-bottom: 1px solid var(--border-color);
   padding-bottom: var(--spacing-sm);
@@ -52,7 +53,7 @@
 .event-hooks h4 {
   color: var(--accent-text);
   font-family: var(--header-font);
-  font-size: 1.1rem;
+  font-size: var(--card-subtitle-size);
   margin-bottom: var(--spacing-sm);
 }
 
@@ -82,14 +83,14 @@
 .event-encounters {
   background-color: var(--secondary-bg);
   border-radius: var(--border-radius-sm);
-  padding: var(--spacing-md);
+  padding: var(--detail-padding);
   border-left: 3px solid var(--danger-text);
 }
 
 .event-encounters h4 {
   color: var(--danger-text);
   font-family: var(--header-font);
-  font-size: 1.1rem;
+  font-size: var(--card-subtitle-size);
   margin-bottom: var(--spacing-sm);
 }
 
@@ -131,14 +132,14 @@
 .creature-entry {
   background-color: var(--card-bg);
   border-radius: var(--border-radius-sm);
-  padding: var(--spacing-md);
+  padding: var(--detail-padding);
   border-left: 2px solid var(--danger-text);
 }
 
 .creature-entry h5 {
   color: var(--danger-text);
   font-family: var(--header-font);
-  font-size: 1rem;
+  font-size: var(--card-text-size);
   margin-bottom: var(--spacing-xs);
 }
 
@@ -186,6 +187,7 @@
   right: var(--spacing-sm);
   font-size: 1.2rem;
   opacity: 0.7;
+  display: var(--icon-display);
 }
 
 .event-card[data-event*="investigation"] {
@@ -199,6 +201,7 @@
   right: var(--spacing-sm);
   font-size: 1.2rem;
   opacity: 0.7;
+  display: var(--icon-display);
 }
 
 .event-card[data-event*="encounter"] {
@@ -212,50 +215,7 @@
   right: var(--spacing-sm);
   font-size: 1.2rem;
   opacity: 0.7;
+  display: var(--icon-display);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .event-card {
-    padding: var(--spacing-md);
-    position: relative;
-  }
-  
-  .event-card h3 {
-    font-size: 1.2rem;
-  }
-  
-  .event-details,
-  .event-encounters {
-    padding: var(--spacing-sm);
-  }
-  
-  .creature-entry {
-    padding: var(--spacing-sm);
-  }
-  
-  .event-card::before {
-    display: none;
-  }
-}
 
-@media (max-width: 480px) {
-  .event-card {
-    padding: var(--spacing-sm);
-  }
-  
-  .event-card h3 {
-    font-size: 1.1rem;
-  }
-  
-  .event-details h4,
-  .event-outcomes h4,
-  .event-hooks h4,
-  .event-encounters h4 {
-    font-size: 1rem;
-  }
-  
-  .creature-entry h5 {
-    font-size: 0.9rem;
-  }
-}

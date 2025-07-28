@@ -61,30 +61,7 @@
   font-weight: 500;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  :host {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .npc-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  
-  .npc-quick-preview {
-    max-width: none;
-    width: 100%;
-  }
-  
-  .quick-info-tag {
-    font-size: 0.7rem;
-    padding: 0.1rem 0.3rem;
-  }
-}
+/* No media queries needed - responsive behavior handled by variables.css */
 
 /* Enhanced focus styles for accessibility */
 :host(:focus-within) {

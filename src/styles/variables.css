@@ -54,12 +54,26 @@
 
   /* Responsive Grid Gap */
   --grid-gap: var(--spacing-sm);
+
+  /* Responsive Component Properties */
+  /* Default values (mobile-first, < 640px) */
+  --card-padding: var(--spacing-sm);
+  --card-title-size: 1.1rem;
+  --card-subtitle-size: 0.9rem;
+  --card-text-size: 0.8rem;
+  --card-small-text-size: 0.7rem;
+  --layout-title-size: 1.1rem;
+  --detail-padding: var(--spacing-sm);
+  --content-gap: var(--spacing-sm);
+  --header-margin: var(--spacing-md);
+  --icon-display: none;
 }
 
 /* Responsive Grid Column Adjustments */
 /* Breakpoints: sm=640px, md=768px, lg=1024px, xl=1280px, 2xl=1536px */
 @media (min-width: 640px) {
   :root {
+    /* Grid adjustments */
     --grid-cols-3: repeat(2, 1fr);
     --grid-cols-4: repeat(2, 1fr);
     --grid-cols-5: repeat(2, 1fr);
@@ -67,6 +81,18 @@
     --grid-cols-7: repeat(2, 1fr);
     --grid-cols-8: repeat(2, 1fr);
     --grid-gap: var(--spacing-md);
+    
+    /* Component adjustments (tablet) */
+    --card-padding: var(--spacing-md);
+    --card-title-size: 1.2rem;
+    --card-subtitle-size: 1rem;
+    --card-text-size: 0.9rem;
+    --card-small-text-size: 0.8rem;
+    --layout-title-size: 1.3rem;
+    --detail-padding: var(--spacing-sm);
+    --content-gap: var(--spacing-sm);
+    --header-margin: var(--spacing-md);
+    --icon-display: none;
   }
 }
 
@@ -82,12 +108,25 @@
 
 @media (min-width: 1024px) {
   :root {
+    /* Grid adjustments */
     --grid-cols-3: repeat(3, 1fr);
     --grid-cols-4: repeat(3, 1fr);
     --grid-cols-5: repeat(4, 1fr);
     --grid-cols-6: repeat(4, 1fr);
     --grid-cols-7: repeat(4, 1fr);
     --grid-cols-8: repeat(4, 1fr);
+    
+    /* Component adjustments (desktop) */
+    --card-padding: var(--spacing-lg);
+    --card-title-size: 1.4rem;
+    --card-subtitle-size: 1.1rem;
+    --card-text-size: 1rem;
+    --card-small-text-size: 0.9rem;
+    --layout-title-size: 1.6rem;
+    --detail-padding: var(--spacing-md);
+    --content-gap: var(--spacing-md);
+    --header-margin: var(--spacing-lg);
+    --icon-display: block;
   }
 }
 

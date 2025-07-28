@@ -65,13 +65,4 @@
   opacity: 0.5;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .background-npcs {
-    padding: var(--spacing-md);
-  }
-  
-  .background-npcs-header {
-    margin-bottom: var(--spacing-sm);
-  }
-}
+/* No media queries needed - responsive behavior handled by variables.css */
