@@ -13,7 +13,7 @@
   --shadow-color: rgba(0, 0, 0, 0.3);
   --header-font: 'Cinzel', serif;
   --body-font: 'Crimson Text', serif;
-  
+
   /* Interactive states */
   --border-color-hover: #6a6a6a;
   --card-bg-hover: rgba(255, 255, 255, 0.05);
@@ -57,6 +57,7 @@
 
   /* Responsive Component Properties */
   /* Default values (mobile-first, < 640px) */
+  --page-title-size: 2rem;
   --card-padding: var(--spacing-sm);
   --card-title-size: 1.1rem;
   --card-subtitle-size: 0.9rem;
@@ -83,6 +84,7 @@
     --grid-gap: var(--spacing-md);
     
     /* Component adjustments (tablet) */
+    --page-title-size: 3rem;
     --card-padding: var(--spacing-md);
     --card-title-size: 1.2rem;
     --card-subtitle-size: 1rem;
