@@ -6,13 +6,94 @@ const campaignData = {
       type: 'Former Regional Hub',
       population: '~800',
       description: 'Once the crown jewel of Scrimshaw Bay, Millhaven\'s grand harbor now hosts more ghost ships than active vessels. Massive whale oil processing plants stand like industrial cathedrals, their empty windows staring blindly over the bay.',
+      layout: {
+        structure: {
+          main_area: 'Harbor district with working docks and lighthouse tower',
+          districts: 'Five distinct areas reflecting the town\'s maritime heritage and decline',
+          defenses: 'Harbor Master\'s Tower serves as lighthouse and watchtower',
+          approach: 'Main road from interior settlements, harbor access for ships',
+          central_feature: 'Grand Harbor with whale oil processing plants dominating skyline'
+        },
+        districts: [
+          {
+            name: 'Harbor District',
+            description: 'Active waterfront area with working docks, Harbor Master\'s Tower, and remnants of shipping industry',
+            buildings: [
+              'Harbor Master\'s Tower (lighthouse)',
+              'Active fishing docks',
+              'Customs house (barely functioning)',
+              'Harbor pilot station',
+              'Fish market (limited)',
+              'Small warehouses',
+              'Harbormaster\'s office',
+              'Emergency supply depot'
+            ]
+          },
+          {
+            name: 'Industrial Quarter (The Bone Yards)',
+            description: 'Massive abandoned whale processing complex stretching along the waterfront like Gothic industrial cathedrals',
+            buildings: [
+              'Main Processing Hall',
+              'The Tryworks (oil rendering facility)',
+              'Bone Workshop',
+              'Oil Storage Warehouse',
+              'Spermaceti Chamber',
+              'Administrative Offices',
+              'Steam tunnel network',
+              'Underground storage vaults'
+            ]
+          },
+          {
+            name: 'Prosperity Row',
+            description: 'Hillside district of grand mansions built by whaling magnates, now mostly abandoned or occupied by recluses',
+            buildings: [
+              'Grimwald Manor (partially maintained)',
+              'Blackthorne Estate (squatter family)',
+              'Leviathan House (suspiciously preserved)',
+              'Meridian Mansion (abandoned but active)',
+              'Mooncrest Villa (overgrown gardens)',
+              'Smaller captain houses',
+              'Servants\' quarters',
+              'Private carriage houses'
+            ]
+          },
+          {
+            name: 'Church Quarter',
+            description: 'Religious and civic center with St. Leviathan\'s Church dominating the area',
+            buildings: [
+              'St. Leviathan\'s Church',
+              'Church rectory',
+              'Town meeting hall',
+              'Small cemetery',
+              'Former civic offices',
+              'Old courthouse (partially collapsed)',
+              'Public market square (mostly empty)',
+              'Memorial park for lost whalers'
+            ]
+          },
+          {
+            name: 'Common Quarter',
+            description: 'Residential area where remaining working families live, including The Rendered Crown inn',
+            buildings: [
+              'The Rendered Crown (flophouse)',
+              'Worker housing (mixture of occupied and abandoned)',
+              'Small shops (baker, blacksmith, general store)',
+              'Communal well',
+              'School house (closed)',
+              'Midwife\'s house',
+              'Apothecary shop',
+              'Fishermen\'s guild hall (abandoned)'
+            ]
+          }
+        ]
+      },
       notableLocations: [
         {
           id: 'renderedCrown',
           name: 'The Rendered Crown',
           shortDesc: 'Former luxury inn, now a flophouse for desperate sailors',
           npcs: [],
-          hasDetails: false
+          hasDetails: true
         },
         {
           id: 'prosperityRow',
@@ -44,6 +125,14 @@ const campaignData = {
         }
       ],
       keyNpcs: ['harborMaster', 'priestLeviathan'],
+      backgroundNpcs: [
+        'dockMaster', 'fisherCaptain', 'desperateWidow', 'eccentricRecluse',
+        'specialtyMerchant', 'oldWhaler', 'barkeeper', 'streetSweeper',
+        'nightWatchman', 'ferryBoatman', 'corruptedNoble', 'squatterFamily', 
+        'madScrivener', 'hermitBotanist', 'graveDigger', 'herbalist', 
+        'fishMonger', 'lampLighter', 'customsClerk', 'formerOfficer', 
+        'seamstress', 'ratCatcher', 'rumorMonger', 'bigTom'
+      ],
       inhabitants: [
         'Desperate fishermen catching increasingly strange fish',
         'Eccentric recluses in decaying mansions',
@@ -725,168 +814,711 @@ const campaignData = {
       secrets: ['Starting to believe the supernatural explanations', 'Caught something he can\'t identify'],
       quick_info: ['Stubborn and logical', 'Dismisses "superstition"', 'Good with nets and boats'],
       motivations: ['Find logical explanations', 'Keep fishing despite fears', 'Protect his reputation']
+    },
+
+    // Millhaven Background NPCs
+    dockMaster: {
+      name: 'Captain Jeremiah Saltwater',
+      location: 'Millhaven - Harbor District',
+      role: 'Dock Master & Port Authority',
+      description: 'Former ship captain who now manages what little shipping traffic still comes to Millhaven. Has extensive knowledge of the bay\'s waters and notices when ships don\'t return.',
+      secrets: ['Keeps records of missing vessels', 'Charges extra fees for nighttime departures', 'Knows which ships carry strange cargo'],
+      abilities: ['Maritime navigation', 'Ship identification', 'Harbor regulations'],
+      motivations: ['Keep the port functional', 'Warn ships about dangerous waters', 'Earn enough to eventually leave'],
+      quick_info: ['Missing left leg from old whaling accident', 'Uses wooden crutch', 'Always smoking pipe'],
+      knowledge: [
+        { topic: 'Missing Ships', info: 'Tracks vessels that never return - pattern shows increasing disappearances near deep water' },
+        { topic: 'Strange Cargo', info: 'Some ships transport jars of black, writhing substances and pay premium docking fees' }
+      ]
+    },
+
+    fisherCaptain: {
+      name: 'Captain Magnus Deepcast',
+      location: 'Millhaven - Harbor District',
+      role: 'Fishing Captain & Boat Owner',
+      description: 'Owns one of the few remaining fishing boats that still operates from Millhaven. His crew is increasingly reluctant to venture into deeper waters.',
+      secrets: ['Crew members show early signs of transformation', 'Has seen things in the deep water that he won\'t discuss'],
+      abilities: ['Deep water fishing', 'Crew management', 'Weather prediction'],
+      motivations: ['Keep his boat operational', 'Protect his crew', 'Avoid the deepest waters'],
+      quick_info: ['Weathered face with kind eyes', 'Speaks softly but firmly', 'Protective of his men'],
+      relatedThreats: ['corruptedWhales', 'agog']
+    },
+
+    nightWatchman: {
+      name: 'Tobias Lantern',
+      location: 'Millhaven - Harbor District',
+      role: 'Night Watchman & Harbor Security',
+      description: 'Patrols the harbor and docks during night hours. Has witnessed strange things rising from the water but questions his own sanity.',
+      secrets: ['Sees tentacled shapes in the water', 'Drinks heavily to dull the visions', 'Keeps a detailed journal of sightings'],
+      abilities: ['Night vision', 'Stealth movement', 'Combat training'],
+      motivations: ['Keep the harbor safe', 'Prove he\'s not going mad', 'Earn his nightly wage'],
+      quick_info: ['Carries multiple lanterns', 'Nervous and jumpy', 'Drinks from a hip flask'],
+      relatedThreats: ['agog']
+    },
+
+    ferryBoatman: {
+      name: 'Old Henrik Ferry',
+      location: 'Millhaven - Harbor District',
+      role: 'Ferry Operator & Water Taxi',
+      description: 'Operates a small ferry between Millhaven and nearby settlements. Refuses to travel to certain areas of the bay.',
+      secrets: ['Has a mental map of \'safe\' and \'dangerous\' waters', 'Charges different rates based on destination danger'],
+      abilities: ['Small boat operation', 'Local water knowledge', 'Danger sensing'],
+      motivations: ['Provide transport services', 'Avoid dangerous waters', 'Support his large family'],
+      quick_info: ['Always wearing oilskin coat', 'Speaks in maritime terms', 'Extremely cautious'],
+      services: ['Ferry transport to safe locations', 'Water taxi services', 'Maritime advice']
+    },
+
+    // Prosperity Row NPCs
+    eccentricRecluse: {
+      name: 'Lady Cordelia Grimwald',
+      location: 'Millhaven - Prosperity Row',
+      role: 'Eccentric Mansion Owner & Former Socialite',
+      description: 'Elderly widow living alone in her decaying mansion, surrounded by the portraits of her dead family. Claims to receive visits from her departed husband.',
+      secrets: ['Actually communes with spirits of the dead', 'Knows family secrets of other mansion owners', 'Has made a minor pact for extended life'],
+      abilities: ['High society knowledge', 'Spirit communication', 'Historical memory'],
+      motivations: ['Maintain family dignity', 'Communicate with dead husband', 'Protect family secrets'],
+      quick_info: ['Wears elaborate but outdated clothing', 'Talks to empty air', 'Lives surrounded by portraits'],
+      knowledge: [
+        { topic: 'Mansion Families', info: 'Knows the dark secrets and hidden sins of the old whaling families' },
+        { topic: 'Spiritual Activity', info: 'Can identify which mansions are truly haunted versus merely abandoned' }
+      ]
+    },
+
+    corruptedNoble: {
+      name: 'Lord Aldric Blackwater',
+      location: 'Millhaven - Prosperity Row',
+      role: 'Corrupted Nobleman & Agog Cultist',
+      description: 'Former whaling fortune heir who has made a pact with Agog to maintain his lifestyle. Appears younger than his years but shows subtle signs of corruption.',
+      secrets: ['Direct servant of Agog', 'Hosts secret meetings in his mansion', 'Feeds information to Lord Scrimm'],
+      abilities: ['Social manipulation', 'Minor eldritch powers', 'Wealth and influence'],
+      motivations: ['Serve Agog\'s interests', 'Maintain his luxurious lifestyle', 'Recruit others to the cause'],
+      quick_info: ['Impeccably dressed', 'Unnaturally pale', 'Eyes reflect light strangely'],
+      relatedThreats: ['agog'],
+      relatedLocations: ['prosperityRow']
+    },
+
+    squatterFamily: {
+      name: 'The Crowley Family (Squatters)',
+      location: 'Millhaven - Prosperity Row (Blackthorne Estate)',
+      role: 'Squatter Family with Sick Children',
+      description: 'Poor family led by Sarah Crowley and her three children (Tommy (11), Lily (9), and Ben (6)) who moved into the abandoned Blackthorne Estate. The children show signs of illness from the mansion\'s unhealthy conditions.',
+      secrets: ['Children are developing strange symptoms', 'Found hidden valuables in the mansion', 'Desperately trying to find proper housing'],
+      abilities: ['Survival skills', 'Scavenging', 'Child care'],
+      motivations: ['Keep family together', 'Find safe housing', 'Treat sick children'],
+      quick_info: ['Wear patched clothing', 'Children often coughing', 'Defensive about their living situation'],
+      relatedLocations: ['prosperityRow']
+    },
+
+    hermitBotanist: {
+      name: 'Dr. Thaddeus Mooncrest',
+      location: 'Millhaven - Prosperity Row (Mooncrest Villa)',
+      role: 'Hermit Botanist & Plant Researcher', 
+      description: 'Descendant of the shipping heiress who has become obsessed with studying the carnivorous plant mutations in his family\'s gardens. Rarely leaves the greenhouse complex.',
+      secrets: ['Plants respond to his commands', 'Developing antidotes to corruption', 'Slowly being consumed by plant symbiosis'],
+      abilities: ['Botanical expertise', 'Plant cultivation', 'Alchemical knowledge'],
+      motivations: ['Understand plant mutations', 'Develop cures for corruption', 'Protect his research'],
+      quick_info: ['Covered in plant pollen and sap', 'Speaks to his plants', 'Shows signs of plant-human symbiosis'],
+      relatedLocations: ['prosperityRow']
+    },
+
+    // Church Quarter NPCs
+    graveDigger: {
+      name: 'Silas Graveheart',
+      location: 'Millhaven - Church Quarter',
+      role: 'Gravedigger & Cemetery Keeper',
+      description: 'Tends the church cemetery and has noticed that some graves don\'t stay properly buried. Works closely with Father Blackwater.',
+      secrets: ['Some corpses show signs of transformation after burial', 'Keeps detailed records of grave disturbances'],
+      abilities: ['Grave maintenance', 'Dead body handling', 'Cemetery security'],
+      motivations: ['Maintain the cemetery', 'Help Father Blackwater', 'Keep the dead at rest'],
+      quick_info: ['Always covered in grave dirt', 'Speaks quietly and respectfully', 'Carries blessed tools'],
+      relatedLocations: ['stLeviathan']
+    },
+
+    madScrivener: {
+      name: 'Erasmus Inkwell',
+      location: 'Millhaven - Church Quarter',
+      role: 'Former Town Clerk & Obsessive Record Keeper',
+      description: 'Once maintained town records, now obsessively documents every strange occurrence. His papers contain valuable information but he\'s increasingly incoherent.',
+      secrets: ['Has documented the timeline of corruption', 'Possesses pre-corruption town records', 'Shows early signs of madness'],
+      abilities: ['Detailed record keeping', 'Local history knowledge', 'Pattern recognition'],
+      motivations: ['Document the truth', 'Maintain historical records', 'Prove his theories'],
+      quick_info: ['Ink-stained fingers', 'Mutters while writing', 'Carries stacks of papers'],
+      knowledge: [
+        { topic: 'Town History', info: 'Complete records of Millhaven from before the corruption began' },
+        { topic: 'Strange Events', info: 'Detailed timeline showing escalation of supernatural activity' }
+      ]
+    },
+
+    // Common Quarter NPCs
+    barkeeper: {
+      name: 'Molly Barrelwright',
+      location: 'Millhaven - The Rendered Crown',
+      role: 'Inn Keeper & Information Broker',
+      description: 'Runs The Rendered Crown inn, providing cheap rooms and cheaper ale. Hears all the gossip and rumors in town.',
+      secrets: ['Knows who has money and who doesn\'t', 'Keeps track of strangers and their business', 'Has connections to smugglers'],
+      abilities: ['Information gathering', 'Inn management', 'Local networking'],
+      motivations: ['Keep the inn profitable', 'Stay informed about local events', 'Help decent folks'],
+      quick_info: ['Always wiping down tables', 'Good memory for faces', 'Protective of her customers'],
+      services: ['Cheap rooms and meals', 'Local information', 'Message passing'],
+      knowledge: [
+        { topic: 'Local Gossip', info: 'Knows who\'s been acting strange, who has money problems, and who\'s planning to leave' },
+        { topic: 'Travelers', info: 'Tracks who comes and goes from town, including suspicious visitors' }
+      ]
+    },
+
+    desperateWidow: {
+      name: 'Martha Weeping',
+      location: 'Millhaven - Common Quarter',
+      role: 'Seamstress & Desperate Mother',
+      description: 'Widow whose husband was lost at sea. Struggles to feed her three children by taking in sewing work. Increasingly desperate for any source of income.',
+      secrets: ['Considering accepting help from Lord Blackwater', 'One child shows signs of corruption exposure'],
+      abilities: ['Expert seamstress', 'Clothing repair', 'Child care'],
+      motivations: ['Feed her children', 'Keep her family together', 'Find stable income'],
+      quick_info: ['Thin and worn down', 'Always mending clothes', 'Fiercely protective of children'],
+      services: ['Clothing repair and alterations', 'Information about struggling families']
+    },
+
+    herbalist: {
+      name: 'Grandmother Willow Brewbottle',
+      location: 'Millhaven - Common Quarter',
+      role: 'Herbalist & Folk Healer',
+      description: 'Elderly woman who provides herbal remedies and folk medicine. Her knowledge includes treatments for \'unusual ailments\' that have been appearing.',
+      secrets: ['Has developed remedies for early-stage corruption', 'Grows plants that shouldn\'t exist in this climate'],
+      abilities: ['Herbal medicine', 'Plant cultivation', 'Folk healing'],
+      motivations: ['Help the sick', 'Research new ailments', 'Preserve healing knowledge'],
+      quick_info: ['Always smells of herbs', 'Keen eyes despite age', 'Gentle but firm manner'],
+      services: ['Herbal remedies', 'Medical consultation', 'Corruption treatment (limited)'],
+      knowledge: [
+        { topic: 'Corruption Symptoms', info: 'Recognizes early signs of transformation and has some treatments' },
+        { topic: 'Strange Illnesses', info: 'Has treated unusual ailments that don\'t respond to normal medicine' }
+      ]
+    },
+
+    oldWhaler: {
+      name: 'Captain Ezra Ironheart',
+      location: 'Millhaven - Common Quarter',
+      role: 'Retired Whaler & Storyteller',
+      description: 'Ancient whaler who remembers the glory days and has stories about the change in whale behavior over the decades.',
+      secrets: ['Knows when the whales first started acting strange', 'Has encountered things in the deep water', 'Possesses old whaling charts'],
+      abilities: ['Whaling expertise', 'Sea lore', 'Weather prediction'],
+      motivations: ['Share whaling knowledge', 'Warn young sailors', 'Remember better times'],
+      quick_info: ['Missing right arm', 'Tells stories to anyone who\'ll listen', 'Always has rum breath'],
+      knowledge: [
+        { topic: 'Whale Behavior', info: 'Remembers exactly when whales started avoiding certain areas and showing signs of disease' },
+        { topic: 'Deep Water Encounters', info: 'Has stories of strange sightings that predate the current corruption' }
+      ]
+    },
+
+    specialtyMerchant: {
+      name: 'Cornelius Strangewares',
+      location: 'Millhaven - Common Quarter',
+      role: 'Specialty Goods Merchant & Fence',
+      description: 'Deals in \'unusual items\' and asks no questions about their origin. Has connections to buyers of strange materials.',
+      secrets: ['Trades in corrupted whale products', 'Has buyers in distant cities', 'Knows about the parasite trade'],
+      abilities: ['Item appraisal', 'Discrete trading', 'Contact network'],
+      motivations: ['Profit from strange trades', 'Maintain discretion', 'Build his network'],
+      quick_info: ['Well-dressed for a small town', 'Asks few questions', 'Always has coin'],
+      services: ['Purchase of unusual items', 'Access to rare goods', 'Discrete transactions'],
+      relatedThreats: ['corruptedWhales']
+    },
+
+    streetSweeper: {
+      name: 'Simple Samuel',
+      location: 'Millhaven - Common Quarter',
+      role: 'Street Cleaner & Town Observer',
+      description: 'Mentally simple man who cleans the streets and notices things others miss. His childlike observations often contain important insights.',
+      secrets: ['Sees patterns others miss', 'Notices when people behave differently', 'Remembers every face'],
+      abilities: ['Observational skills', 'Pattern recognition', 'Local knowledge'],
+      motivations: ['Keep the town clean', 'Help people', 'Avoid trouble'],
+      quick_info: ['Always carrying a broom', 'Speaks in simple sentences', 'Friendly to everyone'],
+      knowledge: [
+        { topic: 'Town Changes', info: 'Notices behavioral changes in townspeople before others do' },
+        { topic: 'Street Activity', info: 'Sees who goes where and when, especially at unusual hours' }
+      ]
+    },
+
+    lampLighter: {
+      name: 'Timothy Flickwick',
+      location: 'Millhaven - Common Quarter',
+      role: 'Lamp Lighter & Evening Patrol',
+      description: 'Responsible for lighting and maintaining the town\'s street lamps. Works during twilight hours and has noticed strange activity after dark.',
+      secrets: ['Sees unusual movement in the harbor at night', 'Some lamps go out mysteriously', 'Carries blessed oil'],
+      abilities: ['Night work', 'Lamp maintenance', 'Evening patrol'],
+      motivations: ['Keep the streets lit', 'Maintain town safety', 'Complete his rounds'],
+      quick_info: ['Always carries a long lighter pole', 'Works during dusk and dawn', 'Knows every street'],
+      relatedThreats: ['agog']
+    },
+
+    // Cross-District NPCs
+    fishMonger: {
+      name: 'Brenda Catchwright',
+      location: 'Millhaven - Common Quarter Market',
+      role: 'Fish Seller & Market Trader',
+      description: 'Sells the daily catch in the small market. Has noticed the fish have been getting stranger and some taste metallic.',
+      secrets: ['Won\'t eat her own merchandise anymore', 'Some fish have unusual features', 'Customers getting sick'],
+      abilities: ['Fish evaluation', 'Market trading', 'Customer service'],
+      motivations: ['Make a living', 'Provide food for town', 'Avoid selling dangerous fish'],
+      quick_info: ['Always smells of fish', 'Sharp eye for quality', 'Increasingly worried'],
+      relatedThreats: ['corruptedWhales']
+    },
+
+    formerOfficer: {
+      name: 'Sergeant Marcus Ironhand',
+      location: 'Millhaven - Church Quarter',
+      role: 'Former Town Guard & Veteran',
+      description: 'Retired military officer who served as town guard during better times. Now provides security consulting and training.',
+      secrets: ['Knows about hidden weapons caches', 'Has contacts in other settlements', 'Suspects organized conspiracy'],
+      abilities: ['Combat training', 'Security knowledge', 'Leadership skills'],
+      motivations: ['Protect the townspeople', 'Maintain order', 'Train others in self-defense'],
+      quick_info: ['Military bearing', 'Carries weapons openly', 'Speaks with authority'],
+      services: ['Security consultation', 'Combat training', 'Weapon maintenance']
+    },
+
+    rumorMonger: {
+      name: 'Gossip Greta Tonguewagg',
+      location: 'Millhaven - Common Quarter',
+      role: 'Gossip & Information Spreader',
+      description: 'Knows everyone\'s business and spreads rumors both true and false. Despite her unreliability, she often has genuine information.',
+      secrets: ['Some rumors are deliberately planted', 'Has sources in every district', 'Knows more than she admits'],
+      abilities: ['Information gathering', 'Social networking', 'Rumor spreading'],
+      motivations: ['Stay informed', 'Be the center of attention', 'Trade information for favors'],
+      quick_info: ['Talks constantly', 'Always has the latest news', 'Unreliable but connected']
+    },
+
+    customsClerk: {
+      name: 'Percival Dustworth',
+      location: 'Millhaven - Harbor Customs House',
+      role: 'Customs Inspector & Record Keeper',
+      description: 'Nervous bureaucrat who processes the few remaining shipping manifests. Has been accepting bribes to overlook suspicious cargo and is increasingly worried about his complicity.',
+      secrets: ['Takes bribes to ignore certain shipments', 'Keeps copies of suspicious manifests', 'Plans to flee town soon'],
+      abilities: ['Document forgery', 'Cargo evaluation', 'Legal knowledge'],
+      motivations: ['Avoid trouble', 'Save enough money to leave', 'Cover his tracks'],
+      quick_info: ['Always sweating despite cool weather', 'Jumps at loud noises', 'Counts money obsessively'],
+      knowledge: [
+        { topic: 'Suspicious Cargo', info: 'Knows which ships carry black parasites and other strange biological materials' },
+        { topic: 'Corrupt Shipping', info: 'Has evidence of organized trade in corrupted materials' }
+      ],
+      relatedThreats: ['corruptedWhales', 'agog']
+    },
+
+    seamstress: {
+      name: 'Agnes Threadbare',
+      location: 'Millhaven - Common Quarter',
+      role: 'Tailor & Clothing Repair',
+      description: 'Skilled seamstress who mends clothing for the town\'s residents. Has noticed that some people\'s clothes need unusual alterations as their bodies change.',
+      secrets: ['Has sewn special accommodations for transforming residents', 'Knows who is hiding physical changes'],
+      abilities: ['Expert tailoring', 'Clothing design', 'Fabric evaluation'],
+      motivations: ['Help people maintain dignity', 'Keep her business running', 'Avoid asking uncomfortable questions'],
+      quick_info: ['Always has measuring tape around neck', 'Sharp eye for detail', 'Discreet about customers'],
+      services: ['Clothing alterations', 'Repairs and patches', 'Custom garments', 'Discrete modifications for physical changes']
+    },
+
+    ratCatcher: {
+      name: 'Grimm Squeakbane',
+      location: 'Millhaven - All Districts',
+      role: 'Pest Control & Urban Scavenger',
+      description: 'Controls the rat population throughout Millhaven and has noticed the rodents behaving strangely - some avoiding certain areas entirely, others showing signs of mutation.',
+      secrets: ['Rats lead him to sources of corruption', 'Has access to every building through pest control work', 'Finds valuable items in rat nests'],
+      abilities: ['Animal handling', 'Urban navigation', 'Pest identification'],
+      motivations: ['Keep the town free of vermin', 'Understand animal behavior changes', 'Find valuable scavenged items'],
+      quick_info: ['Always accompanied by trained cats', 'Knows every back alley and basement', 'Speaks to his animals'],
+      knowledge: [
+        { topic: 'Urban Layout', info: 'Knows secret passages, basement connections, and hidden entrances throughout town' },
+        { topic: 'Animal Behavior', info: 'Understands which areas animals avoid and why' }
+      ]
+    },
+
+    bigTom: {
+      name: 'Big Tom Heavylift',
+      location: 'Millhaven - Harbor District',
+      role: 'Dock Worker & Cargo Handler',
+      description: 'Massive dock worker who handles heavy cargo and has worked the docks for decades. His strength makes him valuable, but he\'s seen too much strange cargo lately.',
+      secrets: ['Has lifted containers that moved on their own', 'Knows which cargo the bosses want handled \'carefully\'', 'Scared of certain shipments'],
+      abilities: ['Exceptional strength', 'Cargo handling', 'Maritime equipment operation'],
+      motivations: ['Support his family', 'Keep his job', 'Avoid the dangerous cargo'],
+      quick_info: ['Enormous and heavily muscled', 'Speaks softly despite size', 'Nervous around certain containers'],
+      relatedThreats: ['corruptedWhales', 'agog']
     }
   },
 
   locations: {
-    // Netherwick Background Locations
-    communityWell: {
-      id: 'communityWell',
-      name: 'The Community Well',
-      settlement: 'netherwick',
-      type: 'Village Infrastructure',
-      description: 'The central gathering point of Netherwick, this stone-lined well has served the village for over a century. Lately, the water has taken on a distinctly brackish taste, and residents whisper that it sometimes reflects things that aren\'t there.',
-      publicDescription: 'Central gathering spot with increasingly brackish water',
-      npcs: ['waterBearer', 'anxiousMother'],
-      secrets: {
-        gmNotes: 'The well is being contaminated by seepage from the bay. Sometimes shows visions of underwater scenes in its reflection.',
-        observations: ['Water tastes increasingly salty', 'Residents gather here for news', 'Young Sara draws water daily', 'Reflections sometimes show underwater scenes']
-      },
-      questHooks: ['Investigate the contaminated water source', 'Decode the visions in the well\'s reflection']
-    },
-
-    marketSpace: {
-      id: 'marketSpace',
-      name: 'Market Commons',
-      settlement: 'netherwick',
-      type: 'Trading Area',
-      description: 'A small cleared area in the village center where what little trade occurs. Most days it\'s empty except for Old Cobb trying to sell the daily catch, but occasionally trading vessels stop by.',
-      publicDescription: 'small area where what little trade occurs',
-      npcs: ['fishmonger', 'tradingCaptain'],
-      secrets: {
-        gmNotes: 'Captain Blackbrine makes suspicious trades here, dealing in parasites and strange specimens from the whaling crews.',
-        observations: ['Usually empty market stalls', 'Old Cobb sells fish daily', 'Occasional mysterious trading vessels', 'Transactions happen quietly']
-      },
-      questHooks: ['Investigate the mysterious trading captain', 'Follow the money trail of strange trades']
-    },
-
-    baitHouse: {
-      id: 'baitHouse',
-      name: 'The Bait House',
-      settlement: 'netherwick',
-      type: 'Fishing Supply Storage',
-      description: 'A weathered wooden building where Jebediah stores fishing supplies and fresh bait. The smell is overwhelming, and lately, some of the bait seems to move on its own.',
-      publicDescription: 'storage for fishing supplies and bait',
-      npcs: ['baitKeeper'],
-      secrets: {
-        gmNotes: 'some of the bait is actually small corrupted creatures. Jebediah finds strange things while digging that he doesn\'t understand.',
-        observations: ['Overwhelming smell of fish and rot', 'Some bait containers seem to writhe', 'Jebediah finds unusual things while digging', 'His daughter helps sort supplies']
-      },
-      questHooks: ['Investigate the moving bait', 'Examine strange objects found while digging']
-    },
-
-    fishermanShrine: {
-      id: 'fishermanShrine',
-      name: 'The Fisherman\'s Shrine',
-      settlement: 'netherwick',
-      type: 'Religious Complex',
-      description: 'A weathered stone shrine complex on a small hill overlooking the bay, serving as the spiritual heart of Netherwick. The main shrine honors Thessa with a carved trident and storm motifs, while smaller alcoves hold offerings to Astraea (star charts carved in stone) and Rhyssian (a small pool fed by a hidden spring). A somber memorial area dedicated to Akhetmon contains simple stone markers for those lost at sea, where families leave flowers and personal effects for the drowned.',
-      publicDescription: 'Offerings to ensure safe returns',
+    // Millhaven Background Locations
+    renderedCrown: {
+      id: 'renderedCrown',
+      name: 'The Rendered Crown',
+      settlement: 'millhaven',
+      type: 'Inn & Flophouse',
+      description: 'Once Millhaven\'s premier luxury inn, The Rendered Crown has been reduced to a flophouse for desperate sailors, fishermen, and other transients. The grand lobby still shows traces of its former glory - crystal chandeliers now missing half their pieces, faded velvet furnishings, and oil paintings of whaling scenes that seem to watch visitors. The building\'s three stories house a mix of permanent residents and temporary guests, all united by their desperate circumstances.',
+      publicDescription: 'Former luxury inn, now a flophouse for desperate sailors',
 
       layout: {
         groups: [
           {
-            title: 'shrine Areas',
+            title: 'Ground Floor',
             type: 'primary',
             items: [
               {
-                name: 'Main Shrine',
-                description: 'Central stone altar with carved trident and wave patterns',
-                fields: {
-                  deity: 'Thessa'
-                },
-                offerings: ['Fish bones', 'Small coins', 'Carved ship models', 'Storm-worn shells']
+                name: 'Main Lobby',
+                description: 'Once-grand entrance with faded luxury and maritime paintings',
+                features: ['Partial crystal chandelier', 'Worn velvet furniture', 'Maritime oil paintings', 'Reception desk']
               },
               {
-                name: 'star Alcove',
-                description: 'small alcove with stone star charts and navigation symbols',
-                fields: {
-                  deity: 'Astraea'
-                },
-                offerings: ['Polished stones', 'Compass roses drawn in sand', 'Dried flowers arranged in star patterns']
+                name: 'Common Room',
+                description: 'Gathering area with fireplace and communal seating',
+                features: ['Large stone fireplace', 'Mismatched chairs and tables', 'Bar area', 'Notice board']
               },
               {
-                name: 'spring Pool',
-                description: 'Natural spring pool with smooth river stones arranged around the edge',
-                fields: {
-                  deity: 'Rhyssian'
-                },
-                offerings: ['Written secrets on parchment (dissolved in water)', 'Small keys', 'Knotted rope']
-              },
-              {
-                name: 'Memorial Area',
-                description: 'Quiet corner with simple stone markers and a small purple-misted brazier, adjacent to the village graveyard',
-                fields: {
-                  deity: 'Akhetmon'
-                },
-                offerings: ['Personal effects of the lost', 'Dried flowers', 'Small portraits', 'Letters to the dead']
+                name: 'Kitchen & Storage',
+                description: 'Basic kitchen facilities for simple meals',
+                features: ['Wood-burning stove', 'Food storage', 'Dishwashing area', 'Cellar access']
               }
             ]
           },
           {
-            title: 'Graveyard',
+            title: 'Upper Floors',
             type: 'secondary',
             items: [
               {
-                name: 'Village Graveyard',
-                description: 'small cemetery with weathered headstones overlooking the bay, adjacent to Akhetmon\'s memorial',
-                features: ['Weathered stone headstones', 'Iron fence (partially rusted)', 'Older graves from whaling era', 'Recent graves with maritime symbols', 'Path connecting to Akhetmon memorial']
+                name: 'Second Floor',
+                description: 'Mix of private rooms and shared dormitory spaces',
+                features: ['8 small private rooms', '2 dormitory rooms (4 beds each)', 'Shared washroom', 'Molly\'s quarters']
+              },
+              {
+                name: 'Third Floor',
+                description: 'Cheapest accommodations with leaky roof and poor ventilation',
+                features: ['12 tiny rooms', '1 large dormitory (8 beds)', 'Bucket toilet', 'Storage for long-term residents']
               }
             ]
           }
         ]
       },
 
-      npcs: ['villageElder'],
+      npcs: ['barkeeper'],
+
+      inventory: {
+        drinks: [
+          { item: 'Watered Ale', price: '2 cp', quality: 'Poor', description: 'Thin ale that\'s seen better days' },
+          { item: 'Rum (cheap)', price: '4 cp', quality: 'Poor', description: 'Harsh rum that burns going down' },
+          { item: 'Whale Oil Whiskey', price: '8 cp', quality: 'Decent', description: 'Local spirit with a distinctive oily aftertaste' },
+          { item: 'Coffee (when available)', price: '1 cp', quality: 'Poor', description: 'Weak coffee made from reused grounds' }
+        ],
+        food: [
+          { item: 'Fish Stew', price: '3 cp', description: 'Daily special made from whatever fish are available' },
+          { item: 'Hardtack & Cheese', price: '2 cp', description: 'Sailor\'s bread with local cheese' },
+          { item: 'Pickled Vegetables', price: '1 cp', description: 'Preserved vegetables from better times' },
+          { item: 'Hot Porridge', price: '1 cp', description: 'Filling oatmeal, served mornings only' }
+        ],
+        services: [
+          { service: 'Dormitory Bed', price: '1 cp', description: 'Shared room with 4-8 beds' },
+          { service: 'Private Room (small)', price: '3 cp', description: 'Tiny room with bed and washbasin' },
+          { service: 'Private Room (larger)', price: '5 cp', description: 'Better room with window and desk' },
+          { service: 'Weekly Rate', price: '15 cp', description: 'Reduced rate for week-long stays' },
+          { service: 'Message Service', price: '1 cp', description: 'Molly will deliver messages around town' },
+          { service: 'Information', price: 'Free with drink', description: 'Local gossip and current events' }
+        ]
+      },
 
       secrets: {
-        gmNotes: 'Old Thaddeus performs midnight rituals here, combining elements from all four shrines. The spring pool sometimes shows visions of the drowned, and the memorial area is where families first notice if their lost loved ones are truly at peace.',
+        gmNotes: 'Molly keeps detailed mental notes on all guests and their activities. Some long-term residents have interesting backgrounds. The building has hidden areas from its luxury days.',
         hiddenItems: [
           {
-            item: 'Ancient Ritual Instructions',
-            location: 'Behind Thessa\'s altar (Religion DC 15)',
-            description: 'Old stone tablet with maritime protection rituals, some crossed out and replaced with darker rites'
+            item: 'Guest Records',
+            location: 'Molly\'s quarters, hidden under floorboard (Investigation DC 13)',
+            description: 'Written records of notable guests, their activities, and suspicious behavior'
           },
           {
-            item: 'Navigation Charts',
-            location: 'Astraea\'s alcove, carved into stone (Investigation DC 12)',
-            description: 'star charts showing safe passage routes, with recent additions marking dangerous areas'
+            item: 'Emergency Fund',
+            location: 'Behind loose brick in lobby fireplace (Investigation DC 15)',
+            description: '35 gold pieces saved for emergencies, plus valuable jewelry'
           },
           {
-            item: 'Memorial Records',
-            location: 'Akhetmon\'s area, hidden under loose stones (Perception DC 13)',
-            description: 'List of names and dates of those lost to the bay, with disturbing notes about "unrestful" spirits and cross-references to disturbed graves'
+            item: 'Former Manager\'s Cache',
+            location: 'Third floor storage room, false bottom in trunk (Perception DC 14)',
+            description: 'Hidden supplies including fine liquor, silver items worth 45 gp, and old guest list from luxury days'
+          }
+        ],
+        secretDoors: [
+          'Staff passage between kitchen and second floor (behind pantry shelves, Investigation DC 12)',
+          'Former luxury suite access (behind second floor bookshelf, Investigation DC 16)'
+        ],
+        observations: [
+          'Some permanent residents seem to have more money than their circumstances suggest',
+          'Conversations stop when strangers approach certain groups',
+          'Molly remembers every face and detail about guests',
+          'Late-night visitors come and go through side entrances',
+          'Some rooms are rented but never seem occupied'
+        ]
+      },
+
+      inhabitants: [
+        'Molly Barrelwright (innkeeper)',
+        'Desperate sailors between voyages',
+        'Unemployed dock workers',
+        'Traveling merchants of questionable goods',
+        'Refugees from other declining settlements',
+        'Local residents who lost their homes',
+        'Occasional mysterious long-term guests'
+      ],
+
+      questHooks: [
+        'Molly hires party to investigate suspicious long-term guests',
+        'Information gathering about recent arrivals and their business',
+        'Protection needed for valuable guests or cargo',
+        'Investigation into why certain rooms are paid for but never occupied',
+        'Help with debt collection from guests who can\'t pay'
+      ],
+
+      relatedThreats: ['agog', 'transformedCitizens'],
+      relatedEvents: ['strangeNews']
+    },
+
+    townSquare: {
+      id: 'townSquare',
+      name: 'Memorial Square',
+      settlement: 'millhaven',
+      type: 'Public Square & Memorial',
+      description: 'The town\'s central square, dominated by a weathered stone memorial to the lost whalers and sailors of Millhaven\'s golden age. The memorial fountain no longer works, filled instead with stagnant water and offerings from families of the missing. Surrounding the square are empty market stalls, a defunct town hall, and the ruins of what was once a thriving commercial district.',
+      publicDescription: 'Central square with memorial to lost whalers, now mostly empty',
+
+      layout: {
+        areas: [
+          {
+            name: 'Central Memorial',
+            description: 'Large stone monument with fountain basin, now filled with offerings',
+            features: ['Stone memorial with carved whale', 'Non-functional fountain', 'Offering basin', 'Memorial plaques']
           },
           {
-            item: 'Graveyard Caretaker\'s Notes',
-            location: 'Village graveyard, hidden in old mausoleum (Investigation DC 14)',
-            description: 'Record of grave disturbances, missing bodies, and strange sounds at night - suggests some of the drowned don\'t stay buried'
+            name: 'Market Area',
+            description: 'Empty stone stalls where merchants once sold goods',
+            features: ['12 empty market stalls', 'Stone benches', 'Wooden bulletin board', 'Public well (brackish)']
+          },
+          {
+            name: 'Town Hall Ruins',
+            description: 'Partially collapsed government building',
+            features: ['Damaged stone facade', 'Broken clock tower', 'Barred windows', 'Overgrown steps']
+          }
+        ]
+      },
+
+      npcs: ['madScrivener', 'rumorMonger', 'streetSweeper'],
+
+      secrets: {
+        gmNotes: 'The memorial fountain sometimes shows visions in its stagnant water. The town hall ruins contain important records. Families leave offerings that sometimes disappear overnight.',
+        hiddenItems: [
+          {
+            item: 'Town Records',
+            location: 'Town hall ruins, basement vault (requires clearing debris, Investigation DC 16)',
+            description: 'Historical records showing the true timeline of economic decline and first reports of strange events'
+          },
+          {
+            item: 'Memorial Offerings',
+            location: 'Hidden compartment in memorial base (Religion DC 14)',
+            description: 'Valuable items left by families: jewelry, coins, personal effects worth 75 gp total'
           }
         ],
         observations: [
-          'The spring pool\'s water tastes pure despite the village well\'s corruption',
-          'some memorial markers have been recently disturbed or moved',
-          'Old Thaddeus visits at all hours, especially during new moons',
-          'star charts show markings that don\'t match current celestial patterns',
-          'Families often leave more offerings at Akhetmon\'s memorial than the other shrines',
-          'The graveyard has many recent burials, but some graves appear to have been disturbed',
-          'Families often hold vigil between the memorial and graveyard during funeral rites'
+          'Families gather here to remember lost loved ones',
+          'The memorial fountain water sometimes shows strange reflections',
+          'Erasmus can often be found here taking notes',
+          'Offerings left at the memorial sometimes vanish by morning',
+          'The town hall clock stopped at 11:47 and hasn\'t moved since'
         ]
       },
 
       questHooks: [
-        'Investigate Old Thaddeus\'s midnight rituals',
-        'Decode the disturbing additions to ancient protection rites',
-        'Research the increasing number of "unrestful" spirits',
-        'Follow the star charts to discover safe vs. dangerous fishing areas',
-        'Help families find peace with their lost loved ones',
-        'Understand why the spring water remains pure',
-        'Investigate the disturbed graves in the village cemetery',
-        'Determine why some of the dead seem restless'
+        'Investigate the disappearing memorial offerings',
+        'Help Erasmus organize and protect the town records',
+        'Research family histories using memorial plaques',
+        'Explore the town hall ruins for valuable documents'
       ],
 
-      relatedThreats: ['agog', 'corruptedWhales'],
-      relatedEvents: ['strangeNews', 'whalingWitness']
+      relatedThreats: ['agog'],
+      relatedEvents: ['strangeNews']
+    },
+
+    customsHouse: {
+      id: 'customsHouse',
+      name: 'Harbor Customs House',
+      settlement: 'millhaven',
+      type: 'Government Building',
+      description: 'A weathered stone building near the docks that once processed the paperwork for Millhaven\'s bustling maritime trade. Now barely functional with a skeleton crew, it primarily serves to document the few ships that still visit and the increasingly strange cargo they carry.',
+      publicDescription: 'Barely functioning customs office for harbor trade',
+
+      layout: {
+        areas: [
+          {
+            name: 'Main Office',
+            description: 'Counter area for processing ship manifests and cargo declarations',
+            features: ['Wooden counter with scales', 'Filing cabinets', 'Customs stamp collection', 'Port authority charts']
+          },
+          {
+            name: 'Records Room',
+            description: 'Storage for shipping manifests and trade documents',
+            features: ['Floor-to-ceiling filing', 'Locked document safe', 'Map table', 'Seal and stamp storage']
+          },
+          {
+            name: 'Inspection Area',
+            description: 'Where suspicious cargo is examined',
+            features: ['Examination tables', 'Weighing scales', 'Sample containers', 'Confiscated goods storage']
+          }
+        ]
+      },
+
+      npcs: ['customsClerk'],
+
+      secrets: {
+        gmNotes: 'Recent manifests show increasing shipments of mysterious biological specimens. The clerk has been paid to look the other way on certain cargo.',
+        hiddenItems: [
+          {
+            item: 'Suspicious Manifests',
+            location: 'Records room, locked safe (Thieves\' Tools DC 15)',
+            description: 'Shipping documents for black parasite exports and other strange biological materials'
+          },
+          {
+            item: 'Bribe Money',
+            location: 'Main office, hidden in scales mechanism (Investigation DC 14)',
+            description: '125 gold pieces paid to ignore certain cargo shipments'
+          }
+        ],
+        observations: [
+          'Clerk becomes nervous when asked about certain ships',
+          'Some cargo manifests are deliberately vague',
+          'Recent inspections have been suspiciously brief',
+          'Strange smells linger in the inspection area'
+        ]
+      },
+
+      questHooks: [
+        'Investigation into suspicious shipping manifests',
+        'Customs clerk requests protection from unknown threats',
+        'Tracking illegal cargo exports'
+      ],
+
+      relatedThreats: ['corruptedWhales', 'agog'],
+      relatedEvents: ['strangeNews']
+    },
+
+    fishMarket: {
+      id: 'fishMarket',
+      name: 'Harbor Fish Market',
+      settlement: 'millhaven',
+      type: 'Market & Trading Post',
+      description: 'A small covered market area near the docks where the daily catch is sold. Business has declined dramatically as the fish have become increasingly strange and unappetizing. Most stalls now stand empty, with only a few hardy vendors still attempting to sell their questionable wares.',
+      publicDescription: 'Small fish market with increasingly strange catches',
+
+      layout: {
+        areas: [
+          {
+            name: 'Market Stalls',
+            description: 'Covered stone stalls for fish vendors',
+            features: ['8 vendor stalls (3 active)', 'Stone cutting tables', 'Ice storage (empty)', 'Waste disposal']
+          },
+          {
+            name: 'Storage Area',
+            description: 'Cool storage for unsold fish',
+            features: ['Stone cooling chambers', 'Salt barrels', 'Wooden fish boxes', 'Cleaning equipment']
+          }
+        ]
+      },
+
+      npcs: ['fishMonger', 'oldWhaler'],
+
+      inventory: {
+        food: [
+          { item: 'Fresh Fish (normal)', price: '3 cp per lb', description: 'Increasingly rare normal fish' },
+          { item: 'Strange Fish', price: '1 cp per lb', description: 'Fish with unusual features, metallic taste' },
+          { item: 'Dried Fish', price: '2 cp per lb', description: 'Preserved fish from better catches' },
+          { item: 'Fish Oil', price: '5 cp per bottle', description: 'Cooking oil rendered from fish' }
+        ]
+      },
+
+      secrets: {
+        gmNotes: 'Some fish display obvious mutations. Brenda refuses to sell the worst specimens. Strange fish sometimes move after being killed.',
+        hiddenItems: [
+          {
+            item: 'Rejected Fish Samples',
+            location: 'Storage area, hidden in salt barrels (Investigation DC 12)',
+            description: 'Preserved specimens of the most mutated fish, too dangerous to sell'
+          }
+        ],
+        observations: [
+          'Fish quality has declined dramatically over recent months',
+          'Some fish have unusual colors, extra fins, or strange eyes',
+          'Customers increasingly refuse to buy certain catches',
+          'Cats and seabirds won\'t eat some of the fish'
+        ]
+      },
+
+      questHooks: [
+        'Investigate the source of fish mutations',
+        'Help Brenda dispose of dangerous specimens',
+        'Research the timeline of fish quality decline'
+      ],
+
+      relatedThreats: ['corruptedWhales', 'agog'],
+      relatedEvents: ['whalingWitness', 'strangeNews']
+    },
+
+    harbormasterOffice: {
+      id: 'harbormasterOffice',
+      name: 'Harbormaster\'s Administrative Office',
+      settlement: 'millhaven',
+      type: 'Maritime Administration',
+      description: 'A separate administrative building from the lighthouse tower, housing the bureaucratic functions of port management. Contains records of ship arrivals, departures, and the increasingly troubling reports of vessels that never return.',
+      publicDescription: 'Administrative office for harbor management and ship records',
+
+      layout: {
+        areas: [
+          {
+            name: 'Main Office',
+            description: 'Captain Saltwater\'s workspace with maritime charts and schedules',
+            features: ['Large desk with charts', 'Ship schedule board', 'Communication equipment', 'Port authority flag']
+          },
+          {
+            name: 'Records Archive',
+            description: 'Files of ship manifests, crew rosters, and incident reports',
+            features: ['Filing cabinets', 'Ship registration books', 'Incident report files', 'Historical records']
+          },
+          {
+            name: 'Meeting Room',
+            description: 'Space for meetings with ship captains and port officials',
+            features: ['Conference table', 'Harbor maps on walls', 'Chairs for visitors', 'Coffee service']
+          }
+        ]
+      },
+
+      npcs: ['dockMaster'],
+
+      secrets: {
+        gmNotes: 'Captain Saltwater maintains detailed records of missing ships and suspicious activities. Recent patterns show increasing disappearances in specific areas.',
+        hiddenItems: [
+          {
+            item: 'Missing Vessel Reports',
+            location: 'Records archive, locked filing cabinet (Thieves\' Tools DC 13)',
+            description: 'Detailed reports on ships that never returned, showing disturbing patterns'
+          },
+          {
+            item: 'Harbor Defense Plans',
+            location: 'Main office, hidden compartment in desk (Investigation DC 15)',
+            description: 'Emergency plans for harbor defense, including signal protocols and weapon locations'
+          }
+        ],
+        observations: [
+          'Captain Saltwater is increasingly worried about ship safety',
+          'Recent reports show unusual concentrations of missing vessels',
+          'Some ships return with reduced crews and no explanation',
+          'Captains increasingly reluctant to venture into deep water'
+        ]
+      },
+
+      questHooks: [
+        'Investigate patterns in missing ship reports',
+        'Help develop better harbor security measures',
+        'Escort or investigate overdue vessels'
+      ],
+
+      relatedThreats: ['agog'],
+      relatedEvents: ['strangeNews']
     },
 
     // Millhaven Locations
@@ -1046,9 +1678,9 @@ const campaignData = {
                 name: 'Grimwald Manor',
                 description: 'A partially maintained mansion with commanding views',
                 fields: {
-                  owner: 'Former Captain Josiah Grimwald',
+                  owner: 'Former Captain Josiah Grimwald (deceased)',
                   condition: 'Partially maintained',
-                  currentResident: 'Eccentric widow who claims to speak with her dead husband'
+                  currentResident: 'Eccentric widow, Lady Cordelia Grimwald, who claims to speak with her dead husband'
                 },
                 features: ['Widow\'s walk with harbor view', 'Portrait gallery of sea captains', 'Basement wine cellar', 'Overgrown hedge maze']
               },
@@ -1066,7 +1698,7 @@ const campaignData = {
                 name: 'Leviathan House',
                 description: 'A mysteriously well-preserved mansion with dark secrets',
                 fields: {
-                  owner: 'Former Processing Magnate Cornelius Whale',
+                  owner: 'Lord Aldric Blackwater',
                   condition: 'Well preserved (suspiciously so)',
                   currentResident: 'Ageless gentleman who never emerges during daylight'
                 },
@@ -1097,7 +1729,7 @@ const campaignData = {
         ]
       },
 
-      npcs: [],
+      npcs: ['eccentricRecluse', 'squatterFamily', 'corruptedNoble', 'hermitBotanist'],
 
       secrets: {
         gmNotes: 'Each mansion holds different secrets and potential allies/enemies. The preserved mansion hides a vampire-like figure with Agog connections. Meridian Mansion contains ghost encounters and hidden treasure. The gardens contain mutated carnivorous plants influenced by bay corruption.',
@@ -1421,6 +2053,166 @@ const campaignData = {
 
       relatedThreats: ['agog', 'corruptedWhales'],
       relatedEvents: ['whalingWitness', 'strangeNews']
+    },
+
+    // Netherwick Background Locations
+    communityWell: {
+      id: 'communityWell',
+      name: 'The Community Well',
+      settlement: 'netherwick',
+      type: 'Village Infrastructure',
+      description: 'The central gathering point of Netherwick, this stone-lined well has served the village for over a century. Lately, the water has taken on a distinctly brackish taste, and residents whisper that it sometimes reflects things that aren\'t there.',
+      publicDescription: 'Central gathering spot with increasingly brackish water',
+      npcs: ['waterBearer', 'anxiousMother'],
+      secrets: {
+        gmNotes: 'The well is being contaminated by seepage from the bay. Sometimes shows visions of underwater scenes in its reflection.',
+        observations: ['Water tastes increasingly salty', 'Residents gather here for news', 'Young Sara draws water daily', 'Reflections sometimes show underwater scenes']
+      },
+      questHooks: ['Investigate the contaminated water source', 'Decode the visions in the well\'s reflection']
+    },
+
+    marketSpace: {
+      id: 'marketSpace',
+      name: 'Market Commons',
+      settlement: 'netherwick',
+      type: 'Trading Area',
+      description: 'A small cleared area in the village center where what little trade occurs. Most days it\'s empty except for Old Cobb trying to sell the daily catch, but occasionally trading vessels stop by.',
+      publicDescription: 'small area where what little trade occurs',
+      npcs: ['fishmonger', 'tradingCaptain'],
+      secrets: {
+        gmNotes: 'Captain Blackbrine makes suspicious trades here, dealing in parasites and strange specimens from the whaling crews.',
+        observations: ['Usually empty market stalls', 'Old Cobb sells fish daily', 'Occasional mysterious trading vessels', 'Transactions happen quietly']
+      },
+      questHooks: ['Investigate the mysterious trading captain', 'Follow the money trail of strange trades']
+    },
+
+    baitHouse: {
+      id: 'baitHouse',
+      name: 'The Bait House',
+      settlement: 'netherwick',
+      type: 'Fishing Supply Storage',
+      description: 'A weathered wooden building where Jebediah stores fishing supplies and fresh bait. The smell is overwhelming, and lately, some of the bait seems to move on its own.',
+      publicDescription: 'storage for fishing supplies and bait',
+      npcs: ['baitKeeper'],
+      secrets: {
+        gmNotes: 'some of the bait is actually small corrupted creatures. Jebediah finds strange things while digging that he doesn\'t understand.',
+        observations: ['Overwhelming smell of fish and rot', 'Some bait containers seem to writhe', 'Jebediah finds unusual things while digging', 'His daughter helps sort supplies']
+      },
+      questHooks: ['Investigate the moving bait', 'Examine strange objects found while digging']
+    },
+
+    fishermanShrine: {
+      id: 'fishermanShrine',
+      name: 'The Fisherman\'s Shrine',
+      settlement: 'netherwick',
+      type: 'Religious Complex',
+      description: 'A weathered stone shrine complex on a small hill overlooking the bay, serving as the spiritual heart of Netherwick. The main shrine honors Thessa with a carved trident and storm motifs, while smaller alcoves hold offerings to Astraea (star charts carved in stone) and Rhyssian (a small pool fed by a hidden spring). A somber memorial area dedicated to Akhetmon contains simple stone markers for those lost at sea, where families leave flowers and personal effects for the drowned.',
+      publicDescription: 'Offerings to ensure safe returns',
+
+      layout: {
+        groups: [
+          {
+            title: 'shrine Areas',
+            type: 'primary',
+            items: [
+              {
+                name: 'Main Shrine',
+                description: 'Central stone altar with carved trident and wave patterns',
+                fields: {
+                  deity: 'Thessa'
+                },
+                offerings: ['Fish bones', 'Small coins', 'Carved ship models', 'Storm-worn shells']
+              },
+              {
+                name: 'star Alcove',
+                description: 'small alcove with stone star charts and navigation symbols',
+                fields: {
+                  deity: 'Astraea'
+                },
+                offerings: ['Polished stones', 'Compass roses drawn in sand', 'Dried flowers arranged in star patterns']
+              },
+              {
+                name: 'spring Pool',
+                description: 'Natural spring pool with smooth river stones arranged around the edge',
+                fields: {
+                  deity: 'Rhyssian'
+                },
+                offerings: ['Written secrets on parchment (dissolved in water)', 'Small keys', 'Knotted rope']
+              },
+              {
+                name: 'Memorial Area',
+                description: 'Quiet corner with simple stone markers and a small purple-misted brazier, adjacent to the village graveyard',
+                fields: {
+                  deity: 'Akhetmon'
+                },
+                offerings: ['Personal effects of the lost', 'Dried flowers', 'Small portraits', 'Letters to the dead']
+              }
+            ]
+          },
+          {
+            title: 'Graveyard',
+            type: 'secondary',
+            items: [
+              {
+                name: 'Village Graveyard',
+                description: 'small cemetery with weathered headstones overlooking the bay, adjacent to Akhetmon\'s memorial',
+                features: ['Weathered stone headstones', 'Iron fence (partially rusted)', 'Older graves from whaling era', 'Recent graves with maritime symbols', 'Path connecting to Akhetmon memorial']
+              }
+            ]
+          }
+        ]
+      },
+
+      npcs: ['villageElder'],
+
+      secrets: {
+        gmNotes: 'Old Thaddeus performs midnight rituals here, combining elements from all four shrines. The spring pool sometimes shows visions of the drowned, and the memorial area is where families first notice if their lost loved ones are truly at peace.',
+        hiddenItems: [
+          {
+            item: 'Ancient Ritual Instructions',
+            location: 'Behind Thessa\'s altar (Religion DC 15)',
+            description: 'Old stone tablet with maritime protection rituals, some crossed out and replaced with darker rites'
+          },
+          {
+            item: 'Navigation Charts',
+            location: 'Astraea\'s alcove, carved into stone (Investigation DC 12)',
+            description: 'star charts showing safe passage routes, with recent additions marking dangerous areas'
+          },
+          {
+            item: 'Memorial Records',
+            location: 'Akhetmon\'s area, hidden under loose stones (Perception DC 13)',
+            description: 'List of names and dates of those lost to the bay, with disturbing notes about "unrestful" spirits and cross-references to disturbed graves'
+          },
+          {
+            item: 'Graveyard Caretaker\'s Notes',
+            location: 'Village graveyard, hidden in old mausoleum (Investigation DC 14)',
+            description: 'Record of grave disturbances, missing bodies, and strange sounds at night - suggests some of the drowned don\'t stay buried'
+          }
+        ],
+        observations: [
+          'The spring pool\'s water tastes pure despite the village well\'s corruption',
+          'some memorial markers have been recently disturbed or moved',
+          'Old Thaddeus visits at all hours, especially during new moons',
+          'star charts show markings that don\'t match current celestial patterns',
+          'Families often leave more offerings at Akhetmon\'s memorial than the other shrines',
+          'The graveyard has many recent burials, but some graves appear to have been disturbed',
+          'Families often hold vigil between the memorial and graveyard during funeral rites'
+        ]
+      },
+
+      questHooks: [
+        'Investigate Old Thaddeus\'s midnight rituals',
+        'Decode the disturbing additions to ancient protection rites',
+        'Research the increasing number of "unrestful" spirits',
+        'Follow the star charts to discover safe vs. dangerous fishing areas',
+        'Help families find peace with their lost loved ones',
+        'Understand why the spring water remains pure',
+        'Investigate the disturbed graves in the village cemetery',
+        'Determine why some of the dead seem restless'
+      ],
+
+      relatedThreats: ['agog', 'corruptedWhales'],
+      relatedEvents: ['strangeNews', 'whalingWitness']
     }
   },
 
@@ -1557,6 +2349,65 @@ const campaignData = {
   },
 
   events: {
+    harborIncident: {
+      name: 'Strange Harbor Incident',
+      description: 'A ship arrives in Millhaven harbor with its crew acting strangely - some show early signs of transformation, others speak in unknown tongues, and their cargo contains disturbing specimens.',
+      trigger: 'Players are in Millhaven when a corrupted vessel arrives',
+      outcomes: ['Investigation of the ship and crew', 'Discovery of corruption process', 'Confrontation with transformed sailors'],
+      hooks: [
+        'What happened to this crew during their voyage?',
+        'How far has the transformation progressed?',
+        'Who was expecting this cargo?'
+      ],
+      relatedNpcs: ['dockMaster', 'customsClerk', 'harborMaster', 'nightWatchman'],
+      relatedLocations: ['harbormasterOffice', 'customsHouse', 'harborTower'],
+      relatedThreats: ['corruptedWhales', 'transformedCitizens', 'agog']
+    },
+
+    prosperityRowHaunting: {
+      name: 'Disturbances on Prosperity Row',
+      description: 'Multiple residents of the mansion district report supernatural activity - moving shadows, ghostly voices, and belongings mysteriously rearranging themselves. Some claim to see the spirits of former whaling captains.',
+      trigger: 'Players investigate reports of supernatural activity or stay overnight in the district',
+      outcomes: ['Encounters with restless spirits', 'Discovery of mansion family secrets', 'Resolution of unfinished business'],
+      hooks: [
+        'Why are the spirits of whaling captains restless?',
+        'What unfinished business keeps them tied to the material world?',
+        'Are these actually ghosts or something more sinister?'
+      ],
+      relatedNpcs: ['eccentricRecluse', 'corruptedNoble'],
+      relatedLocations: ['prosperityRow'],
+      relatedThreats: ['agog']
+    },
+
+    churchCrisis: {
+      name: 'Crisis of Faith at St. Leviathan\'s',
+      description: 'Father Blackwater\'s congregation is dwindling as more parishioners succumb to madness or transformation. The maritime carvings in the church are becoming increasingly disturbing, and the priest himself begins to question his faith.',
+      trigger: 'Players attend services or seek help from the church',
+      outcomes: ['Spiritual counseling sessions with troubled parishioners', 'Investigation of changing church carvings', 'Supporting or challenging Father Blackwater\'s faith'],
+      hooks: [
+        'Can Father Blackwater\'s faith withstand the corruption around him?',
+        'What is causing the church carvings to change?',
+        'How can the remaining faithful be protected?'
+      ],
+      relatedNpcs: ['priestLeviathan', 'graveDigger'],
+      relatedLocations: ['stLeviathan'],
+      relatedThreats: ['agog', 'transformedCitizens']
+    },
+
+    economicDesperation: {
+      name: 'Desperate Measures',
+      description: 'As conditions worsen, some residents of Millhaven consider increasingly desperate options - accepting help from Lord Blackwater, selling dangerous items to Cornelius Strangewares, or even leaving offerings for Agog in hopes of relief.',
+      trigger: 'Economic pressure reaches critical point or players witness desperate actions',
+      outcomes: ['Moral dilemmas about accepting corrupt help', 'Intervention to prevent dangerous pacts', 'Economic solutions to reduce desperation'],
+      hooks: [
+        'How far will desperate people go to survive?',
+        'Can alternative solutions be found before people make dangerous pacts?',
+        'What price are the corrupt powers demanding?'
+      ],
+      relatedNpcs: ['desperateWidow', 'corruptedNoble', 'specialtyMerchant'],
+      relatedLocations: ['renderedCrown', 'townSquare'],
+      relatedThreats: ['agog']
+    },
     whalingWitness: {
       name: 'Witnessing Corrupted Whaling',
       description: 'Players observe a whaling operation where crews harvest black parasites from diseased whales and collect ichor from strange growths.',

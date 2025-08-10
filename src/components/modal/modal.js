@@ -6,7 +6,15 @@ import { ModalService } from '@/services/modal-service.js';
 import { DataService } from '@/services/data-service.js';
 import { LocationDetailModal } from '@/components/location-detail-modal/location-detail-modal.js';
 import { cloneTemplate } from '@/utils/template-utils.js';
-import { processObjectToList, processArrayFields } from '@/utils/common-utils.js';
+import { 
+  createModalHeader, 
+  createNetworkLinks, 
+  createNetworkSections, 
+  processModalFields, 
+  processSecretsData,
+  NETWORK_CONFIGS, 
+  MODAL_FIELD_CONFIGS 
+} from '@/utils/modal-utils.js';
 
 export class Modal {
   constructor() {
@@ -122,12 +130,11 @@ export class Modal {
    * @returns {string} NPC header HTML
    */
   createNpcHeader(npc) {
-    return `
-      <div class="npc-header-info">
-        <h2>${npc.name}</h2>
-        <span class="npc-location-tag">${npc.location || ''}</span>
-      </div>
-    `;
+    return createModalHeader(npc, {
+      tagText: npc.location || '',
+      tagClass: 'npc-location-tag',
+      headerClass: 'npc-header-info'
+    });
   }
   /**
    * Creates NPC body content
@@ -136,23 +143,8 @@ export class Modal {
    * @returns {string} NPC body HTML
    */
   createNpcBody(npc, npcKey) {
-    // Process array fields using the utility
-    const processedFields = processArrayFields(npc, {
-      services: { checkLength: true },
-      secrets: { checkLength: true },
-      motivations: { checkLength: true },
-      abilities: { checkLength: true },
-      quick_info: { checkLength: true }
-    });
-    
-    // Special handling for knowledge (object array)
-    const knowledgeList = npc.knowledge ? 
-      npc.knowledge.map(knowledge => `
-        <div class="knowledge-entry">
-          <h5>${knowledge.topic}</h5>
-          <p>${knowledge.info}</p>
-        </div>
-      `).join('') : '';
+    // Process fields using shared utility
+    const processedFields = processModalFields(npc, MODAL_FIELD_CONFIGS.npc);
 
     const template = cloneTemplate('npc-modal-template', {
       role: npc.role,
@@ -161,8 +153,8 @@ export class Modal {
       quickInfoList: processedFields.quick_infoList,
       services: processedFields.servicesHasItems,
       servicesList: processedFields.servicesList,
-      knowledge: npc.knowledge && npc.knowledge.length > 0,
-      knowledgeList: knowledgeList,
+      knowledge: processedFields.knowledgeHasItems,
+      knowledgeList: processedFields.knowledgeList,
       secrets: processedFields.secretsHasItems,
       secretsList: processedFields.secretsList,
       motivations: processedFields.motivationsHasItems,
@@ -170,6 +162,12 @@ export class Modal {
       abilities: processedFields.abilitiesHasItems,
       abilitiesList: processedFields.abilitiesList
     }, { returnElement: true });
+
+    // Add network sections
+    const networkHtml = createNetworkSections(npc, NETWORK_CONFIGS.npc);
+    if (networkHtml) {
+      template.innerHTML += networkHtml;
+    }
 
     return template.outerHTML;
   }
@@ -179,12 +177,11 @@ export class Modal {
    * @returns {string} Threat header HTML
    */
   createThreatHeader(threat) {
-    return `
-      <div class="threat-header-info">
-        <h2>${threat.name}</h2>
-        <span class="corruption-level">${threat.corruptionLevel || 'Unknown'}</span>
-      </div>
-    `;
+    return createModalHeader(threat, {
+      tagText: threat.corruptionLevel || 'Unknown',
+      tagClass: 'corruption-level',
+      headerClass: 'threat-header-info'
+    });
   }
   /**
    * Creates threat body content
@@ -193,87 +190,25 @@ export class Modal {
    * @returns {string} Threat body HTML
    */
   createThreatBody(threat, threatKey) {
-    // Helper function to create clickable network links
-    const createLinks = (items, type) => {
-      if (!items || items.length === 0) return '';
-      
-      return items.map(key => {
-        let displayName = key;
-        
-        if (type === 'npc') {
-          const npc = this.dataService.getNpc(key);
-          displayName = npc ? npc.name : key;
-        } else if (type === 'location') {
-          const location = this.dataService.getLocation(key);
-          displayName = location ? location.name : key;
-        } else if (type === 'settlement') {
-          const settlement = this.dataService.getSettlement(key);
-          displayName = settlement ? settlement.name : key;
-        } else if (type === 'event') {
-          const event = this.dataService.getEvent(key);
-          displayName = event ? event.name : key;
-        } else if (type === 'threat') {
-          const relatedThreat = this.dataService.getThreat(key);
-          displayName = relatedThreat ? relatedThreat.name : key;
-        }
-        
-        return `<button class="network-link ${type}-link" data-${type}="${key}">${displayName}</button>`;
-      }).join('');
-    };
-    
-    // Process array fields using the utility
-    const processedFields = processArrayFields(threat, {
-      abilities: { checkLength: true },
-      encounter_notes: { checkLength: true },
-      process: { checkLength: true },
-      stages: { checkLength: true },
-      weaknesses: { checkLength: true }
-    });
-    
-    // Handle effects/influence field (could be either) - using utility
-    const effectsSource = threat.influence || threat.effects;
-    const effectsProcessed = processArrayFields({ effects: effectsSource }, {
-      effects: { checkLength: true }
-    });
-    
-    // Special handling for creatures (complex objects)
-    const creatureList = threat.creatures ? 
-      threat.creatures.map(creature => `
-        <div class="creature-entry">
-          <h5>${creature.name} (CR ${creature.cr})</h5>
-          <p>${creature.description}</p>
-          <div class="creature-abilities">
-            <strong>Key Abilities:</strong> ${creature.abilities.join(', ')}
-          </div>
-        </div>
-      `).join('') : '';
+    // Process fields using shared utility
+    const processedFields = processModalFields(threat, MODAL_FIELD_CONFIGS.threat);
 
     const template = cloneTemplate('threat-modal-template', {
       type: threat.type,
       description: threat.description,
       abilities: processedFields.abilitiesHasItems,
       abilitiesList: processedFields.abilitiesList,
-      effects: effectsSource && effectsSource.length > 0,
-      effectsTitle: threat.influence ? 'Regional Influence:' : 'Effects:',
-      effectsList: effectsProcessed.effects,
-      creatures: threat.creatures && threat.creatures.length > 0,
-      creatureList: creatureList,
+      effects: processedFields.effectsHasItems,
+      effectsTitle: processedFields.effectsTitle,
+      effectsList: processedFields.effectsList,
+      creatures: processedFields.creaturesHasItems,
+      creatureList: processedFields.creatureList,
       encounterNotes: processedFields.encounter_notesHasItems,
       encounterNotesList: processedFields.encounter_notes,
       process: processedFields.processHasItems,
-      processList: processedFields.process,
+      processList: processedFields.processList,
       stages: processedFields.stagesHasItems,
-      stagesList: processedFields.stages,
-      affectedNpcs: threat.affectedNpcs && threat.affectedNpcs.length > 0,
-      npcLinks: createLinks(threat.affectedNpcs, 'npc'),
-      affectedLocations: threat.affectedLocations && threat.affectedLocations.length > 0,
-      locationLinks: createLinks(threat.affectedLocations, 'location'),
-      affectedSettlements: threat.affectedSettlements && threat.affectedSettlements.length > 0,
-      settlementLinks: createLinks(threat.affectedSettlements, 'settlement'),
-      relatedEvents: threat.relatedEvents && threat.relatedEvents.length > 0,
-      eventLinks: createLinks(threat.relatedEvents, 'event'),
-      relatedThreats: threat.relatedThreats && threat.relatedThreats.length > 0,
-      threatLinks: createLinks(threat.relatedThreats, 'threat'),
+      stagesList: processedFields.stagesList,
       timeline: threat.timeline ? true : false,
       timelineText: threat.timeline || '',
       stats: threat.stats ? true : false,
@@ -281,8 +216,14 @@ export class Modal {
       gameStats: threat.gameStats ? true : false,
       gameStatsText: threat.gameStats || '',
       weaknesses: processedFields.weaknessesHasItems,
-      weaknessesList: processedFields.weaknesses
+      weaknessesList: processedFields.weaknessesList
     }, { returnElement: true });
+
+    // Add network sections using the utility
+    const networkHtml = createNetworkSections(threat, NETWORK_CONFIGS.threat);
+    if (networkHtml) {
+      template.innerHTML += networkHtml;
+    }
 
     return template.outerHTML;
   }
@@ -292,12 +233,11 @@ export class Modal {
    * @returns {string} Location header HTML
    */
   createLocationHeader(location) {
-    return `
-      <div class="location-header-info">
-        <h2>${location.name}</h2>
-        <span class="location-type-tag">${location.type || 'Location'}</span>
-      </div>
-    `;
+    return createModalHeader(location, {
+      tagText: location.type || 'Location',
+      tagClass: 'location-type-tag',
+      headerClass: 'location-header-info'
+    });
   }
   /**
    * Creates location body content
@@ -306,80 +246,31 @@ export class Modal {
    * @returns {string} Location body HTML
    */
   createLocationBody(location, locationKey) {
-    // Helper function to create clickable network links
-    const createLinks = (items, type) => {
-      if (!items || items.length === 0) return '';
-      
-      return items.map(key => {
-        let displayName = key;
-        
-        if (type === 'npc') {
-          const npc = this.dataService.getNpc(key);
-          displayName = npc ? npc.name : key;
-        } else if (type === 'location') {
-          const relatedLocation = this.dataService.getLocation(key);
-          displayName = relatedLocation ? relatedLocation.name : key;
-        } else if (type === 'threat') {
-          const threat = this.dataService.getThreat(key);
-          displayName = threat ? threat.name : key;
-        } else if (type === 'event') {
-          const event = this.dataService.getEvent(key);
-          displayName = event ? event.name : key;
-        }
-        
-        return `<button class="network-link ${type}-link" data-${type}="${key}">${displayName}</button>`;
-      }).join('');
-    };
+    // Process fields using shared utility
+    const processedFields = processModalFields(location, MODAL_FIELD_CONFIGS.location);
     
-    // Process array fields using the utility
-    const processedFields = processArrayFields(location, {
-      features: { checkLength: true },
-      hazards: { checkLength: true }
-    });
-    
-    // Handle secrets object structure dynamically
-    let secretsList = '';
-    let hasSecrets = false;
-    if (location.secrets && typeof location.secrets === 'object') {
-      // Define special handlers for complex data structures
-      const specialHandlers = {
-        hiddenItems: (items) => {
-          if (!Array.isArray(items)) return [];
-          return items.map(item => 
-            `<strong>${item.item}</strong> (${item.location}): ${item.description}`
-          );
-        }
-      };
-      
-      const secretsArray = processObjectToList(location.secrets, { specialHandlers });
-      
-      if (secretsArray.length > 0) {
-        secretsList = secretsArray.map(secret => `<li>${secret}</li>`).join('');
-        hasSecrets = true;
-      }
-    }
+    // Process secrets using shared utility
+    const { secretsList, hasSecrets } = processSecretsData(location.secrets);
 
     const template = cloneTemplate('location-modal-template', {
       description: location.description,
       features: processedFields.featuresHasItems,
-      featuresList: processedFields.features,
+      featuresList: processedFields.featuresList,
       atmosphere: location.atmosphere ? true : false,
       atmosphereText: location.atmosphere || '',
       history: location.history ? true : false,
       historyText: location.history || '',
       hazards: processedFields.hazardsHasItems,
-      hazardsList: processedFields.hazards,
+      hazardsList: processedFields.hazardsList,
       secrets: hasSecrets,
-      secretsList: secretsList,
-      npcs: location.npcs && location.npcs.length > 0,
-      npcLinks: createLinks(location.npcs, 'npc'),
-      connectedLocations: location.connectedLocations && location.connectedLocations.length > 0,
-      locationLinks: createLinks(location.connectedLocations, 'location'),
-      relatedThreats: location.relatedThreats && location.relatedThreats.length > 0,
-      threatLinks: createLinks(location.relatedThreats, 'threat'),
-      relatedEvents: location.relatedEvents && location.relatedEvents.length > 0,
-      eventLinks: createLinks(location.relatedEvents, 'event')
+      secretsList: secretsList
     }, { returnElement: true });
+
+    // Add network sections using the utility
+    const networkHtml = createNetworkSections(location, NETWORK_CONFIGS.location);
+    if (networkHtml) {
+      template.innerHTML += networkHtml;
+    }
 
     return template.outerHTML;
   }
@@ -390,12 +281,11 @@ export class Modal {
    * @returns {string} Event header HTML
    */
   createEventHeader(event) {
-    return `
-      <div class="event-header-info">
-        <h2>${event.name}</h2>
-        <span class="event-type-tag">Strange Event</span>
-      </div>
-    `;
+    return createModalHeader(event, {
+      tagText: 'Strange Event',
+      tagClass: 'event-type-tag',
+      headerClass: 'event-header-info'
+    });
   }
 
   /**
@@ -405,35 +295,8 @@ export class Modal {
    * @returns {string} Event body HTML
    */
   createEventBody(event, eventKey) {
-    // Helper function to create clickable network links (reuse from threat body)
-    const createLinks = (items, type) => {
-      if (!items || items.length === 0) return '';
-      
-      return items.map(key => {
-        let displayName = key;
-        
-        if (type === 'npc') {
-          const npc = this.dataService.getNpc(key);
-          displayName = npc ? npc.name : key;
-        } else if (type === 'location') {
-          const location = this.dataService.getLocation(key);
-          displayName = location ? location.name : key;
-        } else if (type === 'threat') {
-          const threat = this.dataService.getThreat(key);
-          displayName = threat ? threat.name : key;
-        }
-        
-        return `<button class="network-link ${type}-link" data-${type}="${key}">${displayName}</button>`;
-      }).join('');
-    };
-
-    // Process array fields
-    const processedFields = processArrayFields(event, {
-      outcomes: { checkLength: true },
-      hooks: { checkLength: true },
-      ritual_requirements: { checkLength: true },
-      encounter_table: { checkLength: true }
-    });
+    // Process fields using shared utility
+    const processedFields = processModalFields(event, MODAL_FIELD_CONFIGS.event);
 
     // Prepare special content sections
     let gulpgrinContent = '';
@@ -461,7 +324,8 @@ export class Modal {
       `;
     }
 
-    return `
+    // Build main content
+    let eventContent = `
       <div class="event-network-modal">
         <div class="event-section">
           <h4>Description:</h4>
@@ -505,33 +369,16 @@ export class Modal {
         
         ${gulpgrinContent}
         ${winterCourtContent}
-        
-        <div class="event-network">
-          <h3>Event Network</h3>
-          
-          ${event.relatedNpcs && event.relatedNpcs.length > 0 ? `
-            <div class="network-section">
-              <h4>🧙 Related NPCs:</h4>
-              <div class="network-links">${createLinks(event.relatedNpcs, 'npc')}</div>
-            </div>
-          ` : ''}
-          
-          ${event.relatedLocations && event.relatedLocations.length > 0 ? `
-            <div class="network-section">
-              <h4>📍 Related Locations:</h4>
-              <div class="network-links">${createLinks(event.relatedLocations, 'location')}</div>
-            </div>
-          ` : ''}
-          
-          ${event.relatedThreats && event.relatedThreats.length > 0 ? `
-            <div class="network-section">
-              <h4>⚠️ Related Threats:</h4>
-              <div class="network-links">${createLinks(event.relatedThreats, 'threat')}</div>
-            </div>
-          ` : ''}
-        </div>
       </div>
     `;
+
+    // Add network sections using the utility
+    const networkHtml = createNetworkSections(event, NETWORK_CONFIGS.event);
+    if (networkHtml) {
+      eventContent += networkHtml;
+    }
+
+    return eventContent;
   }
 
   /**

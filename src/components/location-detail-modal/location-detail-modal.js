@@ -3,6 +3,7 @@ import { VillageLayout } from '@/components/village-layout/village-layout.js';
 import { EnhancedInventory } from '@/components/enhanced-inventory/enhanced-inventory.js';
 import { LayoutWrapper } from '@/components/layout-wrapper/layout-wrapper.js';
 import { ShadowComponent } from '@/components/base/shadow-component.js';
+import { createNetworkLinksElement } from '@/utils/modal-utils.js';
 import styles from './location-detail-modal.css' with { type: 'css' };
 
 export class LocationDetailModal extends ShadowComponent {
@@ -429,22 +430,10 @@ export class LocationDetailModal extends ShadowComponent {
    * @returns {Element|null} NPCs content element or null if no NPCs
    */
   createNetworkNpcsNode() {
-    if (!this.locationData.npcs || this.locationData.npcs.length === 0) {
-      return null;
-    }
-
-    const container = document.createElement('div');
-    container.className = 'network-links';
-
-    this.locationData.npcs.forEach(npcKey => {
-      const link = document.createElement('span');
-      link.className = 'network-link npc-link';
-      link.textContent = npcKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-      link.setAttribute('data-npc', npcKey);
-      container.appendChild(link);
+    return createNetworkLinksElement(this.locationData?.npcs, 'npc', {
+      useDisplayName: false,
+      useKeyFormatting: true
     });
-
-    return container;
   }
 
   /**
@@ -452,22 +441,10 @@ export class LocationDetailModal extends ShadowComponent {
    * @returns {Element|null} Connected locations content element or null if none
    */
   createConnectedLocationsNode() {
-    if (!this.locationData.relatedLocations || this.locationData.relatedLocations.length === 0) {
-      return null;
-    }
-
-    const container = document.createElement('div');
-    container.className = 'network-links';
-
-    this.locationData.relatedLocations.forEach(locationKey => {
-      const link = document.createElement('span');
-      link.className = 'network-link location-link';
-      link.textContent = locationKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-      link.setAttribute('data-location', locationKey);
-      container.appendChild(link);
+    return createNetworkLinksElement(this.locationData?.relatedLocations, 'location', {
+      useDisplayName: false,
+      useKeyFormatting: true
     });
-
-    return container;
   }
 
   /**
@@ -475,22 +452,10 @@ export class LocationDetailModal extends ShadowComponent {
    * @returns {Element|null} Related threats content element or null if none
    */
   createRelatedThreatsNode() {
-    if (!this.locationData.relatedThreats || this.locationData.relatedThreats.length === 0) {
-      return null;
-    }
-
-    const container = document.createElement('div');
-    container.className = 'network-links';
-
-    this.locationData.relatedThreats.forEach(threatKey => {
-      const link = document.createElement('span');
-      link.className = 'network-link threat-link';
-      link.textContent = threatKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-      link.setAttribute('data-threat', threatKey);
-      container.appendChild(link);
+    return createNetworkLinksElement(this.locationData?.relatedThreats, 'threat', {
+      useDisplayName: false,
+      useKeyFormatting: true
     });
-
-    return container;
   }
 
   /**
@@ -498,22 +463,10 @@ export class LocationDetailModal extends ShadowComponent {
    * @returns {Element|null} Related events content element or null if none
    */
   createRelatedEventsNode() {
-    if (!this.locationData.relatedEvents || this.locationData.relatedEvents.length === 0) {
-      return null;
-    }
-
-    const container = document.createElement('div');
-    container.className = 'network-links';
-
-    this.locationData.relatedEvents.forEach(eventKey => {
-      const link = document.createElement('span');
-      link.className = 'network-link event-link';
-      link.textContent = eventKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-      link.setAttribute('data-event', eventKey);
-      container.appendChild(link);
+    return createNetworkLinksElement(this.locationData?.relatedEvents, 'event', {
+      useDisplayName: false,
+      useKeyFormatting: true
     });
-
-    return container;
   }
 
   /**
