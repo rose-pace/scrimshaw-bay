@@ -9,12 +9,17 @@ import { Accordion } from '@/components/accordion/accordion.js';
 import { AccordionItem } from '@/components/accordion/accordion-item.js';
 import { NpcHeader } from './npc-header/npc-header.js';
 import { NpcContent } from './npc-content/npc-content.js';
+import { filterNpcs } from '@/utils/common-utils.js';
 import styles from './background-npcs.css' with { type: 'css' };
 
 export class BackgroundNpcs extends ShadowComponent {
   constructor() {
     super();
     this.dataService = new DataService();
+    this.allNpcs = []; // Store all NPCs for filtering
+    this.filteredNpcs = []; // Store filtered NPCs
+    this.currentSettlementName = '';
+    this.filterText = '';
   }
 
   /**
@@ -29,9 +34,41 @@ export class BackgroundNpcs extends ShadowComponent {
           <h4 class="background-npcs-title">Background NPCs</h4>
           <slot name="count"></slot>
         </div>
+        <div class="npc-filter-container">
+          <input 
+            type="text" 
+            class="npc-filter-input" 
+            placeholder="Filter NPCs (name, location, role, description)..."
+            aria-label="Filter NPCs"
+          />
+          <div class="filter-hint">Enter at least 3 characters to search</div>
+        </div>
         <slot name="npcs-grid"></slot>
       </div>
     `;
+
+    // Set up filter input event listener
+    const filterInput = this._shadowRoot.querySelector('.npc-filter-input');
+    const filterHint = this._shadowRoot.querySelector('.filter-hint');
+    
+    filterInput.addEventListener('input', (event) => {
+      const value = event.target.value.trim();
+      console.log('BackgroundNpcs: Filter input changed:', value);
+      
+      if (value.length >= 3) {
+        filterHint.style.display = 'none';
+        this.filterText = value;
+        console.log('BackgroundNpcs: Applying filter:', value);
+        this.applyFilter();
+      } else if (value.length === 0) {
+        filterHint.style.display = 'none';
+        this.filterText = '';
+        console.log('BackgroundNpcs: Clearing filter');
+        this.applyFilter();
+      } else {
+        filterHint.style.display = 'block';
+      }
+    });
   }
 
   /**
@@ -59,44 +96,109 @@ export class BackgroundNpcs extends ShadowComponent {
       return;
     }
 
+    // Store settlement name for filtering
+    this.currentSettlementName = settlementName;
+
     if (!npcKeys || npcKeys.length === 0) {
       console.log('BackgroundNpcs: No NPCs, showing empty state');
+      this.allNpcs = [];
+      this.filteredNpcs = [];
       this.displayEmptyState();
       return;
     }
 
     console.log('BackgroundNpcs: Creating content for', npcKeys.length, 'NPCs');
 
+    // Store all NPCs for filtering
+    this.allNpcs = npcKeys.map(npcKey => {
+      const npc = this.dataService.getNpc(npcKey);
+      return npc ? { key: npcKey, ...npc } : null;
+    }).filter(npc => npc !== null);
+
+    // Apply current filter
+    this.applyFilter();
+  }
+
+  /**
+   * Apply current filter to NPCs and render the list
+   */
+  async applyFilter() {
+    if (!this.isReady() || this.allNpcs.length === 0) {
+      return;
+    }
+
+    let npcsToShow = this.allNpcs;
+
+    // Apply filter if filter text is provided
+    if (this.filterText && this.filterText.length >= 3) {
+      const filterResults = filterNpcs(this.allNpcs, this.filterText);
+      npcsToShow = filterResults.map(result => result.value);
+      console.log('BackgroundNpcs: Filtered NPCs', filterResults.length, 'results');
+    }
+
+    this.filteredNpcs = npcsToShow;
+    await this.renderNpcList();
+  }
+
+  /**
+   * Render the filtered NPC list
+   */
+  async renderNpcList() {
+    if (!this.isReady()) {
+      return;
+    }
+
     // Create count badge
     const countBadge = document.createElement('span');
     countBadge.className = 'background-npcs-count';
-    countBadge.textContent = `${npcKeys.length}`;
+    
+    if (this.filteredNpcs.length === 0) {
+      if (this.filterText && this.filterText.length >= 3) {
+        // Show "no results" message for active filter
+        countBadge.textContent = '0';
+        const noResults = document.createElement('div');
+        noResults.className = 'no-filter-results';
+        noResults.innerHTML = `
+          <div class="no-results-icon">🔍</div>
+          <p>No NPCs found matching "${this.filterText}"</p>
+          <p class="filter-suggestion">Try a different search term</p>
+        `;
+        this.safeSlotAssign('count', countBadge);
+        this.safeSlotAssign('npcs-grid', noResults);
+        return;
+      } else {
+        // Show empty state for no NPCs at all
+        this.displayEmptyState();
+        return;
+      }
+    }
+
+    // Update count
+    countBadge.textContent = `${this.filteredNpcs.length}`;
+    if (this.filterText && this.allNpcs.length !== this.filteredNpcs.length) {
+      countBadge.textContent += ` of ${this.allNpcs.length}`;
+    }
     
     // Create accordion wrapper for NPCs
     const accordion = Accordion.create();
     accordion.className = 'background-npcs-accordion';
     
-    // Create accordion items for each NPC
+    // Create accordion items for filtered NPCs
     const accordionItemPromises = [];
-    npcKeys.forEach(npcKey => {
-      const npc = this.dataService.getNpc(npcKey);
-      if (npc) {
-        console.log('BackgroundNpcs: Creating accordion item for NPC', npcKey, npc.name);
-        
-        // Create standard accordion item
-        const accordionItem = this.createNpcAccordionItem(npcKey, npc);
-        accordionItemPromises.push(accordionItem);
-      } else {
-        console.warn('BackgroundNpcs: NPC not found:', npcKey);
-      }
+    this.filteredNpcs.forEach(npc => {
+      console.log('BackgroundNpcs: Creating accordion item for filtered NPC', npc.key, npc.name);
+      
+      // Create standard accordion item
+      const accordionItem = this.createNpcAccordionItem(npc.key, npc);
+      accordionItemPromises.push(accordionItem);
     });
 
-    const accordionItems = await Promise.all(accordionItemPromises)
+    const accordionItems = await Promise.all(accordionItemPromises);
 
     // Add accordion items using the new method
     accordion.addAccordionItems(accordionItems);
 
-    console.log('BackgroundNpcs: Assigning to slots');
+    console.log('BackgroundNpcs: Assigning filtered results to slots');
     // Assign to slots
     this.safeSlotAssign('count', countBadge);
     this.safeSlotAssign('npcs-grid', accordion);

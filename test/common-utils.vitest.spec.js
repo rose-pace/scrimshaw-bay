@@ -3,7 +3,8 @@ import {
   camelCaseToWords,
   processObjectToList,
   arrayToHtmlList,
-  processArrayFields 
+  processArrayFields,
+  filterNpcs
 } from '@/utils/common-utils.js';
 
 describe('Common Utils', () => {
@@ -229,6 +230,148 @@ describe('Common Utils', () => {
       // Objects get converted to [object Object] when stringified
       expect(result.locationsList).toContain('[object Object]');
       expect(result.simpleArrayList).toBe('<li>a</li><li>b</li><li>c</li>');
+    });
+  });
+
+  describe('filterNpcs', () => {
+    const mockNpcs = [
+      {
+        name: 'Captain Ahab',
+        location: 'Whaling Ship',
+        role: 'Ship Captain',
+        description: 'An obsessed sea captain hunting the white whale'
+      },
+      {
+        name: 'Ishmael',
+        location: 'Harbor District',
+        role: 'Narrator & Sailor',
+        description: 'A young sailor with tales of the sea'
+      },
+      {
+        name: 'Queequeg',
+        location: 'Inn',
+        role: 'Harpooner',
+        description: 'Skilled harpooner from distant lands'
+      },
+      {
+        name: 'Father Mapple',
+        location: 'Whaleman Chapel',
+        role: 'Priest',
+        description: 'A preacher who delivers sermons about whaling'
+      },
+      {
+        name: 'Flask',
+        location: 'Harbor District', 
+        role: 'Third Mate',
+        description: 'A short and stocky sailor aboard the ship'
+      }
+    ];
+
+    it('should return empty array for empty or invalid filter text', () => {
+      expect(filterNpcs(mockNpcs, '')).toEqual([]);
+      expect(filterNpcs(mockNpcs, '   ')).toEqual([]);
+      expect(filterNpcs(mockNpcs, null)).toEqual([]);
+      expect(filterNpcs(mockNpcs, undefined)).toEqual([]);
+    });
+
+    it('should filter by name with highest score (4)', () => {
+      const results = filterNpcs(mockNpcs, 'ahab');
+      expect(results).toHaveLength(1);
+      expect(results[0].filterScore).toBe(4);
+      expect(results[0].value.name).toBe('Captain Ahab');
+    });
+
+    it('should filter by location with high score (4)', () => {
+      const results = filterNpcs(mockNpcs, 'harbor');
+      expect(results).toHaveLength(2);
+      expect(results[0].filterScore).toBe(4);
+      expect(results[1].filterScore).toBe(4);
+      expect(results.map(r => r.value.name)).toContain('Ishmael');
+      expect(results.map(r => r.value.name)).toContain('Flask');
+    });
+
+    it('should filter by role with medium score (2)', () => {
+      const results = filterNpcs(mockNpcs, 'priest');
+      expect(results).toHaveLength(1);
+      expect(results[0].filterScore).toBe(2);
+      expect(results[0].value.name).toBe('Father Mapple');
+    });
+
+    it('should filter by description with low score (1)', () => {
+      const results = filterNpcs(mockNpcs, 'sailor');
+      expect(results).toHaveLength(2);
+      // Should contain both Ishmael and Flask
+      const names = results.map(r => r.value.name);
+      expect(names).toContain('Ishmael');
+      expect(names).toContain('Flask');
+      // Ishmael matches both role (2) and description (1) = 3
+      // Flask matches only description (1) = 1
+      const ishmaelResult = results.find(r => r.value.name === 'Ishmael');
+      const flaskResult = results.find(r => r.value.name === 'Flask');
+      expect(ishmaelResult.filterScore).toBe(3);
+      expect(flaskResult.filterScore).toBe(1);
+    });
+
+    it('should combine scores from multiple field matches', () => {
+      const results = filterNpcs(mockNpcs, 'captain');
+      expect(results).toHaveLength(1);
+      // Should match name (Captain Ahab: 4) + role (Ship Captain: 2) + description (sea captain: 1) = 7
+      expect(results[0].filterScore).toBe(7);
+      expect(results[0].value.name).toBe('Captain Ahab');
+    });
+
+    it('should be case-insensitive', () => {
+      const results = filterNpcs(mockNpcs, 'HARBOR');
+      expect(results).toHaveLength(2);
+      expect(results[0].filterScore).toBe(4);
+      expect(results[1].filterScore).toBe(4);
+    });
+
+    it('should sort results by filterScore in descending order', () => {
+      const results = filterNpcs(mockNpcs, 'whale');
+      expect(results).toHaveLength(2);
+      // Father Mapple: location (Whaleman Chapel: 4) = 4
+      // Captain Ahab: description (white whale: 1) = 1
+      expect(results[0].filterScore).toBeGreaterThan(results[1].filterScore);
+      expect(results[0].value.name).toBe('Father Mapple');
+      expect(results[1].value.name).toBe('Captain Ahab');
+    });
+
+    it('should handle partial matches correctly', () => {
+      const results = filterNpcs(mockNpcs, 'harp');
+      expect(results).toHaveLength(1);
+      expect(results[0].filterScore).toBe(3); // role (Harpooner: 2) + description (harpooner: 1)
+      expect(results[0].value.name).toBe('Queequeg');
+    });
+
+    it('should return empty array when no matches found', () => {
+      const results = filterNpcs(mockNpcs, 'nonexistent');
+      expect(results).toEqual([]);
+    });
+
+    it('should handle empty NPC array', () => {
+      const results = filterNpcs([], 'test');
+      expect(results).toEqual([]);
+    });
+
+    it('should handle NPCs with missing fields gracefully', () => {
+      const incompleteNpcs = [
+        { name: 'John' }, // missing location, role, description
+        { location: 'Harbor' }, // missing name, role, description
+        { role: 'Captain' }, // missing name, location, description
+        { description: 'A sailor' } // missing name, location, role
+      ];
+      
+      const results = filterNpcs(incompleteNpcs, 'harbor');
+      expect(results).toHaveLength(1);
+      expect(results[0].filterScore).toBe(4);
+      expect(results[0].value.location).toBe('Harbor');
+    });
+
+    it('should trim whitespace from search term', () => {
+      const results = filterNpcs(mockNpcs, '  ahab  ');
+      expect(results).toHaveLength(1);
+      expect(results[0].value.name).toBe('Captain Ahab');
     });
   });
 });

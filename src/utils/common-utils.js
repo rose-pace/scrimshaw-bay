@@ -196,3 +196,63 @@ export const processArrayFields = (obj, fieldConfigs) => {
   
   return result;
 };
+
+/**
+ * Filters NPCs based on search text with weighted scoring
+ * @param {Array<Object>} npcs - Array of NPC objects to filter
+ * @param {string} filterText - Text to search for (case-insensitive)
+ * @returns {Array<Object>} Filtered and sorted array of {filterScore, value} objects
+ * 
+ * Scoring weights:
+ * - name: 4 points
+ * - location: 4 points  
+ * - role: 2 points
+ * - description: 1 point
+ * 
+ * @example
+ * const npcs = [{name: 'John', location: 'Harbor', role: 'Fisher', description: 'A fisherman'}];
+ * filterNpcs(npcs, 'fish') // Returns [{filterScore: 3, value: npcObject}]
+ */
+export const filterNpcs = (npcs, filterText) => {
+  if (!filterText || typeof filterText !== 'string' || filterText.trim() === '') {
+    return [];
+  }
+
+  const searchTerm = filterText.toLowerCase().trim();
+  const results = [];
+
+  npcs.forEach(npc => {
+    let score = 0;
+
+    // Search in name (weight: 4)
+    if (npc.name && npc.name.toLowerCase().includes(searchTerm)) {
+      score += 4;
+    }
+
+    // Search in location (weight: 4)
+    if (npc.location && npc.location.toLowerCase().includes(searchTerm)) {
+      score += 4;
+    }
+
+    // Search in role (weight: 2)
+    if (npc.role && npc.role.toLowerCase().includes(searchTerm)) {
+      score += 2;
+    }
+
+    // Search in description (weight: 1)
+    if (npc.description && npc.description.toLowerCase().includes(searchTerm)) {
+      score += 1;
+    }
+
+    // Only include results with score > 0
+    if (score > 0) {
+      results.push({
+        filterScore: score,
+        value: npc
+      });
+    }
+  });
+
+  // Sort by filterScore in descending order
+  return results.sort((a, b) => b.filterScore - a.filterScore);
+};
