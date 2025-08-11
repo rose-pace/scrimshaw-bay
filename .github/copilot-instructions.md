@@ -51,7 +51,6 @@ src/
     <componentName>/
       <componentName>.js
       <componentName>.css
-      <componentName>.test.js
   services/
   styles/
   utils/
