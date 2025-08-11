@@ -2,7 +2,14 @@
   "name": "scrimshaw-bay",
   "version": "1.0.0",
   "description": "A modern, modular web application for managing the Scrimshaw Bay Gothic Horror campaign. Built with ES6 modules and component-based architecture.",
-  "keywords": ["tabletop", "rpg", "campaign", "gothic-horror", "web-app", "es6-modules"],
+  "keywords": [
+    "tabletop",
+    "rpg",
+    "campaign",
+    "gothic-horror",
+    "web-app",
+    "es6-modules"
+  ],
   "license": "ISC",
   "author": "Rose Pace",
   "type": "module",
@@ -10,16 +17,25 @@
   "scripts": {
     "start": "python -m http.server 8080",
     "dev": "python -m http.server 8080",
-    "test": "node test/test-runner.js",
+    "test": "vitest --config vitest.config.js",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:old": "node test/test-runner.js",
     "test:utils": "node test/common-utils.test.js",
     "test:data": "node test/data-service.test.js",
     "test:modal": "node test/modal-service.test.js",
     "test:components": "node test/components.test.js",
-    "test:ui": "node test/ui-navigation.test.js",
+    "test:ui-old": "node test/ui-navigation.test.js",
     "test:schema": "node test/run-schema-tests.js",
     "test:browser": "echo 'Open http://localhost:8080 and check browser console for test results'",
     "serve": "python -m http.server 8080",
     "lint": "echo 'No linting configured - consider adding ESLint'",
     "validate": "echo 'Validating project structure...' && npm test"
+  },
+  "devDependencies": {
+    "@vitest/ui": "^3.2.4",
+    "jsdom": "^26.1.0",
+    "vitest": "^3.2.4"
   }
 }
