@@ -8,7 +8,6 @@
 .settlement-layout {
   background-color: var(--primary-bg);
   border-radius: var(--border-radius-lg);
-  padding: var(--card-padding);
   margin-bottom: var(--spacing-lg);
 }
 

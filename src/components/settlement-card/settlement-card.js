@@ -10,12 +10,9 @@ import { NpcHeader } from '@/components/background-npcs/npc-header/npc-header.js
 import { NpcContent } from '@/components/background-npcs/npc-content/npc-content.js';
 import { SettlementLayout } from '@/components/settlement-layout/settlement-layout.js';
 import { 
-  cloneTemplate,
   createSettlementCard,
   createSettlementDetailHeader,
-  createLocationItem,
-  createNpcLink
-} from '@/utils/template-utils.js';
+  createLocationItem} from '@/utils/template-utils.js';
 
 export class SettlementCard {
   constructor() {
@@ -244,7 +241,7 @@ export class SettlementCard {
   createBackgroundNpcsSection(backgroundNpcs, settlementName) {
     console.log('SettlementCard: Creating background NPCs section', { backgroundNpcs, settlementName });
     
-    const backgroundNpcsComponent = document.createElement('background-npcs');
+    const backgroundNpcsComponent = BackgroundNpcs.create();
     console.log('SettlementCard: Created background-npcs element', backgroundNpcsComponent);
     
     // Listen for the component to be ready

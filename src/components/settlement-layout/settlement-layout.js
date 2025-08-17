@@ -20,12 +20,7 @@ export class SettlementLayout extends ShadowComponent {
     this.applyStyles(styles);
     
     this._shadowRoot.innerHTML = `
-      <div class="settlement-layout" role="main" aria-label="Settlement layout information">
-        <div class="layout-header">
-          <h3 class="layout-title">Settlement Layout</h3>
-          <p class="layout-subtitle">Geographical structure and district organization</p>
-        </div>
-        
+      <div class="settlement-layout" role="main" aria-label="Settlement layout information">        
         <div class="layout-content">
           <slot name="structure-section"></slot>
           <slot name="districts-section"></slot>
