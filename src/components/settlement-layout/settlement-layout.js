@@ -112,7 +112,6 @@ export class SettlementLayout extends ShadowComponent {
     header.className = 'districts-header';
     header.innerHTML = `
       <h4 class="districts-title">Districts</h4>
-      <p class="districts-subtitle">Settlement areas and their notable buildings</p>
     `;
     districtsWrapper.appendChild(header);
 
