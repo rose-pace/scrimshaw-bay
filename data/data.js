@@ -2463,6 +2463,27 @@ const campaignData = {
         'Travel the bogs at night',
         'search for a ring of blue flames (Investigation DC 15)',
         'Recite the rhyming call to Bettey Nettle and Clattershanks (Performance or Religion DC 12)',
+        `<em>The Rhyming Call:</em><br>
+        Bettey Nettle, Bettey Nettle!<br>
+        Warm your hearth and set out your kettle!<br>
+        Come out! Come out! For a deal this night.<br>
+        Come out! Come out! We trade tonight!<br>
+        <br>
+        We call to you, Ol' Clattershanks!<br>
+        With your wicked smile and crooked pranks.<br>
+        Come out! Come out! For a deal this night.<br>
+        Come out! Come out by the blue flame's light!<br>
+        <br>
+        For we have need of both your wares,<br>
+        And we will pay with gold or prayers.<br>
+        We know your price is filled with sin,<br>
+        But we call to you, please send Gulpgrin!<br>
+        <br>
+        Come out! Come out! For a deal this night.<br>
+        Come out! Come out! We trade tonight!<br>
+        Come out! Come out! For a deal this night.<br>
+        Come out! Come out! We TRADE TONIGHT!
+        `,
         'Approach Gulpgrin when summoned (Courage check optional)'
       ],
       outcomes: ['Successful summoning of Gulpgrin', 'Discovery of the Winter Court portal', 'Trading session with the hag couple', 'Potential fae realm adventure'],

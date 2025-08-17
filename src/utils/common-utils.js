@@ -185,7 +185,7 @@ export const processArrayFields = (obj, fieldConfigs) => {
       return;
     }
     
-    const listHtml = arrayToHtmlList(fieldValue, { formatter, itemWrapper });
+    const listHtml = arrayToHtmlList(fieldValue, config);
     
     result[`${fieldName}List`] = listHtml || fallback;
     

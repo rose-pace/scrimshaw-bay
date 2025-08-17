@@ -327,7 +327,7 @@ export function createEventCard(event, eventKey) {
   const processedFields = processArrayFields(event, {
     outcomes: { checkLength: true },
     hooks: { checkLength: true },
-    ritual_requirements: { checkLength: true }
+    ritual_requirements: { checkLength: true, escapeHtml: false }
   });
   
   // Prepare clues list (handling different clue structures)
