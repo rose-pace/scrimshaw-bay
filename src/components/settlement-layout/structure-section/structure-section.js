@@ -88,19 +88,9 @@ export class StructureSection extends ShadowComponent {
       }
     });
 
-    // Create responsive grid with 4 column max and add items
-    if (structureItems.length > 0) {
-      const grid = ResponsiveGrid.create();
-      
-      if (grid.isReady && grid.isReady()) {
-        grid.setGridData(structureItems, 5);
-      } else {
-        grid.addEventListener('componentReady', () => {
-          grid.setGridData(structureItems, 5);
-        }, { once: true });
-      }
-      
-      this.safeSlotAssign('structure-items', grid);
+    // Create responsive grid with auto columns
+    if (structureItems.length > 0) {      
+      this.safeSlotAssign('structure-items', structureItems);
     } else {
       this.renderEmptyState();
     }

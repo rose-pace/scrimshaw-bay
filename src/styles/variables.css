@@ -44,13 +44,20 @@
   
   /* Responsive Grid Template Columns */
   /* These variables automatically adjust at different screen sizes */
-  --grid-cols-2: 1fr;
-  --grid-cols-3: 1fr;
-  --grid-cols-4: 1fr;
-  --grid-cols-5: 1fr;
-  --grid-cols-6: 1fr;
-  --grid-cols-7: 1fr;
-  --grid-cols-8: 1fr;
+  /* Sets how many columns each grid item should span; 24 is full width */
+  --grid-cols-2: 24;
+  --grid-cols-2-remainder: span 24;
+  --grid-cols-3: 24;
+  --grid-cols-3-remainder: span 24;
+  --grid-cols-3-remainder_2_1: span 24;
+  --grid-cols-3-remainder_2_2: span 24;
+  --grid-cols-4: 24;
+  --grid-cols-4-remainder: span 24;
+  --grid-cols-4-remainder_2_1: span 24;
+  --grid-cols-4-remainder_2_2: span 24;
+  --grid-cols-4-remainder_3_1: span 24;
+  --grid-cols-4-remainder_3_2: span 24;
+  --grid-cols-4-remainder_3_3: span 24;
 
   /* Responsive Grid Gap */
   --grid-gap: var(--spacing-sm);
@@ -68,6 +75,9 @@
   --content-gap: var(--spacing-sm);
   --header-margin: var(--spacing-md);
   --icon-display: none;
+
+  /* Flexbox */
+  --responsive-flex-direction: column;
 }
 
 /* Responsive Grid Column Adjustments */
@@ -75,12 +85,13 @@
 @media (min-width: 640px) {
   :root {
     /* Grid adjustments */
-    --grid-cols-3: repeat(2, 1fr);
-    --grid-cols-4: repeat(2, 1fr);
-    --grid-cols-5: repeat(2, 1fr);
-    --grid-cols-6: repeat(2, 1fr);
-    --grid-cols-7: repeat(2, 1fr);
-    --grid-cols-8: repeat(2, 1fr);
+    --grid-cols-3: 12;
+    --grid-cols-3-remainder: 7 / span 12;
+    --grid-cols-3-remainder_2_2: 7 / span 12;
+    --grid-cols-4: 12;
+    --grid-cols-4-remainder: 7 / span 12;
+    --grid-cols-4-remainder_2_2: 7 / span 12;
+    --grid-cols-4-remainder_3_3: 7 / span 12;
     --grid-gap: var(--spacing-md);
     
     /* Component adjustments (tablet) */
@@ -100,24 +111,29 @@
 
 @media (min-width: 768px) {
   :root {
-    --grid-cols-2: repeat(2, 1fr);
-    --grid-cols-5: repeat(3, 1fr);
-    --grid-cols-6: repeat(3, 1fr);
-    --grid-cols-7: repeat(3, 1fr);
-    --grid-cols-8: repeat(3, 1fr);
+    --grid-cols-2: 12;
+    --grid-cols-2-remainder: 7 / span 12;
+
+    /* Flexbox */
+    --responsive-flex-direction: row; /* Change to row for larger screens */
   }
 }
 
 @media (min-width: 1024px) {
   :root {
     /* Grid adjustments */
-    --grid-cols-3: repeat(3, 1fr);
-    --grid-cols-4: repeat(3, 1fr);
-    --grid-cols-5: repeat(4, 1fr);
-    --grid-cols-6: repeat(4, 1fr);
-    --grid-cols-7: repeat(4, 1fr);
-    --grid-cols-8: repeat(4, 1fr);
-    
+    --grid-cols-3: 8;
+    --grid-cols-3-remainder: 9 / span 8;
+    --grid-cols-3-remainder_2_1: 5 / span 8;
+    --grid-cols-3-remainder_2_2: 13 / span 8;
+    --grid-cols-4: 6;
+    --grid-cols-4-remainder: 10 / span 6;
+    --grid-cols-4-remainder_2_1: 7 / span 6;
+    --grid-cols-4-remainder_2_2: 13 / span 6;
+    --grid-cols-4-remainder_3_1: 4 / span 6;
+    --grid-cols-4-remainder_3_2: 10 / span 6;
+    --grid-cols-4-remainder_3_3: 16 / span 6;
+
     /* Component adjustments (desktop) */
     --card-padding: var(--spacing-lg);
     --card-title-size: 1.4rem;
@@ -134,19 +150,6 @@
 
 @media (min-width: 1280px) {
   :root {
-    --grid-cols-4: repeat(4, 1fr);
-    --grid-cols-5: repeat(5, 1fr);
-    --grid-cols-6: repeat(5, 1fr);
-    --grid-cols-7: repeat(5, 1fr);
-    --grid-cols-8: repeat(6, 1fr);
     --grid-gap: var(--spacing-lg);
-  }
-}
-
-@media (min-width: 1536px) {
-  :root {
-    --grid-cols-6: repeat(6, 1fr);
-    --grid-cols-7: repeat(7, 1fr);
-    --grid-cols-8: repeat(8, 1fr);
   }
 }

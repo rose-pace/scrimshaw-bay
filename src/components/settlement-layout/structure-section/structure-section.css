@@ -38,8 +38,9 @@
 }
 
 .structure-items {
-  /* Grid layout now handled by ResponsiveGrid component */
-  display: block;
+  display: flex;
+  gap: var(--grid-gap);
+  flex-direction: var(--responsive-flex-direction);
 }
 
 /* Empty state styling */

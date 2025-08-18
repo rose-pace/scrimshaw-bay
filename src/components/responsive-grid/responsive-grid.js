@@ -37,7 +37,7 @@ export class ResponsiveGrid extends ShadowComponent {
   /**
    * Set grid data and render items
    * @param {Array<HTMLElement>} items - Array of HTML elements to display in grid
-   * @param {number} maxColumns - Maximum number of columns (2-8, defaults to 4)
+   * @param {number} maxColumns - Maximum number of columns (2-4, defaults to 4)
    */
   setGridData(items, maxColumns = 4) {
     if (!this.isReady()) {
@@ -45,14 +45,11 @@ export class ResponsiveGrid extends ShadowComponent {
       return;
     }
 
-    // Validate and set max columns
-    this.maxColumns = Math.max(2, Math.min(8, maxColumns));
-    
     // Store items
     this.gridItems = Array.isArray(items) ? items : [items];
 
     // Apply grid class based on max columns
-    this.applyGridClass();
+    this.applyGridClass(maxColumns);
 
     // Add items to grid
     this.renderGridItems();
@@ -67,11 +64,11 @@ export class ResponsiveGrid extends ShadowComponent {
 
     // Remove any existing grid classes
     gridContainer.classList.remove(
-      'grid-cols-2', 'grid-cols-3', 'grid-cols-4', 
-      'grid-cols-5', 'grid-cols-6', 'grid-cols-7', 'grid-cols-8'
+      'grid-cols-2', 'grid-cols-3', 'grid-cols-4'
     );
 
     // Add appropriate grid class
+    this.maxColumns = Math.max(2, Math.min(4, this.maxColumns));
     gridContainer.classList.add(`grid-cols-${this.maxColumns}`);
   }
 
@@ -126,12 +123,13 @@ export class ResponsiveGrid extends ShadowComponent {
 
   /**
    * Factory method to create responsive grid component instances
-   * @param {number} maxColumns - Maximum number of columns (2-8, defaults to 4)
+   * @param {number} maxColumns - Maximum number of columns (2-4, defaults to 4); 0 means auto
    * @returns {ResponsiveGrid} New responsive grid component element
    */
   static create(maxColumns = 4) {
     const grid = document.createElement('responsive-grid');
-    grid.maxColumns = Math.max(2, Math.min(8, maxColumns));
+    grid.maxColumns = maxColumns; // validation happens elsewhere
+
     return grid;
   }
 }

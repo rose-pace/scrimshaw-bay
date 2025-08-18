@@ -14,35 +14,60 @@
   gap: var(--grid-gap);
   width: 100%;
   align-items: stretch; /* Ensure items stretch to match tallest in row */
+  grid-template-columns: repeat(24, 1fr); /* Use 12 columns because it is divisible by 2, 3, and 4 */
 }
 
 /* Grid column configurations using responsive variables */
-.grid-cols-2 {
-  grid-template-columns: var(--grid-cols-2);
+.grid-cols-2 ::slotted(*) {
+  grid-column: span var(--grid-cols-2);
 }
 
-.grid-cols-3 {
-  grid-template-columns: var(--grid-cols-3);
+.grid-cols-2 ::slotted(*:nth-child(odd):nth-last-child(1)) {
+  grid-column: var(--grid-cols-2-remainder);
 }
 
-.grid-cols-4 {
-  grid-template-columns: var(--grid-cols-4);
+.grid-cols-3 ::slotted(*) {
+  grid-column: span var(--grid-cols-3);
 }
 
-.grid-cols-5 {
-  grid-template-columns: var(--grid-cols-5);
+.grid-cols-3 ::slotted(*:nth-child(3n+1):nth-last-child(1)) {
+  grid-column: var(--grid-cols-3-remainder);
 }
 
-.grid-cols-6 {
-  grid-template-columns: var(--grid-cols-6);
+.grid-cols-3 ::slotted(*:nth-child(3n+1):nth-last-child(2)) {
+  grid-column: var(--grid-cols-3-remainder_2_1);
 }
 
-.grid-cols-7 {
-  grid-template-columns: var(--grid-cols-7);
+.grid-cols-3 ::slotted(*:nth-child(3n+2):nth-last-child(1)) {
+  grid-column: var(--grid-cols-3-remainder_2_2);
 }
 
-.grid-cols-8 {
-  grid-template-columns: var(--grid-cols-8);
+.grid-cols-4 ::slotted(*) {
+  grid-column: span var(--grid-cols-4);
+}
+
+.grid-cols-4 ::slotted(*:nth-child(4n+1):nth-last-child(1)) {
+  grid-column: var(--grid-cols-4-remainder);
+}
+
+.grid-cols-4 ::slotted(*:nth-child(4n+1):nth-last-child(2)) {
+  grid-column: var(--grid-cols-4-remainder_2_1);
+}
+
+.grid-cols-4 ::slotted(*:nth-child(4n+2):nth-last-child(1)) {
+  grid-column: var(--grid-cols-4-remainder_2_2);
+}
+
+.grid-cols-4 ::slotted(*:nth-child(4n+1):nth-last-child(3)) {
+  grid-column: var(--grid-cols-4-remainder_3_1);
+}
+
+.grid-cols-4 ::slotted(*:nth-child(4n+2):nth-last-child(2)) {
+  grid-column: var(--grid-cols-4-remainder_3_2);
+}
+
+.grid-cols-4 ::slotted(*:nth-child(4n+3):nth-last-child(1)) {
+  grid-column: var(--grid-cols-4-remainder_3_3);
 }
 
 /* Empty state styling */
