@@ -132,14 +132,25 @@ export class SettlementLayout extends ShadowComponent {
       districtCards.push(districtCard);
     });
 
+    // determine grid column size based on district count
+    const districtCount = districtsData.length;
+    let columnSize = 4; // default to 4 columns
+
+    if (districtCount < 3) {
+      columnSize = 2;
+    // if remainder when divided by 4 is 1 or 2 set columnSize to 3
+    } else if ([1, 2].includes(districtCount % 4)) {
+      columnSize = 3;
+    }
+
     // Create responsive grid for districts with 4 column max
-    const districtsGrid = ResponsiveGrid.create(4);
+    const districtsGrid = ResponsiveGrid.create(columnSize);
     
     if (districtsGrid.isReady && districtsGrid.isReady()) {
-      districtsGrid.setGridData(districtCards, 4);
+      districtsGrid.setGridData(districtCards, columnSize);
     } else {
       districtsGrid.addEventListener('componentReady', () => {
-        districtsGrid.setGridData(districtCards, 4);
+        districtsGrid.setGridData(districtCards, columnSize);
       }, { once: true });
     }
 
