@@ -8,7 +8,7 @@ import { EventCard } from '@/components/event-card/event-card.js';
 import { LocationDetail } from '@/components/location-detail/location-detail.js';
 import { Modal } from '@/components/modal/modal.js';
 import { Navigation } from '@/components/navigation/navigation.js';
-import { NpcCard } from '@/components/npc-card/npc-card.js';
+import { NpcList } from '@/components/npc-list/npc-list.js';
 import { SettlementCard } from '@/components/settlement-card/settlement-card.js';
 import { ThreatCard } from '@/components/threat-card/threat-card.js';
 import { clearElement, safeQuerySelector, addEventListenerWithCleanup } from '@/utils/dom-utils.js';
@@ -20,7 +20,6 @@ export class ScrimshawBayApp {
     this.modal = new Modal();
     this.navigation = new Navigation();
     this.settlementCard = new SettlementCard();
-    this.npcCard = new NpcCard();
     this.threatCard = new ThreatCard();
     this.eventCard = new EventCard();
     this.locationDetail = new LocationDetail();
@@ -346,13 +345,14 @@ export class ScrimshawBayApp {
    * Render NPCs section
    */
   renderNPCs() {
-    const npcList = safeQuerySelector('#npc-list');
-    if (!npcList) return;
+    /** @type {NpcList} */
+    const npcListElement = safeQuerySelector('#npc-list');
+    if (!npcListElement) return;
 
-    clearElement(npcList);
-
-    const npcCards = this.npcCard.createAllCards();
-    npcList.appendChild(npcCards);
+    // Initialize the NPC list component if it exists in DOM
+    if (npcListElement.tagName.toLowerCase() === 'npc-list') {
+      npcListElement.loadAllNpcs();
+    }
   }
 
   /**
@@ -416,26 +416,6 @@ export class ScrimshawBayApp {
     } else {
       console.error('Failed to create detail view for settlement:', settlementKey);
     }
-  }
-
-  /**
-   * Create NPC card element
-   * @param {Object} npc - NPC data with key
-   * @returns {HTMLElement} NPC card element
-   */
-  createNpcCard(npc) {
-    const card = document.createElement('div');
-    card.className = 'npc-card';
-    card.innerHTML = `
-      <div class="npc-header">
-        <h3 class="npc-name">${npc.name}</h3>
-        <span class="npc-location">${npc.location}</span>
-      </div>
-      <p class="npc-role">${npc.role}</p>
-      <p class="npc-description">${npc.description}</p>
-      <button class="npc-link" data-npc="${npc.key}">View Details</button>
-    `;
-    return card;
   }
 
   /**
