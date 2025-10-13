@@ -59,9 +59,9 @@ const campaignData = {
           },
           {
             name: 'Church Quarter',
-            description: 'Religious and civic center with St. Leviathan\'s Church dominating the area',
+            description: 'Religious and civic center with Temple of the Tides Cathedral dominating the area',
             buildings: [
-              'St. Leviathan\'s Church',
+              'Temple of the Tides Cathedral',
               'Church rectory',
               'Town meeting hall',
               'Small cemetery',
@@ -117,14 +117,14 @@ const campaignData = {
           hasDetails: true
         },
         {
-          id: 'stLeviathan',
-          name: 'st. Leviathan\'s Church',
+          id: 'templeOfTheTides',
+          name: 'Temple of the Tides Cathedral',
           shortDesc: 'Gothic cathedral with disturbing maritime carvings',
-          npcs: ['priestLeviathan'],
+          npcs: ['priestTide'],
           hasDetails: true
         }
       ],
-      keyNpcs: ['harborMaster', 'priestLeviathan'],
+      keyNpcs: ['harborMaster', 'priestTide'],
       backgroundNpcs: [
         'dockMaster', 'fisherCaptain', 'desperateWidow', 'eccentricRecluse',
         'specialtyMerchant', 'oldWhaler', 'barkeeper', 'streetSweeper',
@@ -468,10 +468,10 @@ const campaignData = {
       relatedLocations: ['harborTower'],
       relatedEvents: ['strangeNews']
     },
-    priestLeviathan: {
+    priestTide: {
       name: 'Father Cornelius Blackwater',
       location: 'Millhaven',
-      role: 'Priest of St. Leviathan\'s Church',
+      role: 'Priest of the Temple of the Tides Cathedral',
       description: 'struggling priest whose congregation grows more mad and fewer in number each month. The maritime carvings in his church seem to move when he\'s not looking directly at them.',
       secrets: ['Questions his faith', 'Church carvings are becoming more disturbing', 'Parishioners confess impossible things'],
       abilities: ['Divine magic (weakening)', 'Exorcism', 'Religious knowledge'],
@@ -931,7 +931,7 @@ const campaignData = {
       abilities: ['Grave maintenance', 'Dead body handling', 'Cemetery security'],
       motivations: ['Maintain the cemetery', 'Help Father Blackwater', 'Keep the dead at rest'],
       quick_info: ['Always covered in grave dirt', 'Speaks quietly and respectfully', 'Carries blessed tools'],
-      relatedLocations: ['stLeviathan']
+      relatedLocations: ['templeOfTheTides']
     },
 
     madScrivener: {
@@ -1591,9 +1591,9 @@ const campaignData = {
       relatedEvents: ['strangeNews']
     },
 
-    stLeviathan: {
-      id: 'stLeviathan',
-      name: 'st. Leviathan\'s Church',
+    templeOfTheTides: {
+      id: 'templeOfTheTides',
+      name: 'Temple of the Tides Cathedral',
       settlement: 'millhaven',
       type: 'Gothic Cathedral',
       description: 'A imposing Gothic cathedral dedicated to maritime traditions. The church features disturbing maritime carvings that seem to move in peripheral vision, and the congregation has been dwindling as madness spreads through Millhaven.',
@@ -1624,7 +1624,7 @@ const campaignData = {
         ]
       },
 
-      npcs: ['priestLeviathan'],
+      npcs: ['priestTide'],
 
       secrets: {
         gmNotes: 'The maritime carvings are slowly changing, becoming more disturbing. Father Blackwater keeps records of confessions revealing impossible events.',
@@ -2380,7 +2380,7 @@ const campaignData = {
     },
 
     churchCrisis: {
-      name: 'Crisis of Faith at St. Leviathan\'s',
+      name: 'Crisis of Faith at the Cathedral',
       description: 'Father Blackwater\'s congregation is dwindling as more parishioners succumb to madness or transformation. The maritime carvings in the church are becoming increasingly disturbing, and the priest himself begins to question his faith.',
       trigger: 'Players attend services or seek help from the church',
       outcomes: ['Spiritual counseling sessions with troubled parishioners', 'Investigation of changing church carvings', 'Supporting or challenging Father Blackwater\'s faith'],
@@ -2389,8 +2389,8 @@ const campaignData = {
         'What is causing the church carvings to change?',
         'How can the remaining faithful be protected?'
       ],
-      relatedNpcs: ['priestLeviathan', 'graveDigger'],
-      relatedLocations: ['stLeviathan'],
+      relatedNpcs: ['priestTide', 'graveDigger'],
+      relatedLocations: ['templeOfTheTides'],
       relatedThreats: ['agog', 'transformedCitizens']
     },
 
@@ -2424,8 +2424,8 @@ const campaignData = {
       trigger: 'speaking with locals in any settlement',
       outcomes: ['Investigation requests', 'Family pleas for help', 'Reward offers'],
       hooks: ['Pattern in disappearances', 'Connection to whaling', 'Underwater discoveries'],
-      relatedNpcs: ['harborMaster', 'priestLeviathan', 'innKeeper', 'companySupervisor'],
-      relatedLocations: ['harborTower', 'StLeviathan', 'fenwayInn', 'supervisorMansion'],
+      relatedNpcs: ['harborMaster', 'priestTide', 'innKeeper', 'companySupervisor'],
+      relatedLocations: ['harborTower', 'templeOfTheTides', 'fenwayInn', 'supervisorMansion'],
       relatedThreats: ['agog', 'transformedCitizens', 'corruptedWhales']
     },
     bogTravel: {
