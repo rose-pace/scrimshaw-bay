@@ -1596,7 +1596,7 @@ const campaignData = {
       name: 'Temple of the Tides Cathedral',
       settlement: 'millhaven',
       type: 'Gothic Cathedral',
-      description: 'A imposing Gothic cathedral dedicated to maritime traditions. The church features disturbing maritime carvings that seem to move in peripheral vision, and the congregation has been dwindling as madness spreads through Millhaven.',
+      description: 'A imposing Gothic cathedral dedicated to maritime traditions, traditionally devoted to Thessa, Astraea, and Kullah. The church features disturbing maritime carvings that seem to move in peripheral vision, and the congregation has been dwindling as madness spreads through Millhaven.',
       publicDescription: 'Gothic cathedral with disturbing maritime carvings',
 
       layout: {
