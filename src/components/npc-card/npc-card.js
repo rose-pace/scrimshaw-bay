@@ -15,7 +15,8 @@ export class NpcCard {
    * @param {Object} npc - NPC data
    * @param {string} npcKey - NPC key
    * @returns {HTMLElement} NPC card element
-   */  create(npc, npcKey) {
+   */  
+  create(npc, npcKey) {
     const card = createNpcCard(npc, npcKey);
 
     // Add click handler
