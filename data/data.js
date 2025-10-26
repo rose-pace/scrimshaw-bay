@@ -914,7 +914,7 @@ const campaignData = {
       location: 'Millhaven - Prosperity Row',
       role: 'Hermit Botanist & Plant Researcher', 
       description: 'Descendant of the shipping heiress, Adelaide Mooncrest, who has become obsessed with studying the carnivorous plant mutations in his family\'s gardens. Rarely leaves the greenhouse complex.',
-      secrets: ['Plants respond to his commands', 'Developing antidotes to corruption', 'Slowly being consumed by plant symbiosis'],
+      secrets: ['Doesn\'t realize his grandmother, Adelaide, still survives in the house as a plant hybrid', 'Plants respond to his commands', 'Developing antidotes to corruption', 'Slowly being consumed by plant symbiosis'],
       abilities: ['Botanical expertise', 'Plant cultivation', 'Alchemical knowledge'],
       motivations: ['Understand plant mutations', 'Develop cures for corruption', 'Protect his research'],
       quick_info: ['Mooncrest Villa', 'Covered in plant pollen and sap', 'Speaks to his plants', 'Shows signs of plant-human symbiosis'],
