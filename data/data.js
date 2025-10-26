@@ -910,7 +910,7 @@ const campaignData = {
     },
 
     hermitBotanist: {
-      name: 'Dr. Thaddeus Mooncrest',
+      name: 'Dr. Gideon Mooncrest',
       location: 'Millhaven - Prosperity Row',
       role: 'Hermit Botanist & Plant Researcher', 
       description: 'Descendant of the shipping heiress, Adelaide Mooncrest, who has become obsessed with studying the carnivorous plant mutations in his family\'s gardens. Rarely leaves the greenhouse complex.',
@@ -1708,7 +1708,7 @@ const campaignData = {
                 name: 'Meridian Mansion',
                 description: 'An abandoned mansion with strange nocturnal activity',
                 fields: {
-                  owner: 'Former Captain Thaddeus Meridian',
+                  owner: 'Former Captain Aldus Meridian',
                   condition: 'Completely abandoned',
                   currentResident: 'None (but strange lights reported at night)'
                 },
