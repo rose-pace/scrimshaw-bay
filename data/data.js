@@ -457,7 +457,7 @@ const campaignData = {
       relatedEvents: ['lordInvitation']
     },
     harborMaster: {
-      name: 'silas Moorcock',
+      name: 'Silas Moorcock',
       location: 'Millhaven',
       role: 'Harbor Master & Lighthouse Keeper',
       description: 'Reclusive keeper of Harbor Master\'s Tower who refuses to discuss what he sees from his lighthouse during the dark hours. Has maintained his post for decades despite the town\'s decline.',
@@ -877,7 +877,7 @@ const campaignData = {
       secrets: ['Actually communes with spirits of the dead', 'Knows family secrets of other mansion owners', 'Has made a minor pact for extended life'],
       abilities: ['High society knowledge', 'Spirit communication', 'Historical memory'],
       motivations: ['Maintain family dignity', 'Communicate with dead husband', 'Protect family secrets'],
-      quick_info: ['Wears elaborate but outdated clothing', 'Talks to empty air', 'Lives surrounded by portraits'],
+      quick_info: ['Grimwald Manor', 'Wears elaborate but outdated clothing', 'Talks to empty air', 'Lives surrounded by portraits'],
       knowledge: [
         { topic: 'Mansion Families', info: 'Knows the dark secrets and hidden sins of the old whaling families' },
         { topic: 'Spiritual Activity', info: 'Can identify which mansions are truly haunted versus merely abandoned' }
@@ -892,32 +892,32 @@ const campaignData = {
       secrets: ['Direct servant of Agog', 'Hosts secret meetings in his mansion', 'Feeds information to Lord Scrimm'],
       abilities: ['Social manipulation', 'Minor eldritch powers', 'Wealth and influence'],
       motivations: ['Serve Agog\'s interests', 'Maintain his luxurious lifestyle', 'Recruit others to the cause'],
-      quick_info: ['Impeccably dressed', 'Unnaturally pale', 'Eyes reflect light strangely'],
+      quick_info: ['Leviathan House', 'Impeccably dressed', 'Unnaturally pale', 'Eyes reflect light strangely'],
       relatedThreats: ['agog'],
       relatedLocations: ['prosperityRow']
     },
 
     squatterFamily: {
       name: 'The Crowley Family (Squatters)',
-      location: 'Millhaven - Prosperity Row (Blackthorne Estate)',
+      location: 'Millhaven - Prosperity Row',
       role: 'Squatter Family with Sick Children',
       description: 'Poor family led by Sarah Crowley and her three children (Tommy (11), Lily (9), and Ben (6)) who moved into the abandoned Blackthorne Estate. The children show signs of illness from the mansion\'s unhealthy conditions.',
       secrets: ['Children are developing strange symptoms', 'Found hidden valuables in the mansion', 'Desperately trying to find proper housing'],
       abilities: ['Survival skills', 'Scavenging', 'Child care'],
       motivations: ['Keep family together', 'Find safe housing', 'Treat sick children'],
-      quick_info: ['Wear patched clothing', 'Children often coughing', 'Defensive about their living situation'],
+      quick_info: ['Blackthorne Estate', 'Wear patched clothing', 'Children often coughing', 'Defensive about their living situation'],
       relatedLocations: ['prosperityRow']
     },
 
     hermitBotanist: {
       name: 'Dr. Thaddeus Mooncrest',
-      location: 'Millhaven - Prosperity Row (Mooncrest Villa)',
+      location: 'Millhaven - Prosperity Row',
       role: 'Hermit Botanist & Plant Researcher', 
       description: 'Descendant of the shipping heiress who has become obsessed with studying the carnivorous plant mutations in his family\'s gardens. Rarely leaves the greenhouse complex.',
       secrets: ['Plants respond to his commands', 'Developing antidotes to corruption', 'Slowly being consumed by plant symbiosis'],
       abilities: ['Botanical expertise', 'Plant cultivation', 'Alchemical knowledge'],
       motivations: ['Understand plant mutations', 'Develop cures for corruption', 'Protect his research'],
-      quick_info: ['Covered in plant pollen and sap', 'Speaks to his plants', 'Shows signs of plant-human symbiosis'],
+      quick_info: ['Mooncrest Villa', 'Covered in plant pollen and sap', 'Speaks to his plants', 'Shows signs of plant-human symbiosis'],
       relatedLocations: ['prosperityRow']
     },
 
