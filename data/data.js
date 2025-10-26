@@ -913,7 +913,7 @@ const campaignData = {
       name: 'Dr. Thaddeus Mooncrest',
       location: 'Millhaven - Prosperity Row',
       role: 'Hermit Botanist & Plant Researcher', 
-      description: 'Descendant of the shipping heiress who has become obsessed with studying the carnivorous plant mutations in his family\'s gardens. Rarely leaves the greenhouse complex.',
+      description: 'Descendant of the shipping heiress, Adelaide Mooncrest, who has become obsessed with studying the carnivorous plant mutations in his family\'s gardens. Rarely leaves the greenhouse complex.',
       secrets: ['Plants respond to his commands', 'Developing antidotes to corruption', 'Slowly being consumed by plant symbiosis'],
       abilities: ['Botanical expertise', 'Plant cultivation', 'Alchemical knowledge'],
       motivations: ['Understand plant mutations', 'Develop cures for corruption', 'Protect his research'],
